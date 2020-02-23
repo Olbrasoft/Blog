@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29814.53
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olbrasoft.Blog.AspNetCore.Mvc", "src\Olbrasoft.Blog.AspNetCore.Mvc\Olbrasoft.Blog.AspNetCore.Mvc.csproj", "{2D9CE818-33E3-4DC1-866E-A21E4C10AD3D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D9CE818-33E3-4DC1-866E-A21E4C10AD3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D9CE818-33E3-4DC1-866E-A21E4C10AD3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D9CE818-33E3-4DC1-866E-A21E4C10AD3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D9CE818-33E3-4DC1-866E-A21E4C10AD3D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BCB177E-0727-41DC-93FF-B3379B4568F3}
+	EndGlobalSection
+EndGlobal
