@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200224173829_AplyIdentityConfiguration.cs" />
+    <Compile Remove="Migrations\20200224173829_AplyIdentityConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20200224175451_IdentityConfiguration.cs" />
+    <Compile Remove="Migrations\20200224175451_IdentityConfiguration.Designer.cs" />
+    <Compile Remove="Migrations\20200226133157_blog.cs" />
+    <Compile Remove="Migrations\20200226133157_blog.Designer.cs" />
+    <Compile Remove="Migrations\20200226133533_blog.cs" />
+    <Compile Remove="Migrations\20200226133533_blog.Designer.cs" />
+    <Compile Remove="Migrations\20200226141115_seedRole.cs" />
+    <Compile Remove="Migrations\20200226141115_seedRole.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.1" />
+    <PackageReference Include="MediatR" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.2" />
+    <PackageReference Include="ServiceStack" Version="5.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Data.Cqrs.EntityFrameworkCore\Olbrasoft.Data.Cqrs.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Linq.Expressions\Olbrasoft.Linq.Expressions.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Mapping\Olbrasoft.Mapping.csproj" />
+  </ItemGroup>
+
+</Project>

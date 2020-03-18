@@ -1,0 +1,217 @@
+﻿@model PostViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Posts</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Post information
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form asp-area="Administration" asp-controller="Posts" asp-action="Save" method="post" role="form">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <input id="id" asp-for="Id" type="hidden">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input autofocus="autofocus" id="post-title" asp-for="Title" class="form-control">
+                                    <p class="help-block"><span id="remaingCharacters">@Model.MaxLength</span> Character(s) Remaining </p>
+                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+                                        <option value="">Select category please</option>
+                                    </select>
+                                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tags</label>
+                                    <input id="post-tags" class="form-control" asp-for="TagIds" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Content</label>
+                                    <div id="editor">
+                                        <textarea class="form-control" asp-for="Content" id="post-content" style="display:none;"></textarea>
+                                    </div>
+
+                                    <span asp-validation-for="Content" class="text-danger"></span>
+                                </div>
+                                <button type="submit" id="save-content" class="btn btn-default">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section css{
+
+    <link rel="stylesheet" href="~/node_modules/editor.md/css/editormd.min.css">
+    <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap-tagsinput.css">
+
+    <link rel="stylesheet" href="~/css/typeahead.css">
+
+}
+
+@section scripts {
+
+    <script src="~/node_modules/editor.md/editormd.min.js"></script>
+    <script src="~/node_modules/editor.md/languages/en.js"></script>
+    <script src="~/js/typeahead.bundle.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap-tagsinput.min.js"></script>
+
+    <script>
+
+        var textlen
+
+        $('#post-title').keyup(function () {
+        textlen = @Model.MaxLength - $(this).val().length;
+        $('#remaingCharacters').text(textlen);
+         });
+
+        var testEditor;
+
+        $(function () {
+            testEditor = editormd("editor", {
+                width: "100%",
+                height: 640,
+                syncScrolling: "single",
+                path: "/node_modules/editor.md/lib/",
+
+                onload: function () {
+                    // 一个小bug 全窗口预览关闭按钮初始化没有隐藏（原因未知），手动隐藏
+                    $(".editormd-preview-close-btn").hide();
+                },
+                
+
+            });
+
+            /*
+            // or
+            testEditor = editormd({
+                id      : "test-editormd",
+                width   : "90%",
+                height  : 640,
+                path    : "../lib/"
+            });
+            */
+        });
+
+        //var tags = new Bloodhound({
+        //    datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
+        //    queryTokenizer: Bloodhound.tokenizers.whitespace,
+        //    prefetch: 'assets/cities.json'
+        //});
+
+        //tags.initialize();
+
+        //$(document).ready(function () {
+        //    $('#TagsInputForm')
+        //    {
+        //        var citynames = new Bloodhound({
+        //            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+        //            queryTokenizer: Bloodhound.tokenizers.whitespace,
+        //            prefetch: {
+        //                url: 'https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/citynames.json',
+        //                wildcard: '%QUERY',
+        //                filter: function (list) {
+        //                    return $.map(list, function (cityname) {
+        //                        return { name: cityname };
+        //                    });
+        //                }
+        //            }
+        //        });
+
+        //        citynames.initialize();
+
+        //        $('input').tagsinput({
+        //            typeaheadjs: {
+        //                name: 'citynames',
+        //                displayKey: 'name',
+        //                valueKey: 'name',
+        //                source: citynames.ttAdapter()
+        //            }
+        //        })
+        //    }
+
+        //});
+
+        var tags = new Bloodhound({
+
+            datumTokenizer: function (d) {
+                return Bloodhound.tokenizers.whitespace(d.value);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            item: '<li class="dropdown-item"><a class="dropdown-item" href="#" role="option"></a></li>',
+            remote: {
+                'cache': false,
+                url: '/Administration/Posts/FindTags',
+                replace: function (url, uriEncodedQuery) {
+
+
+                    $('.tt-hint').css('background-image', 'url("/Images/GearLoadingSmall.gif")');
+                    $('.tt-hint').css('background-repeat', 'no-repeat');
+
+                    val = $('#post-tags').val();
+                    result = url + '?term=' + uriEncodedQuery;
+
+
+                    if (!val) return result;
+
+                    return result + '&values=' + val;
+                
+                            
+                  
+                },
+              
+
+                filter: function (data) {
+                    $('.tt-hint').css('background-image', '');
+                    return data;
+                }
+            }
+        });
+
+        tags.initialize();
+
+        var elt = $('#post-tags');
+        elt.tagsinput({
+            itemValue: 'value',
+            itemText: 'text',
+            typeaheadjs: {
+                name: 'tags',
+                displayKey: 'text',
+                source: tags.ttAdapter()
+            }
+        });
+
+
+      
+
+       @foreach (var tag in Model.Tags)
+        {
+              @:elt.tagsinput('add', { "value": "@tag.Id", "text": "@tag.Label" });
+        }
+
+       
+
+        
+
+    </script>
+}

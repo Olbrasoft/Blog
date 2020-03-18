@@ -1,0 +1,52 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="my-4">
+            Login
+            <small>Secondary Text</small>
+        </h1>
+        <div class="card mb-4">
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            <div class="card-body">
+                <h2 class="card-title">Login</h2>
+                <p class="card-text"></p>
+                <form asp-area="Administration" asp-controller="Account" asp-action="Login">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                        </div>
+                        <input asp-for="Email" class="form-control" type="text">
+                    </div> <!-- form-group// -->
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-key"></i> </span>
+                        </div>
+                        <input asp-for="Password" class="form-control" placeholder="Create password" type="password">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div> <!-- form-group// -->
+
+                    <div class="form-group">
+                        <input type="checkbox" asp-for="RememberMe">
+                        <label asp-for="RememberMe"></label>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-secondary btn-block">Log in</button>
+                    </div> <!-- form-group// -->
+                    <p class="text-center">Have an account? <a href="">Log In</a> </p>
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+                Posted on January 1, 2017 by
+                <a href="#">Start Bootstrap</a>
+            </div>
+        </div>
+    </div>
+</div>

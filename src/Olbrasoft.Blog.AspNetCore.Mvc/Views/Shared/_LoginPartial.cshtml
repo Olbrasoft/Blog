@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Olbrasoft.Blog.Data.Entities.Identity
+@inject SignInManager<BlogUser> SignInManager
+@inject UserManager<BlogUser> UserManager
+
+    <ul class="navbar-nav ">
+        @if (SignInManager.IsSignedIn(User))
+        {
+           
+
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Administration" asp-controller="Home" asp-action="Index" title="Administration"><i class="icon-fa-admin"></i> Administration</a>
+            </li>
+            <li class="nav-item">
+
+                <a class="nav-link" asp-area="Administration" asp-controller="Account" asp-action="LogOut" title="Administration"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+
+            </li>
+        }
+        else
+        {
+           
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Register" ? "active" : "")">
+                <a class="nav-link" asp-area="Administration" asp-controller="Account" asp-action="Register">Register</a>
+            </li>
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "active" : "")">
+                <a class="nav-link" asp-area="Administration" asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+        }
+    </ul>

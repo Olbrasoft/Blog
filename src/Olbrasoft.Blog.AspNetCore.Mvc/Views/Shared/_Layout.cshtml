@@ -1,20 +1,81 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+
     <title>@ViewBag.Title</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link href="~/css/blog-home.css" rel="stylesheet">
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/css/obstyle.css" rel="stylesheet" type="text/css">
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .navbar {
+            padding: .1rem 1rem;
+        }
+
+        .anchor-logo {
+            padding-top: 7px;
+            padding-bottom: 1px;
+        }
+
+            .anchor-logo :hover {
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            .anchor-logo i {
+                font-family: icomoon;
+                font-size: 27px;
+                color: rgba(255, 255, 255, 0.5);
+            }
+    </style>
 </head>
 <body>
-    <div>
-        <a asp-controller="Home" asp-action="Index">Home</a>
-        <a asp-controller="Home" asp-action="Post">Post</a>
-        <a asp-controller="Home" asp-action="Edit">Edit</a>
-    </div>
+    <nav class=" bg-dark fixed-top navbar navbar-expand-lg navbar-dark">
 
-<div>
-    @RenderBody()
-</div>
+        <div class="container">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand anchor-logo">
+                <i class="icon-olbrasoft-blog"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse " id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                </ul>
+                @await Html.PartialAsync("_LoginPartial.cshtml");
+            </div>
+        </div>
+    </nav>
+    <!-- Page Content -->
+    <div class="container">
+        @RenderBody()
+    </div>
+    <!-- /.container -->
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+    <!-- Bootstrap core JavaScript -->
+    <script src="~/vendor/jquery/jquery.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
