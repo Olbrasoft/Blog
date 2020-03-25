@@ -7,6 +7,6 @@ namespace Olbrasoft.Blog.Data.Entities.Identity
     {
         public BlogUser User { get; set; }
         public BlogRole Role { get; set; }
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Olbrasoft.Blog.Data.Entities.Identity;
 using System;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Olbrasoft.Blog.Data.Entities
@@ -15,7 +14,6 @@ namespace Olbrasoft.Blog.Data.Entities
         [Required]
         public BlogUser Creator { get; set; }
 
-        [DefaultValue("GetUtcDate()")]
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
     }
 }

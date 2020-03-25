@@ -6,7 +6,7 @@ namespace Olbrasoft.Blog.Data.Entities.Identity
 {
     public class BlogRole : IdentityRole<int>, IHaveCreated
     {
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
         public IEnumerable<BlogUserToRole> ToUsers { get; set; } = new HashSet<BlogUserToRole>();
     }
 }

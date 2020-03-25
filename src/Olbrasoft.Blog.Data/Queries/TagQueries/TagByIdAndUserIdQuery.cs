@@ -3,7 +3,7 @@ using Olbrasoft.Dispatching;
 
 namespace Olbrasoft.Blog.Data.Queries.TagQueries
 {
-    public class TagByIdAndUserIdQuery : Request<TagDto>
+    public class TagByIdAndUserIdQuery : Request<TagSmallDto>
     {
         public TagByIdAndUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
         {

@@ -3,27 +3,22 @@ using Olbrasoft.Blog.Data.Dtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using System;
+using Olbrasoft.Mapping;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
-    public class CategoryQueryHandler : QueryHandler<Category, CategoryQuery, CategoryOfUserDto>
+    public class CategoryQueryHandler : DbQueryHandler<Category, CategoryQuery, CategoryOfUserDto>
     {
-        public CategoryQueryHandler(BlogDbContext context) : base(context)
+        public CategoryQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
-        public override async Task<CategoryOfUserDto> HandleAsync(CategoryQuery query, CancellationToken cancellationToken)
+        public override async Task<CategoryOfUserDto> HandleAsync(CategoryQuery query, CancellationToken token)
         {
-            var category = await Entities.FirstOrDefaultAsync(p => p.Id == query.Id);
-
-            if (category != null)
-
-                return new CategoryOfUserDto { Id = category.Id, Name = category.Name, Tooltip = category.Tooltip };
-
-            throw new Exception("Category NotFound");
+            return await ProjectTo<CategoryOfUserDto>(Entities.Where(p => p.Id == query.Id)).FirstOrDefaultAsync(token);
         }
     }
 }

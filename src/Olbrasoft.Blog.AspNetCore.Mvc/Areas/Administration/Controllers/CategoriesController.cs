@@ -17,7 +17,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
             _service = service;
         }
 
-        public async Task<IActionResult> Index(int id = 0)
+        public async Task<IActionResult> IndexAsync(int id = 0)
         {
             var model = new CategoriesViewModel();
 
@@ -33,7 +33,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(CategoriesViewModel model)
+        public async Task<IActionResult> SaveAsync(CategoriesViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -43,11 +43,11 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", model);
+            return View("Index", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CurrentUserCategories([FromBody] DataTableModel dtParameters)
+        public async Task<IActionResult> CurrentUserCategoriesAsync([FromBody] DataTableModel dtParameters)
         {
             var option = BuildDataTableQueryOption(dtParameters, nameof(CategoryOfUserDto.Name));
 
@@ -57,7 +57,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OtherUsersCategories([FromBody] DataTableModel dtParameters)
+        public async Task<IActionResult> OtherUsersCategoriesAsync([FromBody] DataTableModel dtParameters)
         {
             var option = BuildDataTableQueryOption(dtParameters, nameof(CategoryOfUsersDto.Name));
 
@@ -66,7 +66,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
             return BuildDataTableJson(categories);
         }
 
-        public async Task<IActionResult> NotExists(int Id, string name)
+        public async Task<IActionResult> NotExistsAsync(int Id, string name)
         {
             var exists = await _service.ExistsAsync(Id, name);
             return Json(!exists);

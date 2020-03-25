@@ -9,10 +9,11 @@ using Olbrasoft.Blog.Business.Services;
 using Olbrasoft.Blog.Data.Entities.Identity;
 using Olbrasoft.Blog.Data.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
+using Olbrasoft.Blog.Data.MappingRegisters;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data.Paging.DataTables;
 using Olbrasoft.Dispatching.DependencyInjection.Microsoft;
-using Olbrasoft.Mapping.AutoMapper.DependencyInjection.Microsoft;
+using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc
@@ -44,23 +45,28 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.SignIn.RequireConfirmedEmail = false;
+            
             }).AddEntityFrameworkStores<BlogDbContext>();
 
             services.AddControllersWithViews();
 
             services.AddRazorPages();
 
-            services.AddMapping(typeof(Startup).Assembly );
+            services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);
 
             services.AddMarkdownTransformation();
 
+            AddBusiness(services);
+
+            services.AddDispatching(typeof(CategoriesQuery).Assembly, typeof(CategoriesQueryHandler).Assembly);
+        }
+
+        private static void AddBusiness(IServiceCollection services)
+        {
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<IPostService, PostService>();
             services.AddScoped<IDataTableBuilder, DataTableBuilder>();
-
-
-            services.AddDispatching(typeof(CategoriesQuery).Assembly, typeof(CategoriesQueryHandler).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

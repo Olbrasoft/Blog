@@ -1,7 +1,8 @@
-﻿using MediatR;
-using Olbrasoft.Blog.Data.Commands;
+﻿using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
+using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Dispatching;
 using Olbrasoft.Paging;
@@ -12,20 +13,32 @@ namespace Olbrasoft.Blog.Business.Services
 {
     public class PostService : Service, IPostService
     {
-        public PostService(IDispatcher dispatcher) : base( dispatcher)
+        public PostService(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 
-        public async Task<PostDetailDto> PostAsync(int id)
-        {
-            var query = new PostDetailByIdQuery(Dispatcher) { Id = id };
+        public async Task<PostDetailDto> PostAsync(int id) => await new PostDetailByIdQuery(Dispatcher) { Id = id }.ExecuteAsync();
 
-            return await query.ExecuteAsync();
+        public async Task<PostEditDto> PostForEditingByIdAsync(int id)
+        {
+            return await new PostByIdQuery(Dispatcher) { Id = id }.ExecuteAsync();
         }
 
-        public async Task<IPagedResult<PostDto>> PostsAsync(IPageInfo paging)
+        public async Task<IBasicPagedResult<PostDto>> PostsAsync(IPageInfo paging)
         {
-            var query = new PostsPagedQuery(Dispatcher) { Paging = paging };
+            return await new PostsPagedQuery(Dispatcher) { Paging = paging }.ExecuteAsync();
+        }
+
+        public async Task<IPagedResult<PostOfUserDto>> PostsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search)
+        {
+            var query = new PostsByUserIdQuery(Dispatcher)
+            {
+                UserId = userId,
+                Paging = paging,
+                OrderByColumnName = column,
+                OrderByDirection = direction,
+                Search = search
+            };
 
             return await query.ExecuteAsync();
         }
@@ -39,7 +52,7 @@ namespace Olbrasoft.Blog.Business.Services
                 Content = content,
                 TagIds = tagIds,
                 Title = title,
-                UserId = userId
+                CreatorId = userId
             };
 
             return await command.ExecuteAsync();

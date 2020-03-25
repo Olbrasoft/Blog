@@ -11,6 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
 
         public override void TypeConfigure(EntityTypeBuilder<PostToTag> builder)
         {
+            builder.HasKey(p => new { p.Id, p.ToId });
         }
     }
 }

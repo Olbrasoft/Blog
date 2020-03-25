@@ -32,7 +32,7 @@
 
                                 <div class="form-group">
                                     <label>Category</label>
-                                    <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name"))">
+                                    <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name", Model.CategoryId))">
                                         <option value="">Select category please</option>
                                     </select>
                                     <span asp-validation-for="CategoryId" class="text-danger"></span>
@@ -43,10 +43,9 @@
                                 </div>
 
                                 <div class="form-group">
+
                                     <label>Content</label>
-                                    <div id="editor">
-                                        <textarea class="form-control" asp-for="Content" id="post-content" style="display:none;"></textarea>
-                                    </div>
+                                    <textarea rows="50" class="form-control" asp-for="Content" id="post-content"></textarea>
 
                                     <span asp-validation-for="Content" class="text-danger"></span>
                                 </div>
@@ -60,23 +59,72 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-12">
+            <div class="panel panel-default head">
+                <div class="panel-heading">
+                    Post information
+                </div>
+                <div class="panel-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="your-posts">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Category</th>
+                                    <th>Created</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section css{
 
-    <link rel="stylesheet" href="~/node_modules/editor.md/css/editormd.min.css">
+    <link rel="stylesheet" href="~/css/mditor.min.css" />
     <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap-tagsinput.css">
-
     <link rel="stylesheet" href="~/css/typeahead.css">
+    <style>
+        .panel-heading {
+            border-top: 1px solid transparent;
+        }
+
+        .panel {
+            border-top: 0px solid transparent !important;
+        }
+
+        .focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            border-color: #80bdff;
+        }
+    </style>
 
 }
 
 @section scripts {
 
-    <script src="~/node_modules/editor.md/editormd.min.js"></script>
-    <script src="~/node_modules/editor.md/languages/en.js"></script>
+    <script src="~/js/mditor.min.js"></script>
+    @*<script src="https://unpkg.com/mditor@1.1.1/dist/js/mditor.min.js"></script>*@
     <script src="~/js/typeahead.bundle.js"></script>
-    <script src="~/vendor/bootstrap/js/bootstrap-tagsinput.min.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap-tagsinput.min.js" asp-append-version="true"></script>
+    <script src="~/js/momentjs/moment.min.js" asp-append-version="true"></script>
+    <script src="~/js/datetime-moment/datetime-moment.js" asp-append-version="true"></script>
 
     <script>
+
+        var mditor = new Mditor("#post-content", {
+            height: 433,
+            fixedHeight: true,
+
+        });
+        mditor.openPreview();
 
         var textlen
 
@@ -84,73 +132,6 @@
         textlen = @Model.MaxLength - $(this).val().length;
         $('#remaingCharacters').text(textlen);
          });
-
-        var testEditor;
-
-        $(function () {
-            testEditor = editormd("editor", {
-                width: "100%",
-                height: 640,
-                syncScrolling: "single",
-                path: "/node_modules/editor.md/lib/",
-
-                onload: function () {
-                    // 一个小bug 全窗口预览关闭按钮初始化没有隐藏（原因未知），手动隐藏
-                    $(".editormd-preview-close-btn").hide();
-                },
-                
-
-            });
-
-            /*
-            // or
-            testEditor = editormd({
-                id      : "test-editormd",
-                width   : "90%",
-                height  : 640,
-                path    : "../lib/"
-            });
-            */
-        });
-
-        //var tags = new Bloodhound({
-        //    datumTokenizer: Bloodhound.tokenizers.obj.whitespace,
-        //    queryTokenizer: Bloodhound.tokenizers.whitespace,
-        //    prefetch: 'assets/cities.json'
-        //});
-
-        //tags.initialize();
-
-        //$(document).ready(function () {
-        //    $('#TagsInputForm')
-        //    {
-        //        var citynames = new Bloodhound({
-        //            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-        //            queryTokenizer: Bloodhound.tokenizers.whitespace,
-        //            prefetch: {
-        //                url: 'https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/assets/citynames.json',
-        //                wildcard: '%QUERY',
-        //                filter: function (list) {
-        //                    return $.map(list, function (cityname) {
-        //                        return { name: cityname };
-        //                    });
-        //                }
-        //            }
-        //        });
-
-        //        citynames.initialize();
-
-        //        $('input').tagsinput({
-        //            typeaheadjs: {
-        //                name: 'citynames',
-        //                displayKey: 'name',
-        //                valueKey: 'name',
-        //                source: citynames.ttAdapter()
-        //            }
-        //        })
-        //    }
-
-        //});
 
         var tags = new Bloodhound({
 
@@ -161,9 +142,8 @@
             item: '<li class="dropdown-item"><a class="dropdown-item" href="#" role="option"></a></li>',
             remote: {
                 'cache': false,
-                url: '/Administration/Posts/FindTags',
+                url: '/Administration/Tags/FindTags',
                 replace: function (url, uriEncodedQuery) {
-
 
                     $('.tt-hint').css('background-image', 'url("/Images/GearLoadingSmall.gif")');
                     $('.tt-hint').css('background-repeat', 'no-repeat');
@@ -171,15 +151,11 @@
                     val = $('#post-tags').val();
                     result = url + '?term=' + uriEncodedQuery;
 
-
                     if (!val) return result;
 
                     return result + '&values=' + val;
-                
-                            
-                  
+
                 },
-              
 
                 filter: function (data) {
                     $('.tt-hint').css('background-image', '');
@@ -197,21 +173,93 @@
             typeaheadjs: {
                 name: 'tags',
                 displayKey: 'text',
-                source: tags.ttAdapter()
+                source: tags.ttAdapter(),
             }
         });
-
-
-      
 
        @foreach (var tag in Model.Tags)
         {
               @:elt.tagsinput('add', { "value": "@tag.Id", "text": "@tag.Label" });
         }
 
-       
+        $(() => {
+            $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+            $.fn.dataTable.moment("DD/MM/YYYY");
 
-        
+            $("#your-posts").DataTable({
+                // Design Assets
+                stateSave: true,
+                autoWidth: true,
+                // ServerSide Setups
+                processing: true,
+                serverSide: true,
+                // Paging Setups
+                paging: true,
+                // Searching Setups
+                searching: { regex: true },
+                searchable: true,
+                // Ajax Filter
+                ajax: {
+                    url: "/Administration/Posts/CurrentUserPosts",
+                    type: "POST",
+                    contentType: "application/json",
+                    dataType: "json",
+                    data: function (d) {
+                        return JSON.stringify(d);
+                    }
+                },
+                language: {
+                    processing: "<img src='/Images/GearLoading.gif'>",
+                    emptyTable: "No data available in table"
+                },
+                // Columns Setups
+                columns: [
+                    { data: "title" },
+                    { data: "categoryName" },
 
+                    {
+                        data: "created",
+                        render: function (data, type, row) {
+                            // If display or filter data is requested, format the date
+                            if (type === "display" || type === "filter") {
+                                return moment(data).format("ddd DD/MM/YYYY HH:mm:ss");
+                            }
+                            // Otherwise the data type requested (`type`) is type detection or
+                            // sorting data, for which we want to use the raw date value, so just return
+                            // that, unaltered
+                            return data;
+                        }
+                    }
+                ],
+                // Column Definitions
+                columnDefs: [
+                    { "name": "Title", "targets": 0 },
+                    { "name": "CategoryName", "targets": 1 , "orderable": false},
+                    { "name": "Created", "targets": 2 },
+                    {
+                        "targets": 3, "data": "id", "className": "dt-body-right", "render": function (data, type, full, meta) {
+                            return '<a  href=/Administration/Posts/Index/' + data + '><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>'
+
+                        }
+                    },
+
+                    { "searchable": true, "targets": 0 },
+                    { targets: "no-sort", orderable: false },
+                    { targets: "no-search", searchable: false },
+                    {
+                        targets: "trim",
+                        render: function (data, type, full, meta) {
+                            if (type === "display") {
+                                data = strtrunc(data, 10);
+                            }
+
+                            return data;
+                        }
+                    },
+                    { targets: "date-type", type: "date-eu" }
+                ]
+            });
+        });
     </script>
+
 }

@@ -2,14 +2,15 @@
 using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Mapping;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class TagSaveCommandHandler : CommandHandler<Tag, TagSaveCommand, bool>
+    public class TagSaveCommandHandler : DbCommandHandler<Tag, TagSaveCommand>
     {
-        public TagSaveCommandHandler(BlogDbContext context) : base(context)
+        public TagSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 
@@ -17,7 +18,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         {
             if (command.Id == 0)
             {
-                await Set.AddAsync(new Tag { Label = command.Label, CreatorId = command.UserId }, token);
+                await Set.AddAsync(MapTo<Tag>(command), token);
             }
             else
             {

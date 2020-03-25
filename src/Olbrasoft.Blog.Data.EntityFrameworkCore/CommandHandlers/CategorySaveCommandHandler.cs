@@ -2,23 +2,24 @@
 using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Mapping;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class CategorySaveCommandHandler : CommandHandler<Category, CategorySaveCommand, bool>
+    public class CategorySaveCommandHandler : DbCommandHandler<Category, CategorySaveCommand>
     {
-        public CategorySaveCommandHandler(BlogDbContext context) : base(context)
+        public CategorySaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 
         public override async Task<bool> HandleAsync(CategorySaveCommand Command, CancellationToken token)
         {
-            if (Command.Id == null || Command.Id == 0)
+            if (Command.Id == 0)
             {
-                await Set.AddAsync(new Category { Name = Command.Name, Tooltip = Command.Tooltip, CreatorId = Command.UserId }, token);
+                await Set.AddAsync(MapTo<Category>(Command), token);
             }
             else
             {

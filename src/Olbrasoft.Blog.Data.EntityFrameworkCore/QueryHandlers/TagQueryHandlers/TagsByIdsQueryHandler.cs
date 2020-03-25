@@ -3,6 +3,7 @@ using Olbrasoft.Blog.Data.Dtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
-    public class TagsByIdsQueryHandler : QueryHandler<Tag, TagsByIdsQuery, IEnumerable<TagBasicDto>>
+    public class TagsByIdsQueryHandler : DbQueryHandler<Tag, TagsByIdsQuery, IEnumerable<TagSmallDto>>
     {
-        public TagsByIdsQueryHandler(BlogDbContext context) : base(context)
+        public TagsByIdsQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
-        public override async Task<IEnumerable<TagBasicDto>> HandleAsync(TagsByIdsQuery query, CancellationToken token)
+        public override async Task<IEnumerable<TagSmallDto>> HandleAsync(TagsByIdsQuery query, CancellationToken token)
         {
-            return await Entities.Where(p => query.Ids.Contains(p.Id)).Select(p => new TagBasicDto { Id = p.Id, Label = p.Label }).ToArrayAsync();
+            return await ProjectTo<TagSmallDto>(Entities.Where(p => query.Ids.Contains(p.Id))).ToArrayAsync(token);
         }
     }
 }

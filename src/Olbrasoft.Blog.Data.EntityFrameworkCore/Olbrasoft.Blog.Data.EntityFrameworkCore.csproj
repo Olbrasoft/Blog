@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.1.1" />
     <PackageReference Include="MediatR" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
@@ -26,8 +25,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
     <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.2" />
-    <PackageReference Include="ServiceStack" Version="5.8.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,8 +35,7 @@
     <ProjectReference Include="..\Olbrasoft.Data.Cqrs.EntityFrameworkCore\Olbrasoft.Data.Cqrs.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Linq.Expressions\Olbrasoft.Linq.Expressions.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Mapping\Olbrasoft.Mapping.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Linq\Olbrasoft.Linq.csproj" />
   </ItemGroup>
 
 </Project>

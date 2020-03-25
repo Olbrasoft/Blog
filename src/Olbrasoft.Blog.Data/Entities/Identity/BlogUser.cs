@@ -13,7 +13,7 @@ namespace Olbrasoft.Blog.Data.Entities.Identity
         [StringLength(100)]
         public string LastName { get; set; } = string.Empty;
 
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
 
         public IEnumerable<Category> Categories { get; set; } = new HashSet<Category>();
 

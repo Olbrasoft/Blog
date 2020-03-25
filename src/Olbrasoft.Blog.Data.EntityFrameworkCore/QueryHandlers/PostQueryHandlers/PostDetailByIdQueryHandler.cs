@@ -3,33 +3,22 @@ using Olbrasoft.Blog.Data.Dtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using System;
+using Olbrasoft.Mapping;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
 {
-    public class PostDetailByIdQueryHandler : QueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
+    public class PostDetailByIdQueryHandler : DbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
     {
-        public PostDetailByIdQueryHandler(BlogDbContext context) : base(context)
+        public PostDetailByIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
         public override async Task<PostDetailDto> HandleAsync(PostDetailByIdQuery query, CancellationToken token)
         {
-            var post = await Entities.FirstOrDefaultAsync(p => p.Id == query.Id);
-
-            if (post != null)
-                return new PostDetailDto
-                {
-                    Id = post.Id,
-                    Title = post.Title,
-                    Content = post.Content,
-                    Created = post.Created,
-                    CreatorId = post.CreatorId
-                };
-
-            throw new Exception("Not Founf");
+            return await ProjectTo<PostDetailDto>(Entities.Where(p => p.Id == query.Id)).FirstOrDefaultAsync(token);
         }
     }
 }

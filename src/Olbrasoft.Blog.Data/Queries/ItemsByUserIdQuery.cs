@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs;
+﻿using Olbrasoft.Data.Cqrs.Queries;
 using Olbrasoft.Dispatching;
 
 namespace Olbrasoft.Blog.Data.Queries

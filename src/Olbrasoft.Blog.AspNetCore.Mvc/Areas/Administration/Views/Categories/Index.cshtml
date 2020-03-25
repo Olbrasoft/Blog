@@ -99,9 +99,7 @@
 
     <script type="text/javascript">
 
-    var textlen
-
-       var textlen
+      var textlen
 
     var tooltipMaxLength = @Model.TooltipLength;
     $('#description').keyup(function () {
@@ -171,7 +169,7 @@
                 { "name": "Created", "targets": 2 },
                 {
                     "targets": 3, "data": "id", "className":"dt-body-right"  , "render": function (data, type, full, meta) {
-                        return '<a  href=/Administration/Tags/Index/' + data +'><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>'
+                        return '<a  href=/Administration/Categories/Index/' + data +'><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>'
 
                     }
                 },

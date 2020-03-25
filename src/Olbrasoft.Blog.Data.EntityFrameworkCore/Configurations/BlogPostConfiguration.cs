@@ -20,7 +20,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasMany(p => p.ToTags).WithOne(p => p.Post).HasForeignKey(p => p.Id)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

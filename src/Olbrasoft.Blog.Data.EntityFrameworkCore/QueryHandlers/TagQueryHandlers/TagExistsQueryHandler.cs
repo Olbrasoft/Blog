@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
-    public class TagExistsQueryHandler : QueryHandler<Tag, TagExistsQuery, bool>
+    public class TagExistsQueryHandler : DbQueryHandler<Tag, TagExistsQuery>
     {
         public TagExistsQueryHandler(BlogDbContext context) : base(context)
         {

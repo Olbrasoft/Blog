@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
-    public class CategoryExistsQueryHandler : QueryHandler<Category, CategoryExistsQuery, bool>
+    public class CategoryExistsQueryHandler : DbQueryHandler<Category, CategoryExistsQuery>
     {
         public CategoryExistsQueryHandler(BlogDbContext context) : base(context)
         {

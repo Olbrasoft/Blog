@@ -27,8 +27,10 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models
         [Required(ErrorMessageResourceName = "Validation_Required", ErrorMessageResourceType = typeof(Resources))]
         public int CategoryId { get; set; }
 
-        public string TagIds { get; set; }
 
-        public IEnumerable<TagBasicDto> Tags { get; set; } = new HashSet<TagBasicDto>();
+
+        public string TagIds { get; set; } = "";
+
+        public IEnumerable<TagSmallDto> Tags { get; set; } = new HashSet<TagSmallDto>();
     }
 }

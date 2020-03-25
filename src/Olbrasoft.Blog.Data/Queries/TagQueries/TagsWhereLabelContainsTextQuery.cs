@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Olbrasoft.Blog.Data.Queries.TagQueries
 {
-    public class TagsWhereLabelContainsTextQuery : Request<IEnumerable<TagDto>>
+    public class TagsWhereLabelContainsTextQuery : Request<IEnumerable<TagSmallDto>>
     {
         public TagsWhereLabelContainsTextQuery(IDispatcher dispatcher) : base(dispatcher)
         {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore
 {
-    public class BlogDbContext : IdentityDbContext<BlogUser, BlogRole, int, BlogUserClaim, BlogUserToRole, BlogUserLogin, BlogRoleClaim, BlogUserToken> ,IHaveSet
+    public class BlogDbContext : IdentityDbContext<BlogUser, BlogRole, int, BlogUserClaim, BlogUserToRole, BlogUserLogin, BlogRoleClaim, BlogUserToken>, IHaveSet
     {
         public DbSet<Category> Categories { get; set; }
 
@@ -35,13 +35,14 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore
             foreach (var entityType in builder.Model.GetEntityTypes())
             {
                 var property = entityType.FindProperty("Created");
-                if (property != null && property.PropertyInfo.PropertyType == typeof(DateTime))
+
+                if (property != null && property.PropertyInfo.PropertyType == typeof(DateTimeOffset))
                 {
-                    builder.Entity(entityType.ClrType).Property(typeof(DateTime), "Created")
-                        .HasDefaultValueSql("GetUtcDate()");
+                    builder.Entity(entityType.ClrType).Property(typeof(DateTimeOffset), "Created")
+                       .HasDefaultValueSql("SYSDATETIMEOFFSET()");
                 }
             }
-
+            // SYSDATETIMEOFFSET()
             builder.Entity<BlogRole>().HasData(DefaultRoles);
         }
     }

@@ -22,14 +22,15 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> IndexAsync(int pageNumber = 1)
         {
-            var paging = new PageInfo(3, 1);
+            var paging = new PageInfo(3, pageNumber);
 
             var model = new HomePageViewModel
             {
                 Posts = (await _postService.PostsAsync(paging)).AsPagedList(paging),
-                Categories = (await _categoryService.CategoriesAsync()).SplitToTwo()
+
+                Categories = (await _categoryService.CategoriesAsync()).SplitToTwo(),
             };
 
             return View(model);
@@ -43,7 +44,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
         public async Task<IActionResult> PostAsync(int id)
         {
             if (id < 1) return RedirectToAction("Index");
-            
+
             var model = new PostDetailViewModel
             {
                 Post = (await _postService.PostAsync(id)),

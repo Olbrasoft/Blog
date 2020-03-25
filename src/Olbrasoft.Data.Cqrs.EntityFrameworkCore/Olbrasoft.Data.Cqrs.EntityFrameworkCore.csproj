@@ -7,6 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.2" />
+    <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Olbrasoft.Data.Cqrs\Olbrasoft.Data.Cqrs.csproj" />
   </ItemGroup>
 
 </Project>

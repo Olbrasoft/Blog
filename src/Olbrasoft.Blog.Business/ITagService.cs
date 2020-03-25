@@ -17,14 +17,14 @@ namespace Olbrasoft.Blog.Business
 
         Task<bool> SaveAsync(int id, string label, int userId);
 
-        Task<IPagedResult<TagDto>> UserTagsAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search);
+        Task<IPagedResult<TagOfUserDto>> TagsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search);
 
-        Task<IPagedResult<TagDto>> OtherUsersTags(int exceptUserId, IPageInfo paging, string column, OrderDirection direction, string search);
+        Task<IPagedResult<TagOfUsersDto>> TagsByExceptUserIdAsync(int exceptUserId, IPageInfo paging, string column, OrderDirection direction, string search);
 
-        Task<TagDto> UserTagAsync(int id, int userId);
+        Task<TagSmallDto> UserTagAsync(int id, int userId);
 
-        Task<IEnumerable<TagDto>> Find(string term, IEnumerable<int> exceptTagIds);
+        Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds);
 
-        Task<IEnumerable<TagBasicDto>> TagsByIds(IEnumerable<int> ids);
+        Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids);
     }
 }

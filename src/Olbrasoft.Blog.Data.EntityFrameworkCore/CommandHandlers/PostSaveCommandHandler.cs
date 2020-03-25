@@ -2,41 +2,54 @@
 using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Mapping;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class PostSaveCommandHandler : CommandHandler<Post, PostSaveCommand, bool>
+    public class PostSaveCommandHandler : DbCommandHandler<Post, PostSaveCommand>
     {
-        public PostSaveCommandHandler(BlogDbContext context) : base(context)
+        public PostSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 
         public override async Task<bool> HandleAsync(PostSaveCommand command, CancellationToken token)
         {
-            ICollection<PostToTag> toTags = new HashSet<PostToTag>();
+            var post = MapTo<Post>(command);
 
-            if (command.TagIds != null && command.UserId > 0)
+            if (command.TagIds != null && command.TagIds.Count() > 0 && command.CreatorId > 0)
             {
-                var tags = await base.Context.Set<Tag>().Where(p => command.TagIds.Contains(p.Id)).ToArrayAsync(token);
+                var tags = await Context.Set<Tag>().Where(p => command.TagIds.Contains(p.Id)).ToArrayAsync(token);
 
-                toTags = tags.Select(p => new PostToTag { ToId = p.Id, CreatorId = command.UserId }).ToArray();
+                var toTags = tags.Select(p => new PostToTag { ToId = p.Id, CreatorId = command.CreatorId }).ToArray();
+
+                post.ToTags = toTags;
             }
 
             if (command.Id == 0)
             {
-                var post = new Post { Title = command.Title, Content = command.Content, CreatorId = command.UserId, CategoryId = command.CategoryId, ToTags = toTags };
-
                 await Set.AddAsync(post, token);
+            }
+            else
+            {
+                var srcPost = await Set.Include(p => p.ToTags).FirstAsync(p => p.Id == command.Id, token);
 
-                return (await SaveAsyc(token) > 1);
+                Context.Set<PostToTag>().RemoveRange(srcPost.ToTags);
+
+                await SaveAsyc(token);
+
+                srcPost.Title = post.Title;
+                srcPost.Content = post.Content;
+                srcPost.CategoryId = post.CategoryId;
+                srcPost.ToTags = post.ToTags;
+
+                Set.Update(srcPost);
             }
 
-            throw new NotImplementedException();
+            return (await SaveAsyc(token) > 1);
         }
     }
 }

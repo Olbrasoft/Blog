@@ -5,6 +5,6 @@ namespace Olbrasoft.Blog.Data.Entities.Identity
 {
     public class BlogRoleClaim : IdentityRoleClaim<int>, IHaveCreated
     {
-        public DateTime Created { get; set; }
+        public DateTimeOffset Created { get; set; }
     }
 }

@@ -54,9 +54,7 @@ namespace Olbrasoft.Blog.Business.Services
     
         public async Task<CategoryOfUserDto> CategoryAsync(int id)
         {
-            var query = new CategoryQuery(Dispatcher) { Id = id };
-
-            return await query.ExecuteAsync();
+            return await new CategoryQuery(Dispatcher) { Id = id }.ExecuteAsync();
         }
 
         public async Task<bool> ExistsAsync(int ExceptId = 0, string name = null)
@@ -72,7 +70,7 @@ namespace Olbrasoft.Blog.Business.Services
                 Id = Id,
                 Name = name,
                 Tooltip = tooltip,
-                UserId = userId
+                CreatorId = userId
             };
             return await command.ExecuteAsync();
         }

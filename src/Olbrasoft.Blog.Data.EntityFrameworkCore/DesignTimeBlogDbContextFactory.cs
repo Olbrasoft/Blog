@@ -18,7 +18,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore
                 .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{environment}.json", optional: true)
-                .AddEnvironmentVariables()
                 .Build();
 
             var connectionString = config.GetConnectionString("BlogDbConnectionString");

@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Profiles\**" />
+    <Content Remove="Profiles\**" />
+    <EmbeddedResource Remove="Profiles\**" />
+    <None Remove="Profiles\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\node_modules\editor.md\bower.json" />
     <Content Include="wwwroot\node_modules\editor.md\css\editormd.css" />
     <Content Include="wwwroot\node_modules\editor.md\css\editormd.logo.css" />
@@ -615,7 +622,9 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
     <PackageReference Include="Olbrasoft.Dispatching.DependencyInjection.Microsoft" Version="1.0.5" />
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
+    <PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="1.0.2" />
+    <PackageReference Include="Olbrasoft.Paging.X.PagedList.AspNetCore.Mvc" Version="1.0.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -625,9 +634,6 @@
     <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
     <ProjectReference Include="..\Olbrasoft.Linq\Olbrasoft.Linq.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Mapping.AutoMapper.DependencyInjection.Microsoft\Olbrasoft.Mapping.AutoMapper.DependencyInjection.Microsoft.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Mapping.AutoMapper\Olbrasoft.Mapping.AutoMapper.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Paging.X.PagedList.AspNetCore\Olbrasoft.Paging.X.PagedList.AspNetCore.csproj" />
     <ProjectReference Include="..\Olbrasoft.Paging.X.PagedList\Olbrasoft.Paging.X.PagedList.csproj" />
     <ProjectReference Include="..\Olbrasoft.Text.Transformation\Olbrasoft.Text.Transformation.csproj" />
   </ItemGroup>

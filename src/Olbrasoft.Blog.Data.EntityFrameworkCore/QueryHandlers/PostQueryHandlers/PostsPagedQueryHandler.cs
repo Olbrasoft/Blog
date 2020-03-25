@@ -4,6 +4,7 @@ using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Data.Paging;
+using Olbrasoft.Mapping;
 using Olbrasoft.Paging;
 using System.Linq;
 using System.Threading;
@@ -11,23 +12,22 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
 {
-    public class PostsPagedQueryHandler : QueryHandler<Post, PostsPagedQuery, IPagedResult<PostDto>>
+    public class PostsPagedQueryHandler : DbQueryHandler<Post, PostsPagedQuery, IBasicPagedResult<PostDto>>
     {
-        public PostsPagedQueryHandler(BlogDbContext context) : base(context)
+        public PostsPagedQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
-        public override async Task<IPagedResult<PostDto>> HandleAsync(PostsPagedQuery query, CancellationToken token)
+        public override async Task<IBasicPagedResult<PostDto>> HandleAsync(PostsPagedQuery query, CancellationToken token)
         {
-            var posts = await Entities.OrderByDescending(p => p.Created)
+            var posts = await ProjectTo<PostDto>(Entities).OrderByDescending(p => p.Created)
                 .Skip(query.Paging.CalculateSkip())
-                .Take(query.Paging.PageSize)
-                .Select(p => new { p.Id, p.Title, p.Content, p.Created, p.CreatorId })
-                .ToArrayAsync();
+                .Take(query.Paging.PageSize).ToArrayAsync(token);
 
-            return new PagedResult<PostDto>
+            return new BasicPagedResult<PostDto>
             {
-                Records = posts.Select(p => new PostDto { Id = p.Id, Title = p.Title, Content = p.Content, Created = p.Created, CreatorId = p.CreatorId }),
+                Records = posts,
+
                 TotalCount = Entities.Count()
             };
         }

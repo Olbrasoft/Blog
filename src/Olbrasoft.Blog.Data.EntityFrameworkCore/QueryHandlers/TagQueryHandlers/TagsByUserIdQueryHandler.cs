@@ -3,8 +3,9 @@ using Olbrasoft.Blog.Data.Dtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Data.Linq.Expressions;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Linq;
+using Olbrasoft.Mapping;
 using Olbrasoft.Paging;
 using System.Linq;
 using System.Threading;
@@ -12,36 +13,32 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
-    public class TagsByUserIdQueryHandler : QueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagDto>>
+    public class TagsByUserIdQueryHandler : DbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>
     {
-        public TagsByUserIdQueryHandler(BlogDbContext context) : base(context)
+        public TagsByUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
-        public override async Task<IPagedResult<TagDto>> HandleAsync(TagsByUserIdQuery query, CancellationToken cancellationToken)
+        public override async Task<IPagedResult<TagOfUserDto>> HandleAsync(TagsByUserIdQuery query, CancellationToken token)
         {
-            var userTags = Entities.Where(p => p.CreatorId == query.UserId);
+            var filteredTags = Entities.Where(p => p.CreatorId == query.UserId);
 
             if (!string.IsNullOrEmpty(query.Search))
             {
-                userTags = userTags.Where(p => p.Label.ToLower().Contains(query.Search.ToLower()));
+                filteredTags = filteredTags.Where(p => p.Label.ToLower().Contains(query.Search.ToLower()));
             }
 
-            var tags = userTags.Select(tag => new TagDto
-            {
-                Id = tag.Id,
-                Label = tag.Label,
-                Created = tag.Created,
-                PostCount = tag.ToPosts.Count()
-            }).OrderBy(query.OrderByColumnName, query.OrderByDirection);
+            var tags = ProjectTo<TagOfUserDto>(filteredTags.OrderBy(query.OrderByColumnName, query.OrderByDirection))
+                 .Skip(query.Paging.CalculateSkip())
+                 .Take(query.Paging.PageSize);
 
-            return new PagedResult<TagDto>
+            return new PagedResult<TagOfUserDto>
             {
-                Records = await tags.Skip(query.Paging.CalculateSkip()).Take(query.Paging.PageSize).ToArrayAsync(),
+                Records = await tags.ToArrayAsync(token),
 
                 TotalCount = await Entities.Where(p => p.CreatorId == query.UserId).CountAsync(),
 
-                FilteredCount = await userTags.CountAsync()
+                FilteredCount = await filteredTags.CountAsync()
             };
         }
     }

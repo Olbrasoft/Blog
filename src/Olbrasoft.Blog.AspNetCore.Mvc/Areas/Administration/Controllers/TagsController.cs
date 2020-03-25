@@ -1,27 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration;
 using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 using Olbrasoft.Blog.Business;
 using Olbrasoft.Blog.Data.Dtos;
-using Olbrasoft.Data;
-using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Paging.DataTables;
-using Olbrasoft.Paging;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
 {
-    public class TagsController : AdminController
+    public class TagsController : AdminDataTablesController
     {
         private readonly ITagService _service;
 
-        public TagsController(ITagService service)
+        public TagsController(ITagService service, IDataTableBuilder builder) : base(builder)
         {
             _service = service;
         }
 
-        public async Task<IActionResult> Index(int id = 0)
+        public async Task<IActionResult> IndexAsync(int id = 0)
         {
             var model = new TagViewModel();
 
@@ -37,7 +34,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(TagViewModel model)
+        public async Task<IActionResult> SaveAsync(TagViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -46,80 +43,48 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
                 return RedirectToAction("Index");
             }
 
-            return RedirectToAction("Index", model);
-        }
-
-        private DataTableQueryOption BuildOption(DataTableModel dtParameters)
-        {
-            var result = new DataTableQueryOption
-            {
-                Search = dtParameters.Search.Value,
-                Direction = OrderDirection.Asc,
-                Column = nameof(TagDto.Label)
-            };
-
-            var page = 1;
-
-            if (dtParameters.Start != 0)
-            {
-                page = dtParameters.Start / dtParameters.Length + 1;
-            }
-
-            result.Paging = new PageInfo(dtParameters.Length, page);
-
-            if (dtParameters.Order != null)
-            {
-                // in this example we just default sort on the 1st column
-                result.Column = dtParameters.Columns[dtParameters.Order[0].Column].Name;
-
-                if (dtParameters.Order[0].Dir.ToString().ToLower() == nameof(OrderDirection.Desc).ToLower())
-                {
-                    result.Direction = OrderDirection.Desc;
-                }
-            }
-
-            return result;
-        }
-
-        private JsonResult BuildJson(IPagedResult<TagDto> tags)
-        {
-            return Json(new
-            {
-                recordsTotal = tags.TotalCount,
-                recordsFiltered = tags.FilteredCount,
-                data = tags.Records
-            });
+            return View("Index", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CurrentUserTags([FromBody] DataTableModel dtParameters)
+        public async Task<IActionResult> CurrentUserTagsAsync([FromBody] DataTableModel model)
         {
-            var option = BuildOption(dtParameters);
+            var option = BuildDataTableQueryOption(model, nameof(TagOfUserDto.Label));
 
-            var tags = await _service.UserTagsAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search);
+            var tags = await _service.TagsByUserIdAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search);
 
-            return BuildJson(tags);
+            return BuildDataTableJson(tags);
         }
 
         [HttpPost]
-        public async Task<IActionResult> OtherUsersTags([FromBody] DataTableModel dtParameters)
+        public async Task<IActionResult> OtherUsersTagsAsync([FromBody] DataTableModel dtParameters)
         {
-            var option = BuildOption(dtParameters);
+            var option = BuildDataTableQueryOption(dtParameters, nameof(TagOfUsersDto.Label));
 
-            var tags = await _service.OtherUsersTags(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search);
+            var tags = await _service.TagsByExceptUserIdAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search);
 
-            return BuildJson(tags);
+            return BuildDataTableJson(tags);
         }
 
-        public async Task<JsonResult> NotExists(int Id, string label)
+        [HttpGet]
+        public async Task<IActionResult> FindTagsAsync(string term, string values)
+        {
+            IEnumerable<int> exceptTagIds = new HashSet<int>();
+
+            if (!string.IsNullOrEmpty(values))
+            {
+                exceptTagIds = values.Split(',').Select(p => int.Parse(p));
+            }
+
+            var tags = await _service.FindAsync(term, exceptTagIds);
+
+            return Json(tags.Select(p => new TagModel { Value = p.Id, Text = p.Label }));
+        }
+
+        public async Task<JsonResult> NotExistsAsync(int Id, string label)
         {
             var exists = await _service.ExistsAsync(Id, label);
             return Json(!exists);
         }
-
-
-
-
-
     }
 }

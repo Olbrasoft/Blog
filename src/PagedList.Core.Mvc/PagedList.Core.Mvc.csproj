@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+		<Version>3.0.0</Version>
+		<Description>A tag helper for generating pager control for use with PagedList.Core library.</Description>
+		<Authors>Troy Goode, Hieu Le</Authors>
+		<PackageLicenseUrl>http://www.opensource.org/licenses/mit-license.php</PackageLicenseUrl>
+		<Copyright>Hieu Le</Copyright>
+		<PackageProjectUrl>https://github.com/hieudole/PagedList.Core.Mvc</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/hieudole/PagedList.Core.Mvc</RepositoryUrl>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.5" />
+	</ItemGroup>
+
+</Project>

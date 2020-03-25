@@ -1,15 +1,15 @@
-﻿using Olbrasoft.Dispatching;
+﻿using Olbrasoft.Data.Cqrs;
+using Olbrasoft.Dispatching;
 
 namespace Olbrasoft.Blog.Data.Commands
 {
-    public class TagSaveCommand : Request<bool>
+    public class TagSaveCommand : SaveCommand
     {
         public TagSaveCommand(IDispatcher dispatcher) : base(dispatcher)
         {
         }
 
-        public int Id { get; set; }
         public string Label { get; set; } = string.Empty;
-        public int UserId { get; set; }
+        public int CreatorId { get; set; }
     }
 }
