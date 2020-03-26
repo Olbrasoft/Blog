@@ -1,10 +1,9 @@
 ﻿using Olbrasoft.Blog.Data.Commands;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Dispatching;
-using Olbrasoft.Paging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

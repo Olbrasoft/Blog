@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 using Olbrasoft.Blog.Business;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Data.Paging.DataTables;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -57,9 +57,9 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> OtherUsersCategoriesAsync([FromBody] DataTableModel dtParameters)
+        public async Task<IActionResult> OtherUsersCategoriesAsync([FromBody] DataTableModel model)
         {
-            var option = BuildDataTableQueryOption(dtParameters, nameof(CategoryOfUsersDto.Name));
+            var option = BuildDataTableQueryOption(model, nameof(CategoryOfUsersDto.Name));
 
             var categories = await _service.CategoriesByExceptUserIdAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search);
 

@@ -1,7 +1,6 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Paging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

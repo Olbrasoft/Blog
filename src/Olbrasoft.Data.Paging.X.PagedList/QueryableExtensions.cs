@@ -2,7 +2,7 @@
 using System.Linq;
 using X.PagedList;
 
-namespace Olbrasoft.Paging.X.PagedList
+namespace Olbrasoft.Data.Paging.X.PagedList
 {
     public static class QueryableExtensions
     {
@@ -22,7 +22,7 @@ namespace Olbrasoft.Paging.X.PagedList
             if (paging == null)
                 throw new ArgumentNullException(nameof(paging));
 
-            var pagedList = new global::X.PagedList.PagedList<TSource>(source, paging.NumberOfSelectedPage, paging.PageSize);
+            var pagedList = new PagedList<TSource>(source, paging.NumberOfSelectedPage, paging.PageSize);
 
             return new SimplePagedList<TSource>(pagedList, pagedList.PageNumber, pagedList.PageSize, pagedList.TotalItemCount);
         }

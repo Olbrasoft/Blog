@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Olbrasoft.Paging;
 
 namespace Olbrasoft.Data.Paging.DataTables
 {

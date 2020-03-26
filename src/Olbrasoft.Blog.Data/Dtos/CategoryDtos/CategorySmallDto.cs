@@ -1,4 +1,4 @@
-﻿namespace Olbrasoft.Blog.Data.Dtos
+﻿namespace Olbrasoft.Blog.Data.Dtos.CategoryDtos
 {
     public class CategorySmallDto : SmallDto
     {

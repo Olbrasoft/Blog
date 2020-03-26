@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Dispatching;
 

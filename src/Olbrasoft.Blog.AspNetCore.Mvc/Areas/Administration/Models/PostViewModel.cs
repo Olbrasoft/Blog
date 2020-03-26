@@ -1,5 +1,6 @@
 ﻿using Olbrasoft.Blog.AspNetCore.Mvc.Properties;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 

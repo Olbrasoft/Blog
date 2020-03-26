@@ -1,5 +1,5 @@
 ﻿using Mapster;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Blog.Data.Entities;
 using System.Linq;
 

@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Dispatching;
 
 namespace Olbrasoft.Blog.Data.Queries.TagQueries

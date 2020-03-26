@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Olbrasoft.Blog.AspNetCore.Mvc.Properties;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using System.ComponentModel.DataAnnotations;
 using X.PagedList;
 

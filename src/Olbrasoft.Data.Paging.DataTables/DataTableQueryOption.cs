@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Paging;
-
-namespace Olbrasoft.Data.Paging.DataTables
+﻿namespace Olbrasoft.Data.Paging.DataTables
 {
     public class DataTableQueryOption
     {

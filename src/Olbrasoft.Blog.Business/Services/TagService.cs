@@ -1,10 +1,9 @@
 ﻿using Olbrasoft.Blog.Data.Commands;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Dispatching;
-using Olbrasoft.Paging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -51,6 +50,11 @@ namespace Olbrasoft.Blog.Business.Services
         public async Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids)
         {
             return await new TagsByIdsQuery(Dispatcher) { Ids = ids }.ExecuteAsync();
+        }
+
+        public async Task<IEnumerable<TagSmallDto>> TagsAsync()
+        {
+            return await new TagsQuery(Dispatcher).ExecuteAsync();
         }
     }
 }

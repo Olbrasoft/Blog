@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Olbrasoft.Blog.Data.Dtos
+namespace Olbrasoft.Blog.Data.Dtos.TagDtos
 {
     public class TagOfUserDto : TagSmallDto
     {

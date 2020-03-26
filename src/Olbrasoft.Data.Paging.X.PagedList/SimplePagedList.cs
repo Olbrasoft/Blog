@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using X.PagedList;
 
-namespace Olbrasoft.Paging.X.PagedList
+namespace Olbrasoft.Data.Paging.X.PagedList
 {
     public class SimplePagedList<T> : BasePagedList<T>
     {

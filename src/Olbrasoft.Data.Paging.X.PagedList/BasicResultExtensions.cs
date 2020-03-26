@@ -1,8 +1,7 @@
-﻿using Olbrasoft.Data.Paging;
-using System;
+﻿using System;
 using X.PagedList;
 
-namespace Olbrasoft.Paging.X.PagedList
+namespace Olbrasoft.Data.Paging.X.PagedList
 {
     public static class BasicResultExtensions
     {

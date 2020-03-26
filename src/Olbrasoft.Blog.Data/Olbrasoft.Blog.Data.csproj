@@ -15,7 +15,6 @@
     <ProjectReference Include="..\Olbrasoft.Data.Cqrs\Olbrasoft.Data.Cqrs.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Paging\Olbrasoft.Paging.csproj" />
   </ItemGroup>
 
 </Project>

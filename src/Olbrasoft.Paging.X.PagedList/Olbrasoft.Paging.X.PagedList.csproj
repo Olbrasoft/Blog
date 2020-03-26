@@ -11,7 +11,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Paging\Olbrasoft.Paging.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="X.PagedList" Version="7.6.0" />
+    <PackageReference Include="X.PagedList" Version="8.0.5" />
   </ItemGroup>
 
 </Project>

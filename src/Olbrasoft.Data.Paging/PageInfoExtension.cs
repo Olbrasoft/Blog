@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Olbrasoft.Paging
+namespace Olbrasoft.Data.Paging
 {
     public static class PageInfoExtension
     {

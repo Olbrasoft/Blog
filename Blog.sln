@@ -19,10 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.AspNetCore.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Business.Tests", "test\Olbrasoft.Blog.Business.Tests\Olbrasoft.Blog.Business.Tests.csproj", "{70FB9C24-CB06-4CAF-91F2-1E0B8D9691AC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Paging", "src\Olbrasoft.Paging\Olbrasoft.Paging.csproj", "{17577A88-F7AA-4B4C-9BFD-0CE0C7807CCA}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Paging.X.PagedList", "src\Olbrasoft.Paging.X.PagedList\Olbrasoft.Paging.X.PagedList.csproj", "{F6C1E893-0E33-4125-B187-A805000CB233}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Paging.Tests", "test\Olbrasoft.Paging.Tests\Olbrasoft.Paging.Tests.csproj", "{3BA610CB-E3B9-4793-9003-8FCD8029652D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Business", "src\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj", "{D263E598-5FBB-4C96-BCF2-4ABC1C3E9002}"
@@ -33,13 +29,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Cqrs", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Linq", "src\Olbrasoft.Linq\Olbrasoft.Linq.csproj", "{D0BD6214-ED23-49EF-B972-3B3FEC93F1E4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Text.Transformation", "src\Olbrasoft.Text.Transformation\Olbrasoft.Text.Transformation.csproj", "{8CA47F19-8EEA-4394-B6ED-CBDDA2AFE477}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Cqrs.EntityFrameworkCore", "src\Olbrasoft.Data.Cqrs.EntityFrameworkCore\Olbrasoft.Data.Cqrs.EntityFrameworkCore.csproj", "{0F71B23C-F7E3-447B-8FA1-440105388A77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Paging", "src\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj", "{4C094007-39AD-48EF-8D5D-2ECE612ACCC3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Paging.DataTables", "src\Olbrasoft.Data.Paging.DataTables\Olbrasoft.Data.Paging.DataTables.csproj", "{AA32C674-B90F-494A-879B-817F82BE7DAC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Paging.X.PagedList", "src\Olbrasoft.Data.Paging.X.PagedList\Olbrasoft.Data.Paging.X.PagedList.csproj", "{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olbrasoft.Text.Transformation", "src\Olbrasoft.Text.Transformation\Olbrasoft.Text.Transformation.csproj", "{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,14 +73,6 @@ Global
 		{70FB9C24-CB06-4CAF-91F2-1E0B8D9691AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70FB9C24-CB06-4CAF-91F2-1E0B8D9691AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70FB9C24-CB06-4CAF-91F2-1E0B8D9691AC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17577A88-F7AA-4B4C-9BFD-0CE0C7807CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17577A88-F7AA-4B4C-9BFD-0CE0C7807CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17577A88-F7AA-4B4C-9BFD-0CE0C7807CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17577A88-F7AA-4B4C-9BFD-0CE0C7807CCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F6C1E893-0E33-4125-B187-A805000CB233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F6C1E893-0E33-4125-B187-A805000CB233}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F6C1E893-0E33-4125-B187-A805000CB233}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F6C1E893-0E33-4125-B187-A805000CB233}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3BA610CB-E3B9-4793-9003-8FCD8029652D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3BA610CB-E3B9-4793-9003-8FCD8029652D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BA610CB-E3B9-4793-9003-8FCD8029652D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -103,10 +93,6 @@ Global
 		{D0BD6214-ED23-49EF-B972-3B3FEC93F1E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0BD6214-ED23-49EF-B972-3B3FEC93F1E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0BD6214-ED23-49EF-B972-3B3FEC93F1E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CA47F19-8EEA-4394-B6ED-CBDDA2AFE477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CA47F19-8EEA-4394-B6ED-CBDDA2AFE477}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CA47F19-8EEA-4394-B6ED-CBDDA2AFE477}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CA47F19-8EEA-4394-B6ED-CBDDA2AFE477}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -119,6 +105,14 @@ Global
 		{AA32C674-B90F-494A-879B-817F82BE7DAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA32C674-B90F-494A-879B-817F82BE7DAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA32C674-B90F-494A-879B-817F82BE7DAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

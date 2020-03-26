@@ -621,9 +621,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc" Version="1.0.1" />
     <PackageReference Include="Olbrasoft.Dispatching.DependencyInjection.Microsoft" Version="1.0.5" />
     <PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="1.0.2" />
-    <PackageReference Include="Olbrasoft.Paging.X.PagedList.AspNetCore.Mvc" Version="1.0.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.5" />
   </ItemGroup>
 
@@ -631,10 +631,10 @@
     <ProjectReference Include="..\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj" />
     <ProjectReference Include="..\Olbrasoft.Blog.Data.EntityFrameworkCore\Olbrasoft.Blog.Data.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data.Paging.DataTables\Olbrasoft.Data.Paging.DataTables.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Data.Paging.X.PagedList\Olbrasoft.Data.Paging.X.PagedList.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
     <ProjectReference Include="..\Olbrasoft.Linq\Olbrasoft.Linq.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Paging.X.PagedList\Olbrasoft.Paging.X.PagedList.csproj" />
     <ProjectReference Include="..\Olbrasoft.Text.Transformation\Olbrasoft.Text.Transformation.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 

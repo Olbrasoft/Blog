@@ -36,6 +36,8 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("BlogDbConnectionString")));
 
+            services.AddScoped<DbContext, BlogDbContext>();
+
             services.AddIdentity<BlogUser, BlogRole>(options =>
             {
                 options.Password.RequiredLength = 3;
@@ -45,7 +47,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.SignIn.RequireConfirmedEmail = false;
-            
             }).AddEntityFrameworkStores<BlogDbContext>();
 
             services.AddControllersWithViews();

@@ -8,7 +8,6 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
 
-
     <title>@ViewBag.Title</title>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
@@ -58,7 +57,7 @@
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                     </li>
                 </ul>
-                @await Html.PartialAsync("_LoginPartial.cshtml");
+                <partial name="_LoginPartial.cshtml" />
             </div>
         </div>
     </nav>

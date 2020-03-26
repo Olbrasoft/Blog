@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 using Olbrasoft.Blog.Business;
-using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Data.Paging.DataTables;
 using System.Collections.Generic;
 using System.Linq;

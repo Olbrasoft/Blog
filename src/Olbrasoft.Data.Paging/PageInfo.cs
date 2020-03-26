@@ -1,4 +1,4 @@
-﻿namespace Olbrasoft.Paging
+﻿namespace Olbrasoft.Data.Paging
 {
     public class PageInfo : IPageInfo
     {

@@ -1,7 +1,6 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Paging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,5 +25,7 @@ namespace Olbrasoft.Blog.Business
         Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds);
 
         Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids);
+
+        Task<IEnumerable<TagSmallDto>> TagsAsync();
     }
 }

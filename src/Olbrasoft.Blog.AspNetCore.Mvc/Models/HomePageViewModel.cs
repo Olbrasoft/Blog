@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using X.PagedList;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc.Models
