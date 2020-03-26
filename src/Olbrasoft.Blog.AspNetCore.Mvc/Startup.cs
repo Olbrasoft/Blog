@@ -15,6 +15,7 @@ using Olbrasoft.Data.Paging.DataTables;
 using Olbrasoft.Dispatching.DependencyInjection.Microsoft;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
+using Singularity;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc
 {
@@ -30,13 +31,13 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddDbContext<BlogDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("BlogDbConnectionString")));
-
-            services.AddScoped<DbContext, BlogDbContext>();
 
             services.AddIdentity<BlogUser, BlogRole>(options =>
             {
@@ -49,25 +50,32 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
                 options.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<BlogDbContext>();
 
-            services.AddControllersWithViews();
-
             services.AddRazorPages();
 
             services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);
 
-            services.AddMarkdownTransformation();
-
-            AddBusiness(services);
+            services.AddTextTransformationMarkdown();
 
             services.AddDispatching(typeof(CategoriesQuery).Assembly, typeof(CategoriesQueryHandler).Assembly);
+
+            //Next registration is in CompositionRoot.cs
         }
 
-        private static void AddBusiness(IServiceCollection services)
+        public void ConfigureContainer(ContainerBuilder registry)
         {
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ITagService, TagService>();
-            services.AddScoped<IPostService, PostService>();
-            services.AddScoped<IDataTableBuilder, DataTableBuilder>();
+            registry.SetupMvc();
+
+            //Setup some logger
+            registry.ConfigureSettings(s =>
+            {
+                s.With(Loggers.ConsoleLogger);
+            });
+
+            registry.Register<ICategoryService, CategoryService>(c => c.With(Lifetimes.PerScope));
+            registry.Register<ITagService, TagService>(c => c.With(Lifetimes.PerScope));
+            registry.Register<IPostService, PostService>(c => c.With(Lifetimes.PerScope));
+            registry.Register<IDataTableBuilder, DataTableBuilder>(c => c.With(Lifetimes.PerScope));
+            registry.Register<DbContext, BlogDbContext>(c => c.With(Lifetimes.PerScope));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

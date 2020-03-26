@@ -37,8 +37,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Paging.DataT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Paging.X.PagedList", "src\Olbrasoft.Data.Paging.X.PagedList\Olbrasoft.Data.Paging.X.PagedList.csproj", "{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olbrasoft.Text.Transformation", "src\Olbrasoft.Text.Transformation\Olbrasoft.Text.Transformation.csproj", "{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,10 +107,6 @@ Global
 		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C3E0646D-BAA1-4B22-AEBB-7559BEEF1D2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8286434C-BCDD-4AE8-A3C9-4D454FDEDFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
