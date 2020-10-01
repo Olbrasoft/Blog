@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.2" />
+    <PackageReference Include="Olbrasoft.Data" Version="1.0.1" />
+    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.4" />
     <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
   </ItemGroup>
 
 </Project>

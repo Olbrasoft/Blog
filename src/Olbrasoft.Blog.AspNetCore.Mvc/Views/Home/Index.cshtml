@@ -1,5 +1,4 @@
-﻿@using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc
-@model HomePageViewModel
+﻿@model HomePageViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,15 +6,11 @@
 }
 
 <div class="row">
-
-    <!-- Blog Entries Column -->
     <div class="col-md-8">
         <h1 class="my-4">
-            Page Heading
-            <small>Secondary Text</small>
+            <localize>Blog</localize>
+            <small localize>listing of posts</small>
         </h1>
-        <!-- Blog Post -->
-
         @foreach (var post in Model.Posts)
         {
             <div class="card mb-4">
@@ -23,26 +18,17 @@
                 <div class="card-body">
                     <h2 class="card-title">@post.Title</h2>
                     <p class="card-text"><markdown>@post.Content</markdown></p>
-                    <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" class="btn btn-primary">Read More &rarr;</a>
+                    <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" class="btn btn-primary"><localize>Read More</localize> &rarr;</a>
                 </div>
                 <div class="card-footer text-muted">
-                    Posted on @post.Created.ToString("dddd, dd MMMM yyyy")  By
-                    <a href="#@post.CreatorId">@post.Creator</a>
+                    <localize>Posted on</localize> @post.Created.ToString("dddd, dd MMMM yyyy") <localize>By</localize>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByCreatorId:@post.CreatorId">@post.Creator</a>
                 </div>
             </div>
         }
 
-        @{
-            var options = PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext;
-            options.UlElementClasses = new[] { "justify-content-center", "pagination" };
-            options.LinkToPreviousPageFormat = "&larr; Newer";
-            options.LinkToNextPageFormat = "Older &rarr;";
-
-        }
-
-        <pager list="@Model.Posts" asp-area="" asp-controller="Home" asp-action="Index" param-page-number="pageNumber" options="@options"></pager>
+        <pager list="@Model.Posts" asp-area="" asp-controller="Home" asp-action="Index" param-page-number="page" asp-route-query="@Model.NestedModel.CurrentQuery" options="@Model.Options"></pager>
     </div>
 
     <partial name="~/Views/Shared/_RightColumnPartial.cshtml" model="@Model.NestedModel" />
 </div>
-<!-- /.row -->

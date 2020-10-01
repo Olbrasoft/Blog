@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
   </ItemGroup>
 
 </Project>

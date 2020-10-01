@@ -14,7 +14,8 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
             registry.RegisterScoped<ICategoryService, CategoryService>();
             registry.RegisterScoped<ITagService, TagService>();
             registry.RegisterScoped<IPostService, PostService>();
-            registry.RegisterScoped<IDataTableBuilder, DataTableBuilder>();
+            registry.RegisterScoped<ICommentService, CommentService>();
+            registry.RegisterScoped<IDataTableOptionBuilder, DataTableOptionBuilder>();
             registry.RegisterScoped<DbContext, BlogDbContext>();
         }
     }

@@ -5,16 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="5.2.0" />
+    <PackageReference Include="Mapster" Version="6.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.2" />
-    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.1.8" />
+    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Olbrasoft.Data.Cqrs\Olbrasoft.Data.Cqrs.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
   </ItemGroup>
 
 </Project>

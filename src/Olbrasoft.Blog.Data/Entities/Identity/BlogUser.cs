@@ -21,6 +21,8 @@ namespace Olbrasoft.Blog.Data.Entities.Identity
 
         public IEnumerable<Comment> Comments { get; set; } = new HashSet<Comment>();
 
+        public IEnumerable<NestedComment> NestedComments { get; set; } = new HashSet<NestedComment>();
+
         public IEnumerable<Tag> Tags { get; set; } = new HashSet<Tag>();
 
         public IEnumerable<PostToTag> PostToTags { get; set; } = new HashSet<PostToTag>();

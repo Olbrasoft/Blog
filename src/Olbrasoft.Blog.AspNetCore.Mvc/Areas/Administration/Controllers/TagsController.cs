@@ -13,7 +13,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
     {
         private readonly ITagService _service;
 
-        public TagsController(ITagService service, IDataTableBuilder builder) : base(builder)
+        public TagsController(ITagService service, IDataTableOptionBuilder builder) : base(builder)
         {
             _service = service;
         }

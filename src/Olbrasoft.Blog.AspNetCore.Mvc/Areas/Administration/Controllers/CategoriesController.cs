@@ -12,7 +12,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
     {
         private readonly ICategoryService _service;
 
-        public CategoriesController(ICategoryService service, IDataTableBuilder builder) : base(builder)
+        public CategoriesController(ICategoryService service, IDataTableOptionBuilder builder) : base(builder)
         {
             _service = service;
         }

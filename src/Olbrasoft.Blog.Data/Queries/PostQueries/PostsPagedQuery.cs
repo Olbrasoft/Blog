@@ -10,5 +10,7 @@ namespace Olbrasoft.Blog.Data.Queries.PostQueries
         public PostsPagedQuery(IDispatcher dispatcher) : base(dispatcher)
         {
         }
+
+        public string Search { get; set; }
     }
 }

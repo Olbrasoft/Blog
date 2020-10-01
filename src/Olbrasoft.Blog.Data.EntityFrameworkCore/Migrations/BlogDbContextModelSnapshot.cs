@@ -15,7 +15,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -73,7 +73,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.HasKey("Id");
 
@@ -113,7 +114,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "1882180f-ffce-44b0-9094-fa34a89b9a8f",
+                            ConcurrencyStamp = "392415e3-3a60-4b9e-ae01-01d8afe24360",
                             Created = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
@@ -121,7 +122,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "d7cd9de9-7ed8-4611-8a8e-90f358ee3b47",
+                            ConcurrencyStamp = "9aab9c86-7a12-4417-ab79-37667cfa112c",
                             Created = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Blogger",
                             NormalizedName = "BLOGGER"
@@ -323,6 +324,38 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.ToTable("Tokens","Identity");
                 });
 
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.NestedComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CommentId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("NestedComments");
+                });
+
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -450,6 +483,21 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .WithMany("ToRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.NestedComment", b =>
+                {
+                    b.HasOne("Olbrasoft.Blog.Data.Entities.Comment", "Comment")
+                        .WithMany("NestedComments")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Olbrasoft.Blog.Data.Entities.Identity.BlogUser", "Creator")
+                        .WithMany("NestedComments")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 

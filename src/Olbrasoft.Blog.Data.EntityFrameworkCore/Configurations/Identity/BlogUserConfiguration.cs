@@ -18,7 +18,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
 
             builder.HasIndex(user => user.UserName).HasName("UserNameIndex").IsUnique();
 
-
             builder.HasMany(p => p.Posts).WithOne(p => p.Creator).HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Cascade);
 
@@ -31,10 +30,11 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
             builder.HasMany(p => p.PostToTags).WithOne(p => p.Creator).HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             builder.HasMany(p => p.ToRoles).WithOne(p => p.User).HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.HasMany(p => p.NestedComments).WithOne(p => p.Creator).HasForeignKey(p => p.CreatorId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

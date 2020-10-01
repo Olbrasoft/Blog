@@ -33,10 +33,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHan
                 .Skip(query.Paging.CalculateSkip())
                 .Take(query.Paging.PageSize);
 
-            return new PagedResult<CategoryOfUsersDto>
+            return new PagedResult<CategoryOfUsersDto>(await categories.ToArrayAsync(token))
             {
-                Records = await categories.ToArrayAsync(token),
-
                 TotalCount = await exceptUserCategories.CountAsync(token),
 
                 FilteredCount = await filteredCategories.CountAsync(token)

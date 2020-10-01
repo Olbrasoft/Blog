@@ -16,7 +16,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
 
         private readonly IPostService _service;
 
-        public PostsController(ICategoryService categoryService, ITagService tagService, IPostService service, IDataTableBuilder builder) : base(builder)
+        public PostsController(ICategoryService categoryService, ITagService tagService, IPostService service, IDataTableOptionBuilder builder) : base(builder)
         {
             _categoryService = categoryService;
             _tagService = tagService;

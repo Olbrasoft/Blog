@@ -11,7 +11,7 @@ namespace Olbrasoft.Data.Cqrs
 
         protected CommandHandler(IMapper mapper) => _mapper = mapper;
 
-        public abstract Task<TResult> HandleAsync(TCommand request, CancellationToken token);
+        public abstract Task<TResult> HandleAsync(TCommand command, CancellationToken token);
 
         protected TDestination MapTo<TDestination>(object source) => _mapper.MapTo<TDestination>(source);
     }

@@ -30,10 +30,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
             var tags = ProjectTo<TagOfUsersDto>(filteredTags.OrderBy(query.OrderByColumnName, query.OrderByDirection))
                 .Skip(query.Paging.CalculateSkip()).Take(query.Paging.PageSize);
 
-            return new PagedResult<TagOfUsersDto>()
+            return new PagedResult<TagOfUsersDto>(await tags.ToArrayAsync(token))
             {
-                Records = await tags.ToArrayAsync(token),
-
                 TotalCount = await Entities.Where(p => p.CreatorId != query.ExceptUserId).CountAsync(),
 
                 FilteredCount = await filteredTags.CountAsync()

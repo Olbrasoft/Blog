@@ -1,21 +1,21 @@
+using Localization.AspNetCore.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Olbrasoft.Blog.Business;
-using Olbrasoft.Blog.Business.Services;
 using Olbrasoft.Blog.Data.Entities.Identity;
 using Olbrasoft.Blog.Data.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
 using Olbrasoft.Blog.Data.MappingRegisters;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Paging.DataTables;
-using Olbrasoft.Dispatching.DependencyInjection.Microsoft;
+using Olbrasoft.Dispatching.WithExecutor.DependencyInjection.Microsoft;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
-using Singularity;
+using System.Globalization;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc
 {
@@ -31,7 +31,18 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddControllersWithViews()
+                  .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                    .AddDataAnnotationsLocalization();
+
+            services.AddSingleton<SharedLocalizer>();
+
+            services.Configure<LocalizeTagHelperOptions>(options =>
+            {
+                options.TrimWhitespace = false;
+            });
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
@@ -61,26 +72,41 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
             //Next registration is in CompositionRoot.cs
         }
 
-        public void ConfigureContainer(ContainerBuilder registry)
-        {
-            registry.SetupMvc();
+        //public void ConfigureContainer(ContainerBuilder registry)
+        //{
+        //    registry.SetupMvc();
 
-            //Setup some logger
-            registry.ConfigureSettings(s =>
-            {
-                s.With(Loggers.ConsoleLogger);
-            });
+        //    //Setup some logger
+        //    registry.ConfigureSettings(s =>
+        //    {
+        //        s.With(Loggers.ConsoleLogger);
+        //    });
 
-            registry.Register<ICategoryService, CategoryService>(c => c.With(Lifetimes.PerScope));
-            registry.Register<ITagService, TagService>(c => c.With(Lifetimes.PerScope));
-            registry.Register<IPostService, PostService>(c => c.With(Lifetimes.PerScope));
-            registry.Register<IDataTableBuilder, DataTableBuilder>(c => c.With(Lifetimes.PerScope));
-            registry.Register<DbContext, BlogDbContext>(c => c.With(Lifetimes.PerScope));
-        }
+        //    registry.Register<ICategoryService, CategoryService>(c => c.With(Lifetimes.PerScope));
+        //    registry.Register<ITagService, TagService>(c => c.With(Lifetimes.PerScope));
+        //    registry.Register<IPostService, PostService>(c => c.With(Lifetimes.PerScope));
+        //    registry.Register<IDataTableBuilder, DataTableBuilder>(c => c.With(Lifetimes.PerScope));
+        //    registry.Register<DbContext, BlogDbContext>(c => c.With(Lifetimes.PerScope));
+        //}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var supportedCultures = new[]
+            {
+                new CultureInfo("en"),
+                new CultureInfo("cs"),
+            };
+
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en"),
+                // Formatting numbers, dates, etc.
+                SupportedCultures = supportedCultures,
+                // UI strings that we have localized.
+                SupportedUICultures = supportedCultures
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -92,6 +118,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

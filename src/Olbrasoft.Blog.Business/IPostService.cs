@@ -10,10 +10,10 @@ namespace Olbrasoft.Blog.Business
     {
         Task<bool> SaveAsync(string title, string content, int categoryId, int userId = 0, IEnumerable<int> tagIds = null, int id = 0);
 
-        Task<IBasicPagedResult<PostDto>> PostsAsync(IPageInfo paging);
+        Task<IBasicPagedResult<PostDto>> PostsAsync(string search, IPageInfo paging);
 
         Task<PostDetailDto> PostAsync(int id);
-        
+
         Task<IPagedResult<PostOfUserDto>> PostsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search);
 
         Task<PostEditDto> PostForEditingByIdAsync(int id);

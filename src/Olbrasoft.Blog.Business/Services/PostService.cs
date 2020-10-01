@@ -23,9 +23,9 @@ namespace Olbrasoft.Blog.Business.Services
             return await new PostByIdQuery(Dispatcher) { Id = id }.ExecuteAsync();
         }
 
-        public async Task<IBasicPagedResult<PostDto>> PostsAsync(IPageInfo paging)
+        public async Task<IBasicPagedResult<PostDto>> PostsAsync(string search, IPageInfo paging)
         {
-            return await new PostsPagedQuery(Dispatcher) { Paging = paging }.ExecuteAsync();
+            return await new PostsPagedQuery(Dispatcher) { Search = search, Paging = paging }.ExecuteAsync();
         }
 
         public async Task<IPagedResult<PostOfUserDto>> PostsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search)

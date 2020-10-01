@@ -1,21 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Olbrasoft.Blog.AspNetCore.Mvc.Controllers;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Paging.DataTables;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
 {
-    public class AdminDataTablesController : AdminController
+    [Authorize]
+    [Area("Administration")]
+    public class AdminDataTablesController : BlogController
     {
-        private readonly IDataTableBuilder _builder;
+        private readonly IDataTableOptionBuilder _builder;
 
-        public AdminDataTablesController(IDataTableBuilder builder)
+        public AdminDataTablesController(IDataTableOptionBuilder builder)
         {
             _builder = builder;
         }
 
-        protected JsonResult BuildDataTableJson<T>(IPagedResult<T> result)
+        protected IActionResult BuildDataTableJson<T>(IPagedResult<T> result)
         {
-            return _builder.BuildJson(result);
+            return Json(new
+            {
+                recordsTotal = result.TotalCount,
+                recordsFiltered = result.FilteredCount,
+                data = result
+            });
         }
 
         protected DataTableQueryOption BuildDataTableQueryOption(DataTableModel model, string defaultColumnName)

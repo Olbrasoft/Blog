@@ -15,26 +15,25 @@
     <Compile Remove="Migrations\20200226133533_blog.Designer.cs" />
     <Compile Remove="Migrations\20200226141115_seedRole.cs" />
     <Compile Remove="Migrations\20200226141115_seedRole.Designer.cs" />
+    <Compile Remove="Migrations\20200330223126_nestedComment.cs" />
+    <Compile Remove="Migrations\20200330223126_nestedComment.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.2" />
-    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.8" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.8" />
+    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
     <ProjectReference Include="..\Olbrasoft.Data.Cqrs.EntityFrameworkCore\Olbrasoft.Data.Cqrs.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data.Paging\Olbrasoft.Data.Paging.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Data\Olbrasoft.Data.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Linq\Olbrasoft.Linq.csproj" />
   </ItemGroup>
 
 </Project>

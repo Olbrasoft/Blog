@@ -1,72 +1,132 @@
-﻿@model PostDetailViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using Olbrasoft.Blog.Data.Entities.Identity
+@using Olbrasoft.Extensions
+@using System.Security.Claims;
+@model PostDetailViewModel
+@inject SignInManager<BlogUser> SignInManager
+@inject SharedLocalizer Localizer
 
 @{
     Layout = "_Layout";
 }
 
 <div class="row">
-
     <div class="col-lg-8">
-
         <h1 class="mt-4">@Model.Post.Title</h1>
-
         <p class="lead">
-            by
-            <a href="#@Model.Post.CreatorId">@Model.Post.Creator</a>
+            <localize>by</localize>
+            <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByCreatorId:@Model.Post.CreatorId">@Model.Post.Creator</a>
         </p>
         <hr>
-        <p>Posted on @Model.Post.Created.ToString("dddd, dd MMMM yyyy")</p>
+        <p><localize localizer="@Localizer">Posted on</localize> @Model.Post.Created.ToString("dddd, dd MMMM yyyy")</p>
         <hr>
-        <img class="img-fluid rounded" src="http://placehold.it/750x300" alt="">
+        <img class="img-fluid rounded" src="https://placehold.it/750x300" alt="">
         <hr>
         <markdown raw="true">@Model.Post.Content</markdown>
         <hr>
-        <div class="card my-4">
-            <h5 class="card-header">Leave a Comment:</h5>
-            <div class="card-body">
-                <form>
-                    <div class="form-group">
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-        </div>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="card my-4">
 
-        <!-- Single Comment -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-            </div>
-        </div>
+                @if (Model.ParentCommentId > 0)
+                {
+                    <h5 class="card-header" localize>Reply a Comment:</h5>
+                }
+                else
+                {
+                    <h5 class="card-header" localize>Leave a Comment:</h5>
+                }
 
-        <!-- Comment with nested comments -->
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <div class="card-body">
+                    <form asp-area="" asp-controller="Home" asp-action="SaveComment">
 
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="CommentId" />
+                        <input type="hidden" asp-for="ParentCommentId" />
 
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
+                        <div class="form-group">
+                            @if (Model.ParentCommentId > 0)
+                            {
+                                <div>
+                                    <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id"><i class="fa fa-arrow-left"></i> <localize>Back</localize></a> @Model.CommentedCommentText
+                                </div>
+                                <br />
+                            }
+                            <textarea asp-for="CommentText" maxlength="500" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="CommentText" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary" localize>Submit</button>
+                    </form>
                 </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="card my-4">
+                <h5 class="card-header" localize>Leave a Comment:</h5>
+                <div class="card-body">
+                    <a class="nav-link" asp-area="Administration" asp-controller="Account" asp-action="Register" title="@Localizer["Register"]" localizer="@Localizer" localize>Register</a>
+                    <a class="nav-link" asp-area="Administration" asp-controller="Account" asp-action="Login" title="@Localizer["Login"]" localizer="@Localizer" localize>Login</a>
+                </div>
+            </div>
+        }
+
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="media mb-4">
+                <img class="d-flex mr-3 rounded-circle" src="https://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">@comment.Creator</h5>
+                    @comment.Text
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <div>
+                            <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-parentCommentId="@comment.Id" localize-title="Reply"><i class="fa fa-reply" aria-hidden="true"></i> <localize>Reply</localize></a>
+                            <span>|</span>
+                            @if (int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == comment.CreatorId)
+                            {
+                                <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-commentId="@comment.Id" localize-title="Edit"><i class="fa fa-pencil" aria-hidden="true"></i> <localize>Edit</localize></a>
+                                <span>|</span>
+                                <a onclick="return confirm('@Localizer["Are you sure you wish to delete"]: @comment.Text.Truncate(50, true)...');"
+                                   asp-area="" asp-controller="Home"
+                                   asp-action="DeleteComment"
+                                   asp-route-postId="@Model.Id"
+                                   asp-route-commentId="@comment.Id" localize-title="Delete"><i class="fa fa-trash" aria-hidden="true"></i> <localize>Delete</localize></a>
+                            }
+                        </div>
+                    }
+                    @foreach (var nestedComment in comment.NestedComments)
+                    {
+                        <div class="media mt-4">
+                            <img class="d-flex mr-3 rounded-circle" src="https://placehold.it/50x50" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0">@nestedComment.Creator</h5>
+                                @nestedComment.Text
+
+                                @if (SignInManager.IsSignedIn(User) && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == nestedComment.CreatorId)
+                                {
+                                    <div>
+                                        <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-commentId="@nestedComment.Id" asp-route-parentCommentId="@comment.Id"><i class="fa fa-pencil" aria-hidden="true"></i> <localize>Edit</localize></a>
+                                        <span>|</span>
+                                        <a onclick="return confirm('@Localizer["Are you sure you wish to delete"]: @nestedComment.Text.Truncate(50, true)...');"
+                                           asp-area="" asp-controller="Home"
+                                           asp-action="DeleteNestedComment"
+                                           asp-route-postId="@Model.Id"
+                                           asp-route-nestedCommentId="@nestedComment.Id"><i class="fa fa-trash" aria-hidden="true"></i> <localize>Delete</localize></a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
     </div>
 
     <partial name="~/Views/Shared/_RightColumnPartial.cshtml" model="@Model.NestedModel" />
 </div>
+
+@section scripts {
+    <script src="~/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/vendor/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

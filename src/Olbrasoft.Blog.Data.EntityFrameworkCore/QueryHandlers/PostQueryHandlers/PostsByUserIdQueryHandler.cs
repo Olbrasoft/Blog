@@ -31,10 +31,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandler
                  .Skip(query.Paging.CalculateSkip())
                  .Take(query.Paging.PageSize);
 
-            return new PagedResult<PostOfUserDto>
+            return new PagedResult<PostOfUserDto>(await posts.ToArrayAsync(token))
             {
-                Records = await posts.ToArrayAsync(token),
-
                 TotalCount = await Entities.Where(p => p.CreatorId == query.UserId).CountAsync(),
 
                 FilteredCount = await filteredPosts.CountAsync()
