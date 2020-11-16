@@ -3,7 +3,7 @@ using Olbrasoft.Blog.Data.Commands.NestedCommentCommands;
 using Olbrasoft.Blog.Data.Dtos.CommentDtos;
 using Olbrasoft.Blog.Data.Queries.CommentQueries;
 using Olbrasoft.Blog.Data.Queries.NestedCommentQueries;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

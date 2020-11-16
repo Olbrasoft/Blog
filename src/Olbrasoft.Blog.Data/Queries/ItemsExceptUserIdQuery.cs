@@ -1,5 +1,5 @@
 ﻿using Olbrasoft.Data.Cqrs.Queries;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 
 namespace Olbrasoft.Blog.Data.Queries.TagQueries
 {

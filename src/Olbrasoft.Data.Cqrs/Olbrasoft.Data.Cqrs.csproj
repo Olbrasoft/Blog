@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Olbrasoft.Data" Version="1.0.1" />
-    <PackageReference Include="Olbrasoft.Dispatching" Version="1.1.4" />
+    <PackageReference Include="Olbrasoft.Dispatching.Common" Version="1.0.0" />
     <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
   </ItemGroup>
 

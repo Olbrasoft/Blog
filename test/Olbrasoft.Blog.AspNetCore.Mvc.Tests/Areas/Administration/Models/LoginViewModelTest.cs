@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models
 {
     public class LoginViewModelTest
     {
@@ -34,6 +34,5 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             //Assert
             Assert.IsAssignableFrom<string>(password);
         }
-
     }
 }

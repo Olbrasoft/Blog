@@ -1,5 +1,8 @@
-﻿using MediatR;
+﻿using Moq;
 using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Dispatching.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +18,7 @@ namespace Olbrasoft.Blog.Data.Queries
         public void Instance_Implement_Interface_IRequest_Of_CategoryDto()
         {
             //Arrange
-            var type = typeof(IRequest<CategoryDto>);
+            var type = typeof(IRequest<CategoryOfUserDto>);
 
             //Act
             var query = CreateQuery();
@@ -26,7 +29,9 @@ namespace Olbrasoft.Blog.Data.Queries
 
         private static CategoryQuery CreateQuery()
         {
-            return new CategoryQuery();
+            var dispatcherMock = new Mock<IDispatcher>();
+
+            return new CategoryQuery(dispatcherMock.Object);
         }
 
         [Fact]
@@ -41,6 +46,5 @@ namespace Olbrasoft.Blog.Data.Queries
             //Assert
             Assert.IsAssignableFrom<int>(id);
         }
-
     }
 }

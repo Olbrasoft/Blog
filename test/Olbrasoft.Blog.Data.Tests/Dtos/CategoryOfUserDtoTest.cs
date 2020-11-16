@@ -1,14 +1,15 @@
-﻿using Xunit;
+﻿using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+using Xunit;
 
 namespace Olbrasoft.Blog.Data.Dtos
 {
-    public class CategoryDtoTest
+    public class CategoryOfUserDtoTest
     {
         [Fact]
         public void Have_Name()
         {
             //Arrange
-            var dto = new CategoryDto();
+            var dto = new CategoryOfUserDto();
 
             //Act
             var name = dto.Name;
@@ -21,7 +22,7 @@ namespace Olbrasoft.Blog.Data.Dtos
         public void Have_Id()
         {
             //Arrange
-            var dto = new CategoryDto();
+            var dto = new CategoryOfUserDto();
 
             //Act
             var id = dto.Id;
@@ -34,7 +35,7 @@ namespace Olbrasoft.Blog.Data.Dtos
         public void Have_PostCount()
         {
             //Arrange
-            var dto = new CategoryDto();
+            var dto = new CategoryOfUserDto();
 
             //Act
             var count = dto.PostCount;
@@ -47,7 +48,7 @@ namespace Olbrasoft.Blog.Data.Dtos
         public void Have_Tooltip()
         {
             //Arrange
-            var dto = new CategoryDto();
+            var dto = new CategoryOfUserDto();
 
             //Act
             var tip = dto.Tooltip;

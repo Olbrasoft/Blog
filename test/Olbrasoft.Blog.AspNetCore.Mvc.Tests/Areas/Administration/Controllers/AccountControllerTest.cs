@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers;
-using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models;
+using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 using Olbrasoft.Mapping;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
 {
     public class AccountControllerTest
     {
@@ -14,7 +13,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
         public void Inherit_From_Controller()
         {
             //Arrange
-
 
             //Act
             var controller = AccountController();
@@ -45,7 +43,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
         }
 
         [Fact]
-        public void _Register()
+        public void Register_Model()
         {
             //Arrange
             var controller = AccountController();
@@ -56,7 +54,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
 
             //Assert
             Assert.IsAssignableFrom<Task<IActionResult>>(result);
-
         }
     }
 }

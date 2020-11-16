@@ -1,15 +1,12 @@
 ﻿using Moq;
-using Olbrasoft.Blog.AspNetCore.Mvc.Properties;
-using Olbrasoft.Blog.Data.Dtos;
-using Olbrasoft.Paging;
-using Olbrasoft.Paging.X.PagedList;
-using System;
+using Olbrasoft.Blog.AspNetCore.Mvc.Resources;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using X.PagedList;
 using Xunit;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models
 {
     public class CategoriesViewModelTest
     {
@@ -17,7 +14,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
         public void Have_Name()
         {
             //Arrange
-            CategoriesViewModel model = CreateModel();
+            var model = CreateModel();
 
             //Act
             var name = model.Name;
@@ -28,7 +25,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
 
         private static CategoriesViewModel CreateModel()
         {
-            return new CategoriesViewModel { Categories = new Mock<IPagedList<CategoryDto>>().Object };
+            return new CategoriesViewModel { Categories = new Mock<IPagedList<CategoryOfUserDto>>().Object };
         }
 
         [Fact]
@@ -68,7 +65,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
 
             //Assert
             Assert.True(attribute.MaximumLength == 25 && attribute.ErrorMessageResourceName == "Validation_MaxLength");
-
         }
 
         [Fact]
@@ -84,7 +80,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             Assert.IsAssignableFrom<int>(maxLength);
         }
 
-
         [Fact]
         public void TooltipMaxLength()
         {
@@ -97,7 +92,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             //Assert
             Assert.IsAssignableFrom<int>(maxLegth);
         }
-               
+
         [Fact]
         public void Have_DoNotExists()
         {
@@ -121,9 +116,8 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             var categories = model.Categories;
 
             //Assert
-            Assert.IsAssignableFrom<IPagedList<CategoryDto>>(categories);
+            Assert.IsAssignableFrom<IPagedList<CategoryOfUserDto>>(categories);
         }
-
 
         [Fact]
         public void Tooltip()
@@ -138,7 +132,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             Assert.IsAssignableFrom<string>(tip);
         }
 
-
         [Fact]
         public void Tooltip_Display()
         {
@@ -149,7 +142,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             var attribute = (DisplayAttribute)property.GetCustomAttribute(typeof(DisplayAttribute));
 
             //Assert
-            Assert.True(attribute.Name == "Tooltip" && attribute.Prompt == "CategoryTooltip" && attribute.ResourceType == typeof(Resources) );
+            Assert.True(attribute.Name == "Tooltip" && attribute.Prompt == "CategoryTooltip" && attribute.ResourceType == typeof(Shared));
         }
 
         [Fact]
@@ -162,8 +155,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
             var attribute = (StringLengthAttribute)property.GetCustomAttribute(typeof(StringLengthAttribute));
 
             //Assert
-            Assert.True(attribute.MaximumLength == 50 && attribute.ErrorMessageResourceName == "Validation_MaxLength" && attribute.ErrorMessageResourceType == typeof(Resources));
+            Assert.True(attribute.MaximumLength == 50 && attribute.ErrorMessageResourceName == "Validation_MaxLength" && attribute.ErrorMessageResourceType == typeof(Shared));
         }
-
     }
 }

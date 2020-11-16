@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Olbrasoft.Blog.Business;
+using Olbrasoft.Data.Paging.DataTables;
 using System;
 using Xunit;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
 {
     public class TagsControllerTest
     {
@@ -16,7 +17,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
             var type = typeof(Controller);
 
             //Act
-            TagsController controller = CreateController();
+            var controller = CreateController();
 
             //Assert
             Assert.IsAssignableFrom(type, controller);
@@ -25,18 +26,19 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
         private static TagsController CreateController()
         {
             var serviceMock = new Mock<ITagService>();
+            var dataTableBuilder = new Mock<IDataTableOptionBuilder>();
 
-            return new TagsController(serviceMock.Object);
+            return new TagsController(serviceMock.Object, dataTableBuilder.Object);
         }
 
         [Fact]
-        public void Index()
+        public async System.Threading.Tasks.Task IndexAsync()
         {
             //Arrange
             var controller = CreateController();
 
             //Act
-            var result = controller.Index();
+            var result = await controller.IndexAsync();
 
             //Assert
             Assert.IsAssignableFrom<IActionResult>(result);
@@ -52,7 +54,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
             var rv = attribute.RouteValue;
 
             //Assert
-            Assert.True(rv == "Identity");
+            Assert.True(rv == "Administration");
         }
 
         [Fact]
@@ -68,7 +70,5 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
             //Assert
             Assert.NotNull(attribute);
         }
-
-
     }
 }

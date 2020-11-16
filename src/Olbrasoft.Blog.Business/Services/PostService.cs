@@ -4,7 +4,7 @@ using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

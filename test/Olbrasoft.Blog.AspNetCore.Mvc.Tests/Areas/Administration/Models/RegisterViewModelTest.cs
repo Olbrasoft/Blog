@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Models
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models
 {
     public class RegisterViewModelTest
     {

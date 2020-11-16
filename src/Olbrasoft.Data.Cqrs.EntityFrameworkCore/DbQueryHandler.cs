@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 using Olbrasoft.Mapping;
 using System.Linq;
 

@@ -1,8 +1,9 @@
-﻿using MediatR;
-using Moq;
-using Olbrasoft.Blog.Data.Dtos;
-using Olbrasoft.Blog.Data.Queries;
-using Olbrasoft.Paging;
+﻿using Moq;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Data.Paging;
+using Olbrasoft.Dispatching.Common;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -26,22 +27,18 @@ namespace Olbrasoft.Blog.Business.Services
 
         private static CategoryService CreateServiceAsync()
         {
-            IResultWithTotalCount<CategoryDto> pagedResult = new ResultWithTotalCount<CategoryDto>
-            {
-                Result = new[] { new CategoryDto() },
-                TotalCount = 0
-            };
+            IPagedResult<CategoryOfUserDto> pagedResult = new PagedResult<CategoryOfUserDto>(new[] { new CategoryOfUserDto() });
 
             var taskResult = Task.FromResult(pagedResult);
-            var mediatorMock = new Mock<IMediator>();
-            mediatorMock.Setup(m => m.Send(It.IsAny<CategoryExistsQuery>(), It.IsAny<CancellationToken>()))
+            var mediatorMock = new Mock<IDispatcher>();
+            mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoryExistsQuery>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(true));
 
-            mediatorMock.Setup(m => m.Send(It.IsAny<CategoriesPagedQuery>(), It.IsAny<CancellationToken>()))
+            mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoriesByUserIdQuery>(), It.IsAny<CancellationToken>()))
                 .Returns(taskResult);
 
-            mediatorMock.Setup(m => m.Send(It.IsAny<CategoryQuery>(), It.IsAny<CancellationToken>()))
-              .Returns(Task.FromResult(new CategoryDto()));
+            mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoryQuery>(), It.IsAny<CancellationToken>()))
+              .Returns(Task.FromResult(new CategoryOfUserDto()));
 
             return new CategoryService(mediatorMock.Object);
         }
@@ -53,23 +50,23 @@ namespace Olbrasoft.Blog.Business.Services
             var service = CreateServiceAsync();
 
             //Act
-            var result = await service.ExistsAsync("");
+            var result = await service.ExistsAsync(0, "");
 
             //Assert
             Assert.True(result);
         }
 
         [Fact]
-        public async Task CategoriesAsync()
+        public async Task CategoriesAsync_Returns_IEnumerable_Of_CategorySmallDto()
         {
             //Arrange
             var service = CreateServiceAsync();
 
             //Act
-            var result = await service.CategoriesAsync(new PageInfo());
+            var result = await service.CategoriesAsync();
 
             //Assert
-            Assert.IsAssignableFrom<IResultWithTotalCount<CategoryDto>>(result);
+            Assert.IsAssignableFrom<IEnumerable<CategorySmallDto>>(result);
         }
 
         [Fact]
@@ -121,7 +118,7 @@ namespace Olbrasoft.Blog.Business.Services
             var result = await service.CategoryAsync(0);
 
             //Assert
-            Assert.IsAssignableFrom<CategoryDto>(result);
+            Assert.IsAssignableFrom<CategoryOfUserDto>(result);
         }
     }
 }

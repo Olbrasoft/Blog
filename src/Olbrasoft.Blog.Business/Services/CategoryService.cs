@@ -3,7 +3,7 @@ using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -50,7 +50,6 @@ namespace Olbrasoft.Blog.Business.Services
             return await query.ExecuteAsync();
         }
 
-    
         public async Task<CategoryOfUserDto> CategoryAsync(int id)
         {
             return await new CategoryQuery(Dispatcher) { Id = id }.ExecuteAsync();

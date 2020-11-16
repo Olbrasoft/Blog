@@ -1,5 +1,5 @@
 ﻿using Olbrasoft.Data.Cqrs;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 
 namespace Olbrasoft.Blog.Data.Commands
 {

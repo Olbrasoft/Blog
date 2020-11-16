@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Dispatching;
+﻿using Olbrasoft.Dispatching.Common;
 using Olbrasoft.Mapping;
 using System.Threading;
 using System.Threading.Tasks;

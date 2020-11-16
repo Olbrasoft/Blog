@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Moq;
+using Olbrasoft.Dispatching.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Olbrasoft.Blog.Data.Commands
         public void Instance_Implement_Interface_IRequest_Of_Bool()
         {
             //Arrange
-            var type = typeof(IRequest<bool>);
+            var type = typeof(Dispatching.Common.IRequest<bool>);
 
             //Act
             var cmd = CreateCommand();
@@ -25,7 +26,9 @@ namespace Olbrasoft.Blog.Data.Commands
 
         private static TagSaveCommand CreateCommand()
         {
-            return new TagSaveCommand();
+            var dispatcherMock = new Mock<IDispatcher>();
+
+            return new TagSaveCommand(dispatcherMock.Object);
         }
 
         [Fact]
@@ -40,7 +43,6 @@ namespace Olbrasoft.Blog.Data.Commands
             //Assert
             Assert.IsAssignableFrom<int>(id);
         }
-
 
         [Fact]
         public void Have_Label()
@@ -62,7 +64,7 @@ namespace Olbrasoft.Blog.Data.Commands
             var cmd = CreateCommand();
 
             //Act
-            var id = cmd.UserId;
+            var id = cmd.CreatorId;
 
             //Assert
             Assert.IsAssignableFrom<int>(id);

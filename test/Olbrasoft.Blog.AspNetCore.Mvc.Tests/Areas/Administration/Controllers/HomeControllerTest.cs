@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
 {
     public class HomeControllerTest
     {
@@ -17,14 +17,10 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers
             var type = typeof(Controller);
 
             //Act
-            var controller = new Olbrasoft.Blog.AspNetCore.Mvc.Areas.Identity.Controllers.HomeController();
+            var controller = new Controllers.HomeController();
 
             //Assert
             Assert.IsAssignableFrom(type, controller);
-
         }
-        
-
-
     }
 }

@@ -1,5 +1,7 @@
-﻿using MediatR;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel.Client;
+using Moq;
+using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Dispatching.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,6 @@ namespace Olbrasoft.Blog.Data.Queries
 {
     public class CategoryExistsQueryTest
     {
-
         [Fact]
         public void Instance_Implement_Interface_IRequest_Of_True()
         {
@@ -23,7 +24,6 @@ namespace Olbrasoft.Blog.Data.Queries
 
             //Assert
             Assert.IsAssignableFrom(type, query);
-
         }
 
         [Fact]
@@ -41,7 +41,9 @@ namespace Olbrasoft.Blog.Data.Queries
 
         private static CategoryExistsQuery CreateQuery()
         {
-            return new CategoryExistsQuery { ExceptId = 0 };
+            var dispatcherMock = new Mock<IDispatcher>();
+
+            return new CategoryExistsQuery(dispatcherMock.Object) { ExceptId = 0 };
         }
 
         [Fact]

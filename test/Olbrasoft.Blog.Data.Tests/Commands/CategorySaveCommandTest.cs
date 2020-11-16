@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Moq;
+using Olbrasoft.Dispatching.Common;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.Commands
@@ -20,7 +21,9 @@ namespace Olbrasoft.Blog.Data.Commands
 
         private static CategorySaveCommand CreateCommand()
         {
-            return new CategorySaveCommand() { Id = 0 };
+            var dispatcherMock = new Mock<IDispatcher>();
+
+            return new CategorySaveCommand(dispatcherMock.Object) { Id = 0 };
         }
 
         [Fact]
@@ -69,7 +72,7 @@ namespace Olbrasoft.Blog.Data.Commands
             var cmd = CreateCommand();
 
             //Act
-            var id = cmd.UserId;
+            var id = cmd.CreatorId;
 
             //Assert
             Assert.IsAssignableFrom<int>(id);

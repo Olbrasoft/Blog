@@ -1,5 +1,5 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 using System.Collections.Generic;
 
 namespace Olbrasoft.Blog.Data.Queries.TagQueries

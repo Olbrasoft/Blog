@@ -1,5 +1,5 @@
 ﻿using Olbrasoft.Blog.Data.Queries.CommentQueries;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 
 namespace Olbrasoft.Blog.Data.Queries.NestedCommentQueries
 {

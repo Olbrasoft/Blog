@@ -69,6 +69,8 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
 
             services.AddDispatching(typeof(CategoriesQuery).Assembly, typeof(CategoriesQueryHandler).Assembly);
 
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
             //Next registration is in CompositionRoot.cs
         }
 
@@ -110,7 +112,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

@@ -1,6 +1,6 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Data.Cqrs.Queries;
-using Olbrasoft.Dispatching;
+using Olbrasoft.Dispatching.Common;
 
 namespace Olbrasoft.Blog.Data.Queries.CategoryQueries
 {

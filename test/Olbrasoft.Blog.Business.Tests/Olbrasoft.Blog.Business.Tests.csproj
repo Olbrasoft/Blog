@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
@@ -19,7 +19,5 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Olbrasoft.Blog.AspNetCore.Mvc\Olbrasoft.Blog.AspNetCore.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
-    <ProjectReference Include="..\..\src\Olbrasoft.Paging\Olbrasoft.Paging.csproj" />
   </ItemGroup>
-
 </Project>

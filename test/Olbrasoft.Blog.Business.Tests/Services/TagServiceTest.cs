@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Moq;
+﻿using Moq;
+using Olbrasoft.Dispatching.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,6 @@ namespace Olbrasoft.Blog.Business.Services
 {
     public class TagServiceTest
     {
-
         [Fact]
         public void Instance_Inherit_From_Service()
         {
@@ -40,8 +39,7 @@ namespace Olbrasoft.Blog.Business.Services
 
         private static TagService CreateService()
         {
-
-            var mediatorMock = new Mock<IMediator>();
+            var mediatorMock = new Mock<IDispatcher>();
 
             return new TagService(mediatorMock.Object);
         }
@@ -53,11 +51,10 @@ namespace Olbrasoft.Blog.Business.Services
             var ser = CreateService();
 
             //Act
-            var result = await ser.SaveAsync(0,"",0);
+            var result = await ser.SaveAsync(0, "", 0);
 
             //Assert
             Assert.IsAssignableFrom<bool>(result);
         }
-
     }
 }
