@@ -1,5 +1,10 @@
-﻿using MediatR;
-using Olbrasoft.Blog.Data.Queries;
+﻿using Microsoft.AspNetCore.Authentication;
+using Moq;
+using Olbrasoft.Blog.Data.Entities;
+using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
+using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Dispatching.Common;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -32,13 +37,20 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         {
             //Arrange
             var handler = CreateHandler();
-            var query = new CategoryExistsQuery() { Name = "NotExist" };
+            var dispatcherMock = MockOfDispatcher();
+
+            var query = new CategoryExistsQuery(dispatcherMock.Object) { Name = "NotExist" };
 
             //Act
-            var result = await handler.Handle(query, default);
+            var result = await handler.HandleAsync(query, default);
 
             //Assert
             Assert.False(result);
+        }
+
+        private static Mock<IDispatcher> MockOfDispatcher()
+        {
+            return new Mock<IDispatcher>();
         }
 
         [Fact]
@@ -46,10 +58,11 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         {
             //Arrange
             var handler = CreateHandler();
-            var query = new CategoryExistsQuery() { Name = string.Empty };
+
+            var query = new CategoryExistsQuery(MockOfDispatcher().Object) { Name = string.Empty };
 
             //Act
-            var result = await handler.Handle(query, default);
+            var result = await handler.HandleAsync(query, default);
 
             //Assert
             Assert.IsAssignableFrom<bool>(result);
@@ -60,10 +73,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         {
             //Arrange
             var handler = CreateHandler();
-            var query = new CategoryExistsQuery() { ExceptId = 1, Name = "NotExist" };
+            var query = new CategoryExistsQuery(MockOfDispatcher().Object) { ExceptId = 1, Name = "NotExist" };
 
             //Act
-            var result = await handler.Handle(query, default);
+            var result = await handler.HandleAsync(query, default);
 
             //Assert
             Assert.IsAssignableFrom<bool>(result);
@@ -73,7 +86,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         public void Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(Handler<CategoryExistsQuery, bool>);
+            var type = typeof(QueryHandler<CategoryExistsQuery>);
 
             //Act
             var handler = CreateHandler();

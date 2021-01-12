@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
-    public class CategoryExistsQueryHandler : DbQueryHandler<Category, CategoryExistsQuery>
+    public class CategoryExistsQueryHandler : BlogDbQueryHandler<Category, CategoryExistsQuery>
     {
-        public CategoryExistsQueryHandler(BlogDbContext context) : base(context)
+        public CategoryExistsQueryHandler(IDbContextFactory<BlogDbContext> factory) : base(factory)
         {
         }
 
         public override async Task<bool> HandleAsync(CategoryExistsQuery query, CancellationToken cancellationToken)
         {
-
             if (string.IsNullOrEmpty(query.Name))
             {
                 return await Entities.AnyAsync();

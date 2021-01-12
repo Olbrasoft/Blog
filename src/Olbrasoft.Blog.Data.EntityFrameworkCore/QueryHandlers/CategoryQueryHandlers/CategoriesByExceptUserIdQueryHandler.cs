@@ -2,7 +2,6 @@
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Data.Linq.Expressions;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Mapping;
@@ -12,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
-    public class CategoriesByExceptUserIdQueryHandler : DbQueryHandler<Category, CategoriesByExceptUserIdQuery, IPagedResult<CategoryOfUsersDto>>
+    public class CategoriesByExceptUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByExceptUserIdQuery, IPagedResult<CategoryOfUsersDto>>
     {
-        public CategoriesByExceptUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        public CategoriesByExceptUserIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
         {
         }
 

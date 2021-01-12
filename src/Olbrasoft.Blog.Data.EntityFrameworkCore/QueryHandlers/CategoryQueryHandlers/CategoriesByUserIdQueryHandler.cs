@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
-    public class CategoriesByUserIdQueryHandler : DbQueryHandler<Category, CategoriesByUserIdQuery, IPagedResult<CategoryOfUserDto>>
+    public class CategoriesByUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByUserIdQuery, IPagedResult<CategoryOfUserDto>>
     {
-        public CategoriesByUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        public CategoriesByUserIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
         {
         }
 

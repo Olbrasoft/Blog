@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Entities.Identity;
-using ServiceStack.Testing;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore
@@ -23,11 +21,9 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore
 
         private static BlogDbContext BlogDbContext()
         {
-            
             var ctx = new BlogDbContext(new DbContextOptions<BlogDbContext>());
             return ctx;
         }
-
 
         [Fact]
         public void Have_Posts()
@@ -40,7 +36,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore
 
             //Assert
             Assert.IsAssignableFrom<DbSet<Post>>(posts);
-
         }
 
         [Fact]

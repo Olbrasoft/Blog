@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
-    public class TagExistsQueryHandler : DbQueryHandler<Tag, TagExistsQuery>
+    public class TagExistsQueryHandler : BlogDbQueryHandler<Tag, TagExistsQuery>
     {
-        public TagExistsQueryHandler(BlogDbContext context) : base(context)
+        public TagExistsQueryHandler(IDbContextFactory<BlogDbContext> factory) : base(factory)
         {
         }
 

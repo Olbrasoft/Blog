@@ -12,7 +12,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
             var type = typeof(BlogTypeConfiguration<Comment>);
 
             //Act
-            var config = new BlogPostCommentConfiguration();
+            var config = new CommentConfiguration();
 
             //Assert
             Assert.IsAssignableFrom(type, config);

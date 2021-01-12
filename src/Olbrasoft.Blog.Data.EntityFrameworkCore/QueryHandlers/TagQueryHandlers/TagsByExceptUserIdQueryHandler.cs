@@ -2,7 +2,6 @@
 using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Data.Linq.Expressions;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Mapping;
@@ -12,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
-    public class TagsByExceptUserIdQueryHandler : DbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
+    public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
     {
-        public TagsByExceptUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        public TagsByExceptUserIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
         {
         }
 

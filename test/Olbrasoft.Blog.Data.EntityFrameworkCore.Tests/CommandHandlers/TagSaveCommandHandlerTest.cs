@@ -1,4 +1,6 @@
-﻿using Olbrasoft.Blog.Data.Commands;
+﻿using Moq;
+using Olbrasoft.Blog.Data.Commands;
+using Olbrasoft.Data.Cqrs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         public void Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(Handler<TagSaveCommand, bool>);
+            var type = typeof(CommandHandler<TagSaveCommand, bool>);
 
             //Act
             var handler = CreateHandler();
@@ -26,8 +28,9 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         private static TagSaveCommandHandler CreateHandler()
         {
             var ctx = new InMemoryDbContextFactory().CreateContext();
+            var mapperMock = new Mock<Mapping.IMapper>();
 
-            return new TagSaveCommandHandler(ctx);
+            return new TagSaveCommandHandler(mapperMock.Object, ctx);
         }
     }
 }

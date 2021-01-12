@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.CommentQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Mapping;
 using System.Linq;
 using System.Threading;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHandlers
 {
-    public class CommentTextForEditingQueryHandler : DbQueryHandler<Comment, CommentTextForEditingQuery, string>
+    public class CommentTextForEditingQueryHandler : BlogDbQueryHandler<Comment, CommentTextForEditingQuery, string>
     {
-        public CommentTextForEditingQueryHandler(IProjector projector, DbContext context) : base(projector, context)
+        public CommentTextForEditingQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
         {
         }
 

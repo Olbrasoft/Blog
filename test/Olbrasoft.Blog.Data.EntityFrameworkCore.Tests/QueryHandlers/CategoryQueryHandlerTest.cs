@@ -1,5 +1,12 @@
-﻿using Olbrasoft.Blog.Data.Dtos;
+﻿using Moq;
+using Olbrasoft.Blog.Data.Dtos;
+using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
 using Olbrasoft.Blog.Data.Queries;
+using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Dispatching.Common;
+using Olbrasoft.Mapping;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,7 +18,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         public void Instance_Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(Handler<CategoryQuery, CategoryDto>);
+            var type = typeof(QueryHandler<CategoryQuery, CategoryOfUserDto>);
 
             //Act
             var handler = CreateHandler();
@@ -23,26 +30,14 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         private static CategoryQueryHandler CreateHandler()
         {
             var ctx = new InMemoryDbContextFactory().CreateContext();
-            return new CategoryQueryHandler(ctx);
+            var projectorMock = ProjectorMock();
+
+            return new CategoryQueryHandler(projectorMock.Object, ctx);
         }
 
-        [Fact]
-        public async Task Handle()
+        private static Mock<IProjector> ProjectorMock()
         {
-            var ctx = new InMemoryDbContextFactory().CreateContext();
-
-            ctx.Categories.Add(new Entities.Category { Id = 3 });
-            ctx.SaveChanges();
-
-            //Arrange
-            var handler = new CategoryQueryHandler(ctx);
-            var query = new CategoryQuery() { Id = 3 };
-
-            //Act
-            var result = await handler.Handle(query, default);
-
-            //Assert
-            Assert.IsAssignableFrom<CategoryDto>(result);
+            return new Mock<IProjector>();
         }
     }
 }

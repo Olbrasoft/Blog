@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
 {
-    public class PostDetailByIdQueryHandler : DbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
+    public class PostDetailByIdQueryHandler : BlogDbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
     {
-        public PostDetailByIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        public PostDetailByIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
         {
         }
 

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class CategorySaveCommandHandler : DbCommandHandler<Category, CategorySaveCommand>
+    public class CategorySaveCommandHandler : DbCommandHandler<CategorySaveCommand, BlogDbContext, Category>
     {
-        public CategorySaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
+        public CategorySaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> contextFactory) : base(mapper, contextFactory)
         {
         }
 
@@ -19,11 +19,11 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         {
             if (Command.Id == 0)
             {
-                await Set.AddAsync(MapTo<Category>(Command), token);
+                await Entities.AddAsync(MapTo<Category>(Command), token);
             }
             else
             {
-                var category = await Set.FirstAsync(p => p.Id == Command.Id, token);
+                var category = await Entities.FirstAsync(p => p.Id == Command.Id, token);
 
                 if (category == null)
                 {
@@ -34,10 +34,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 
                 category.Tooltip = Command.Tooltip;
 
-                Set.Update(category);
+                Entities.Update(category);
             }
 
-            return (await SaveAsyc(token) == 1);
+            return (await Context.SaveChangesAsync(token) == 1);
         }
     }
 }

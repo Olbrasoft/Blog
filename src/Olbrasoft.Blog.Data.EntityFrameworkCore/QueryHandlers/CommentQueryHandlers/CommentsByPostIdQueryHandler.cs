@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHandlers
 {
-    public class CommentsByPostIdQueryHandler : DbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>
+    public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>
     {
-        public CommentsByPostIdQueryHandler(IProjector projector, DbContext context) : base(projector, context)
+        public CommentsByPostIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
         {
         }
 

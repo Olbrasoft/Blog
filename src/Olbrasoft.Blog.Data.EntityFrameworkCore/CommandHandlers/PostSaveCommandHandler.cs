@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class PostSaveCommandHandler : DbCommandHandler<Post, PostSaveCommand>
+    public class PostSaveCommandHandler : DbCommandHandler<PostSaveCommand, BlogDbContext, Post>
     {
-        public PostSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
+        public PostSaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
         {
         }
 
@@ -31,25 +31,25 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 
             if (command.Id == 0)
             {
-                await Set.AddAsync(post, token);
+                await Entities.AddAsync(post, token);
             }
             else
             {
-                var srcPost = await Set.Include(p => p.ToTags).FirstAsync(p => p.Id == command.Id, token);
+                var srcPost = await Entities.Include(p => p.ToTags).FirstAsync(p => p.Id == command.Id, token);
 
                 Context.Set<PostToTag>().RemoveRange(srcPost.ToTags);
 
-                await SaveAsyc(token);
+                await Context.SaveChangesAsync(token);
 
                 srcPost.Title = post.Title;
                 srcPost.Content = post.Content;
                 srcPost.CategoryId = post.CategoryId;
                 srcPost.ToTags = post.ToTags;
 
-                Set.Update(srcPost);
+                Context.Update(srcPost);
             }
 
-            return (await SaveAsyc(token) > 1);
+            return (await Context.SaveChangesAsync(token) > 1);
         }
     }
 }

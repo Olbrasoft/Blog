@@ -13,10 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.AspNetCore.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Business", "src\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj", "{D263E598-5FBB-4C96-BCF2-4ABC1C3E9002}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Cqrs", "src\Olbrasoft.Data.Cqrs\Olbrasoft.Data.Cqrs.csproj", "{92A03646-A025-4965-BC54-08403B147D80}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Data.Cqrs.EntityFrameworkCore", "src\Olbrasoft.Data.Cqrs.EntityFrameworkCore\Olbrasoft.Data.Cqrs.EntityFrameworkCore.csproj", "{0F71B23C-F7E3-447B-8FA1-440105388A77}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.AspNetCore.Mvc.Tests", "test\Olbrasoft.Blog.AspNetCore.Mvc.Tests\Olbrasoft.Blog.AspNetCore.Mvc.Tests.csproj", "{ADEAD117-C5E3-44F8-A8AE-BAD64AB950B3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Business.Tests", "test\Olbrasoft.Blog.Business.Tests\Olbrasoft.Blog.Business.Tests.csproj", "{3AB3F2C2-99A2-46FF-A110-1CF31F2D9B49}"
@@ -45,14 +41,6 @@ Global
 		{D263E598-5FBB-4C96-BCF2-4ABC1C3E9002}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D263E598-5FBB-4C96-BCF2-4ABC1C3E9002}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D263E598-5FBB-4C96-BCF2-4ABC1C3E9002}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92A03646-A025-4965-BC54-08403B147D80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92A03646-A025-4965-BC54-08403B147D80}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92A03646-A025-4965-BC54-08403B147D80}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92A03646-A025-4965-BC54-08403B147D80}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F71B23C-F7E3-447B-8FA1-440105388A77}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ADEAD117-C5E3-44F8-A8AE-BAD64AB950B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ADEAD117-C5E3-44F8-A8AE-BAD64AB950B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADEAD117-C5E3-44F8-A8AE-BAD64AB950B3}.Release|Any CPU.ActiveCfg = Release|Any CPU

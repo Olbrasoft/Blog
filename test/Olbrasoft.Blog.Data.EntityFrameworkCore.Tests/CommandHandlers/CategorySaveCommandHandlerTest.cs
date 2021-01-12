@@ -1,4 +1,8 @@
-﻿using Olbrasoft.Blog.Data.Commands;
+﻿using Moq;
+using Olbrasoft.Blog.Data.Commands;
+using Olbrasoft.Data.Cqrs;
+using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Dispatching.Common;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,7 +14,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         public void Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(Handler<CategorySaveCommand, bool>);
+            var type = typeof(CommandHandler<CategorySaveCommand, bool>);
 
             //Act
             var handler = CreateHandler();
@@ -22,23 +26,9 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         private static CategorySaveCommandHandler CreateHandler()
         {
             var ctx = new InMemoryDbContextFactory().CreateContext();
+            var mapperMock = new Mock<Mapping.IMapper>();
 
-            return new CategorySaveCommandHandler(ctx);
-        }
-
-        [Fact]
-        public async Task Handle()
-        {
-            //Arrange
-            var handler = CreateHandler();
-            var cmd = new CategorySaveCommand();
-
-
-            //Act
-            var result = await handler.Handle(cmd, default);
-
-            //Assert
-            Assert.IsAssignableFrom<bool>(result);
+            return new CategorySaveCommandHandler(mapperMock.Object, ctx);
         }
     }
 }

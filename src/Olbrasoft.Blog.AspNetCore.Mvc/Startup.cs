@@ -68,6 +68,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
             services.AddTextTransformationMarkdown();
 
             services.AddDispatching(typeof(CategoriesQuery).Assembly, typeof(CategoriesQueryHandler).Assembly);
+            services.AddDbContextFactory<BlogDbContext>(b => b.UseSqlServer(Configuration.GetConnectionString("BlogDbConnectionString")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

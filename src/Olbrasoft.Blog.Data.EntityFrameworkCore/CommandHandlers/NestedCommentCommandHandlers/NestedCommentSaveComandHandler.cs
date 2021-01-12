@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
 {
-    public class NestedCommentSaveComandHandler : DbCommandHandler<NestedComment, NestedCommentSaveCommand>
+    public class NestedCommentSaveComandHandler : DbCommandHandler<NestedCommentSaveCommand, BlogDbContext, NestedComment>
     {
-        public NestedCommentSaveComandHandler(IMapper mapper, DbContext context) : base(mapper, context)
+        public NestedCommentSaveComandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> context) : base(mapper, context)
         {
         }
 
@@ -19,11 +19,11 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentC
         {
             if (command.Id == 0 && command.CommentId > 0)
             {
-                await Set.AddAsync(MapTo<NestedComment>(command), token);
+                await Entities.AddAsync(MapTo<NestedComment>(command), token);
             }
             else
             {
-                var comment = await Set.FirstOrDefaultAsync(p => p.Id == command.Id && p.CreatorId == command.CreatorId, token);
+                var comment = await Entities.FirstOrDefaultAsync(p => p.Id == command.Id && p.CreatorId == command.CreatorId, token);
 
                 if (comment == null)
                 {
@@ -32,9 +32,9 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentC
 
                 comment.Text = command.Text;
 
-                Set.Update(comment);
+                Entities.Update(comment);
             }
-            return await SaveAsyc(token) == 1;
+            return await Context.SaveChangesAsync(token) == 1;
         }
     }
 }

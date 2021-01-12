@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class TagSaveCommandHandler : DbCommandHandler<Tag, TagSaveCommand>
+    public class TagSaveCommandHandler : DbCommandHandler<TagSaveCommand, BlogDbContext, Tag>
     {
-        public TagSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
+        public TagSaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
         {
         }
 
@@ -18,18 +18,18 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         {
             if (command.Id == 0)
             {
-                await Set.AddAsync(MapTo<Tag>(command), token);
+                await Entities.AddAsync(MapTo<Tag>(command), token);
             }
             else
             {
-                var tag = await Set.FirstAsync(p => p.Id == command.Id, token);
+                var tag = await Entities.FirstAsync(p => p.Id == command.Id, token);
 
                 tag.Label = command.Label;
 
-                Set.Update(tag);
+                Entities.Update(tag);
             }
 
-            return (await SaveAsyc(token) == 1);
+            return (await Context.SaveChangesAsync(token) == 1);
         }
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.NestedCommentQueryHandlers
 {
-    public class NestedCommentTextForEditingQueryHandler : DbQueryHandler<NestedComment, NestedCommentTextForEditingQuery, string>
+    public class NestedCommentTextForEditingQueryHandler : BlogDbQueryHandler<NestedComment, NestedCommentTextForEditingQuery, string>
     {
-        public NestedCommentTextForEditingQueryHandler(IProjector projector, DbContext context) : base(projector, context)
+        public NestedCommentTextForEditingQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
         {
         }
 

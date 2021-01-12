@@ -1,10 +1,9 @@
-﻿using Olbrasoft.Blog.Data.Dtos.CommentDtos;
-using Olbrasoft.Data.Cqrs.Queries;
+﻿using Olbrasoft.Data.Cqrs.Requests;
 using Olbrasoft.Dispatching.Common;
 
 namespace Olbrasoft.Blog.Data.Queries.CommentQueries
 {
-    public class CommentTextForEditingQuery : ByIdQuery<string>
+    public class CommentTextForEditingQuery : ByIdRequest<string>
     {
         public CommentTextForEditingQuery(IDispatcher dispatcher) : base(dispatcher)
         {

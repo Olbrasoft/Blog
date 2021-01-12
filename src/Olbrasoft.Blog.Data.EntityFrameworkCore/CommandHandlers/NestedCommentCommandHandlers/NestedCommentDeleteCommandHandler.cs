@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
 {
-    public class NestedCommentDeleteCommandHandler : DbCommandHandler<NestedComment, NestedCommentDeleteCommand>
+    public class NestedCommentDeleteCommandHandler : DbCommandHandler<NestedCommentDeleteCommand, BlogDbContext, NestedComment>
     {
-        public NestedCommentDeleteCommandHandler(IMapper mapper, DbContext context) : base(mapper, context)
+        public NestedCommentDeleteCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
         {
         }
 
         public override async Task<bool> HandleAsync(NestedCommentDeleteCommand command, CancellationToken token)
         {
-            var comment = await Set.Where(p => p.Id == command.Id && (p.CreatorId == command.CreatorId || command.CreatorId == 0)).FirstAsync(token);
+            var comment = await Entities.Where(p => p.Id == command.Id && (p.CreatorId == command.CreatorId || command.CreatorId == 0)).FirstAsync(token);
 
-            Set.Remove(comment);
+            Entities.Remove(comment);
 
-            return (await SaveAsyc(token) == 1);
+            return (await Context.SaveChangesAsync(token) == 1);
         }
     }
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommandHandlers
 {
-    public class CommentSaveCommandHandler : DbCommandHandler<Comment, CommentSaveCommand>
+    public class CommentSaveCommandHandler : DbCommandHandler<CommentSaveCommand, BlogDbContext, Comment>
     {
-        public CommentSaveCommandHandler(IMapper mapper, DbContext context) : base(mapper, context)
+        public CommentSaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
         {
         }
 
@@ -19,11 +19,11 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommand
         {
             if (command.Id == 0 && command.PostId > 0)
             {
-                await Set.AddAsync(MapTo<Comment>(command), token);
+                await Entities.AddAsync(MapTo<Comment>(command), token);
             }
             else
             {
-                var comment = await Set.FirstOrDefaultAsync(p => p.Id == command.Id && p.CreatorId == command.CreatorId, token);
+                var comment = await Entities.FirstOrDefaultAsync(p => p.Id == command.Id && p.CreatorId == command.CreatorId, token);
 
                 if (comment == null)
                 {
@@ -32,10 +32,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommand
 
                 comment.Text = command.Text;
 
-                Set.Update(comment);
+                Entities.Update(comment);
             }
 
-            return await SaveAsyc(token) == 1;
+            return await Context.SaveChangesAsync(token) == 1;
         }
     }
 }

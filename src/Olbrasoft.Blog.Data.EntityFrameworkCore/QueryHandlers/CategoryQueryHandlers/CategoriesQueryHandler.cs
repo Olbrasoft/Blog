@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
-    public class CategoriesQueryHandler : DbQueryHandler<Category, CategoriesQuery, IEnumerable<CategorySmallDto>>
+    public class CategoriesQueryHandler : BlogDbQueryHandler<Category, CategoriesQuery, IEnumerable<CategorySmallDto>>
     {
-        public CategoriesQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        public CategoriesQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
         {
         }
 

@@ -5,13 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="7.0.0" />
+    <PackageReference Include="Mapster" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
+    <PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.0.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Olbrasoft.Data.Cqrs\Olbrasoft.Data.Cqrs.csproj" />
-  </ItemGroup>
-
 </Project>

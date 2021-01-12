@@ -2,7 +2,6 @@
 using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Data.Linq.Expressions;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Mapping;
@@ -12,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
 {
-    public class PostsByUserIdQueryHandler : DbQueryHandler<Post, PostsByUserIdQuery, IPagedResult<PostOfUserDto>>
+    public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQuery, IPagedResult<PostOfUserDto>>
     {
-        public PostsByUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        public PostsByUserIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
         {
         }
 
