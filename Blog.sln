@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29814.53
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Data", "src\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj", "{5A4C710E-D4B1-4A42-9F92-43C3CADC91F2}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Business.Tests", "test\Olbrasoft.Blog.Business.Tests\Olbrasoft.Blog.Business.Tests.csproj", "{3AB3F2C2-99A2-46FF-A110-1CF31F2D9B49}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Data.Tests", "test\Olbrasoft.Blog.Data.Tests\Olbrasoft.Blog.Data.Tests.csproj", "{3B2A3D5C-28BF-4E8A-954F-2843EA234773}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Data.EntityFrameworkCore.Tests", "test\Olbrasoft.Blog.Data.EntityFrameworkCore.Tests\Olbrasoft.Blog.Data.EntityFrameworkCore.Tests.csproj", "{5E8DC472-9727-4610-821A-C4ADED3A1AB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{3B2A3D5C-28BF-4E8A-954F-2843EA234773}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B2A3D5C-28BF-4E8A-954F-2843EA234773}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B2A3D5C-28BF-4E8A-954F-2843EA234773}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8DC472-9727-4610-821A-C4ADED3A1AB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8DC472-9727-4610-821A-C4ADED3A1AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8DC472-9727-4610-821A-C4ADED3A1AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8DC472-9727-4610-821A-C4ADED3A1AB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{ADEAD117-C5E3-44F8-A8AE-BAD64AB950B3} = {B66273AC-7971-4F42-A7E5-0DE45CF1D185}
 		{3AB3F2C2-99A2-46FF-A110-1CF31F2D9B49} = {B66273AC-7971-4F42-A7E5-0DE45CF1D185}
 		{3B2A3D5C-28BF-4E8A-954F-2843EA234773} = {B66273AC-7971-4F42-A7E5-0DE45CF1D185}
+		{5E8DC472-9727-4610-821A-C4ADED3A1AB6} = {B66273AC-7971-4F42-A7E5-0DE45CF1D185}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5BCB177E-0727-41DC-93FF-B3379B4568F3}

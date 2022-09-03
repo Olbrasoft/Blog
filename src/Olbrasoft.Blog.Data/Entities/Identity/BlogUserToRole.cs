@@ -1,12 +1,10 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
+﻿namespace Olbrasoft.Blog.Data.Entities.Identity;
 
-namespace Olbrasoft.Blog.Data.Entities.Identity
+public class BlogUserToRole : Olbrasoft.Data.Entities.Identity.UserToRole
 {
-    public class BlogUserToRole : IdentityUserRole<int> , IHaveCreated
-    {
-        public BlogUser User { get; set; }
-        public BlogRole Role { get; set; }
-        public DateTimeOffset Created { get; set; }
-    }
+    private BlogUser? _user;
+    private BlogRole? _role;
+
+    public BlogUser User { get => _user ?? throw new InvalidOperationException(nameof(User)); set => _user = value; }
+    public BlogRole Role { get => _role ?? throw new InvalidOperationException(nameof(Role)); set => _role = value; }
 }

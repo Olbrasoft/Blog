@@ -1,12 +1,10 @@
 ﻿using Olbrasoft.Blog.Data.Queries.CommentQueries;
-using Olbrasoft.Dispatching.Common;
 
-namespace Olbrasoft.Blog.Data.Queries.NestedCommentQueries
+namespace Olbrasoft.Blog.Data.Queries.NestedCommentQueries;
+
+public class NestedCommentTextForEditingQuery : CommentTextForEditingQuery
 {
-    public class NestedCommentTextForEditingQuery : CommentTextForEditingQuery
+    public NestedCommentTextForEditingQuery(IDispatcher dispatcher) : base(dispatcher)
     {
-        public NestedCommentTextForEditingQuery(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
     }
 }

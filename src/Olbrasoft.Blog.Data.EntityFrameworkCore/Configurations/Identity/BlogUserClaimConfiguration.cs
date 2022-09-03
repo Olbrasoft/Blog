@@ -1,16 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Olbrasoft.Blog.Data.Entities.Identity;
+using Olbrasoft.Data.Entities.Identity;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
 {
-    public class BlogUserClaimConfiguration :BlogTypeConfiguration<BlogUserClaim>
+    public class BlogUserClaimConfiguration : BlogTypeConfiguration<UserClaim>
     {
-        public BlogUserClaimConfiguration():base((string) "UserClaims")
+        public BlogUserClaimConfiguration() : base((string)"UserClaims")
         {
-                
         }
 
-        public override void TypeConfigure(EntityTypeBuilder<BlogUserClaim> builder)
+        public override void TypeConfigure(EntityTypeBuilder<UserClaim> builder)
         {
         }
     }

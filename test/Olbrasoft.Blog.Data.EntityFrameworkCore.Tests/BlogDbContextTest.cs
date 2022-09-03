@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Entities.Identity;
+using Olbrasoft.Data.Entities.Identity;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore
@@ -12,7 +13,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore
         [Fact]
         public void Inherit_From_IdentityDbContext()
         {
-            var type = typeof(IdentityDbContext<BlogUser, BlogRole, int, BlogUserClaim, BlogUserToRole, BlogUserLogin, BlogRoleClaim, BlogUserToken>);
+            var type = typeof(IdentityDbContext<BlogUser, BlogRole, int, UserClaim, BlogUserToRole, UserLogin, RoleClaim, UserToken>);
 
             var ctx = BlogDbContext();
 

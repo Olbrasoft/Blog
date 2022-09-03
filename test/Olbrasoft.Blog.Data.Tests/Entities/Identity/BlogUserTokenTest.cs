@@ -1,31 +1,30 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
-using Xunit;
+using Olbrasoft.Data.Entities.Identity;
 
-namespace Olbrasoft.Blog.Data.Entities.Identity
+namespace Olbrasoft.Blog.Data.Entities.Identity;
+
+public class BlogUserTokenTest
 {
-    public class BlogUserTokenTest
+    [Fact]
+    public void Instance_Inherits_From_IdentityUserToken_Of_Integer()
     {
-        [Fact]
-        public void Instance_Inherits_From_IdentityUserToken_Of_Integer()
-        {
-            var type = typeof(IdentityUserToken<int>);
+        var type = typeof(IdentityUserToken<int>);
 
-            var token = new BlogUserToken();
+        var token = new UserToken();
 
-            Assert.IsAssignableFrom(type, token);
-        }
+        Assert.IsAssignableFrom(type, token);
+    }
 
-        [Fact]
-        public void Instance_Implement_Interface_IHaveCreated()
-        {
-            var type = typeof(IHaveCreated);
+    [Fact]
+    public void Instance_Implement_Interface_IHaveCreated()
+    {
+        var type = typeof(IHaveCreated);
 
-            var token = new BlogUserToken();
-            
-            Assert.IsAssignableFrom(type, token);
+        var token = new UserToken();
 
-            token.Created = DateTime.Now;
-        }
+        Assert.IsAssignableFrom(type, token);
+
+        token.Created = DateTime.Now;
     }
 }

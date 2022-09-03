@@ -2,18 +2,19 @@
 using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
-using Olbrasoft.Data.Linq.Expressions;
 using Olbrasoft.Data.Paging;
+using Olbrasoft.Extensions.Paging;
 using Olbrasoft.Mapping;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Olbrasoft.Extensions.Linq;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
     public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
     {
-        public TagsByExceptUserIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
+        public TagsByExceptUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
@@ -27,14 +28,12 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
             }
 
             var tags = ProjectTo<TagOfUsersDto>(filteredTags.OrderBy(query.OrderByColumnName, query.OrderByDirection))
-                .Skip(query.Paging.CalculateSkip()).Take(query.Paging.PageSize);
+                .Skip(query.Paging.CalculateSkip()).Take(query.Paging.PageSize).ToArrayAsync(token);
 
-            return new PagedResult<TagOfUsersDto>(await tags.ToArrayAsync(token))
-            {
-                TotalCount = await Entities.Where(p => p.CreatorId != query.ExceptUserId).CountAsync(),
-
-                FilteredCount = await filteredTags.CountAsync()
-            };
+            return (await tags)
+                .AsPagedResult(
+                await Entities.Where(p => p.CreatorId != query.ExceptUserId).CountAsync(token),
+                await filteredTags.CountAsync(token));
         }
     }
 }

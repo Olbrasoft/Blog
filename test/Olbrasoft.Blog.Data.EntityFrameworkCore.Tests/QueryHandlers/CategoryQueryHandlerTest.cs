@@ -1,13 +1,9 @@
 ﻿using Moq;
-using Olbrasoft.Blog.Data.Dtos;
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
-using Olbrasoft.Blog.Data.Queries;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Dispatching.Common;
+using Olbrasoft.Data.Cqrs;
 using Olbrasoft.Mapping;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers

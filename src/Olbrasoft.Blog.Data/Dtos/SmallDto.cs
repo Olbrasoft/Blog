@@ -1,7 +1,6 @@
-﻿namespace Olbrasoft.Blog.Data.Dtos
+﻿namespace Olbrasoft.Blog.Data.Dtos;
+
+public abstract class SmallDto
 {
-    public abstract class SmallDto
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

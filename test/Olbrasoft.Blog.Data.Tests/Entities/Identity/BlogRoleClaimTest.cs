@@ -1,39 +1,38 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Olbrasoft.Data.Entities.Identity;
 using System;
-using Xunit;
 
-namespace Olbrasoft.Blog.Data.Entities.Identity
+namespace Olbrasoft.Blog.Data.Entities.Identity;
+
+public class BlogRoleClaimTest
 {
-    public class BlogRoleClaimTest
+    [Fact]
+    public void Instance_Inherits_From_IdentityRoleClaim_of_Integer()
     {
-        [Fact]
-        public void Instance_Inherits_From_IdentityRoleClaim_of_Integer()
-        {
-            var type = typeof(IdentityRoleClaim<int>);
+        var type = typeof(IdentityRoleClaim<int>);
 
-            var claim = new BlogRoleClaim();
+        var claim = new RoleClaim();
 
-            Assert.IsAssignableFrom(type, claim);
-        }
+        Assert.IsAssignableFrom(type, claim);
+    }
 
-        [Fact]
-        public void Instance_Implement_Interface_IHaveCreated()
-        {
-            var type = typeof(IHaveCreated);
+    [Fact]
+    public void Instance_Implement_Interface_IHaveCreated()
+    {
+        var type = typeof(IHaveCreated);
 
-            var claim = new BlogRoleClaim();
+        var claim = new RoleClaim();
 
-            Assert.IsAssignableFrom(type, claim);
-        }
+        Assert.IsAssignableFrom(type, claim);
+    }
 
-        [Fact]
-        public void Created()
-        {
-            var awesomeCreated = DateTime.Now;
+    [Fact]
+    public void Created()
+    {
+        var awesomeCreated = DateTime.Now;
 
-            var claim = new BlogRoleClaim { Created = awesomeCreated };
+        var claim = new RoleClaim { Created = awesomeCreated };
 
-            Assert.Equal(expected: awesomeCreated, actual: claim.Created);
-        }
+        Assert.Equal(expected: awesomeCreated, actual: claim.Created);
     }
 }

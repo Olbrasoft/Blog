@@ -14,7 +14,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
     public class TagsWhereLabelContainsTextQueryHandler : BlogDbQueryHandler<Tag, TagsWhereLabelContainsTextQuery, IEnumerable<TagSmallDto>>
     {
-        public TagsWhereLabelContainsTextQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
+        public TagsWhereLabelContainsTextQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

@@ -3,7 +3,8 @@ using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching.Common;
+using Olbrasoft.Data.Sorting;
+using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -33,7 +34,9 @@ namespace Olbrasoft.Blog.Business.Services
                 Search = search
             };
 
-            return await query.ExecuteAsync();
+            var result = await query.ExecuteAsync();
+
+            return result;
         }
 
         public async Task<IPagedResult<CategoryOfUserDto>> CategoriesByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search)

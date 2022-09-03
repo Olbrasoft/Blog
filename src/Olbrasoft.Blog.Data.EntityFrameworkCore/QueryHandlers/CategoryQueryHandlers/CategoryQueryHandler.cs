@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHan
 {
     public class CategoryQueryHandler : BlogDbQueryHandler<Category, CategoryQuery, CategoryOfUserDto>
     {
-        public CategoryQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
+        public CategoryQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

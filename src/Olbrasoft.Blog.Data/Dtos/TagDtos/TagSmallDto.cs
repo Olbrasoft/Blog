@@ -1,7 +1,6 @@
-﻿namespace Olbrasoft.Blog.Data.Dtos.TagDtos
+﻿namespace Olbrasoft.Blog.Data.Dtos.TagDtos;
+
+public class TagSmallDto : SmallDto
 {
-    public class TagSmallDto : SmallDto
-    {
-        public string Label { get; set; }
-    }
+    public string Label { get; set; } = string.Empty;
 }

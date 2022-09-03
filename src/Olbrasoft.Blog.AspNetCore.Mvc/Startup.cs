@@ -12,7 +12,7 @@ using Olbrasoft.Blog.Data.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
 using Olbrasoft.Blog.Data.MappingRegisters;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Dispatching.WithExecutor.DependencyInjection.Microsoft;
+using Olbrasoft.Extensions.DependencyInjection;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
 using System.Globalization;
@@ -46,9 +46,12 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
-            services.AddDbContext<BlogDbContext>(options =>
+            services.AddDbContext<BlogDbContext>(options => {
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("BlogDbConnectionString")));
+                    Configuration.GetConnectionString("BlogDbConnectionString"));
+            },
+             ServiceLifetime.Transient
+             );
 
             services.AddIdentity<BlogUser, BlogRole>(options =>
             {
@@ -68,7 +71,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc
             services.AddTextTransformationMarkdown();
 
             services.AddDispatching(typeof(CategoriesQuery).Assembly, typeof(CategoriesQueryHandler).Assembly);
-            services.AddDbContextFactory<BlogDbContext>(b => b.UseSqlServer(Configuration.GetConnectionString("BlogDbConnectionString")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

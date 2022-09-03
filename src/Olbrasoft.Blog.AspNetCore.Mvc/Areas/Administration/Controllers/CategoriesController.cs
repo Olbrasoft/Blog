@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.Options;
 using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 using Olbrasoft.Blog.Business;
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Paging.DataTables;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,9 +20,8 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
         }
 
         public async Task<IActionResult> IndexAsync(int id = 0)
-        {
+        {           
             var model = new CategoriesViewModel();
-
             if (id > 0) //edit category
             {
                 var category = await _service.CategoryAsync(id);
@@ -28,7 +29,6 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
                 model.Name = category.Name;
                 model.Tooltip = category.Tooltip;
             }
-
             return View(model);
         }
 
@@ -62,6 +62,7 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
             var option = BuildDataTableQueryOption(model, nameof(CategoryOfUsersDto.Name));
 
             var categories = await _service.CategoriesByExceptUserIdAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search);
+                   
 
             return BuildDataTableJson(categories);
         }

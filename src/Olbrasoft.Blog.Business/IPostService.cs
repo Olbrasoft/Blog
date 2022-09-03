@@ -1,6 +1,7 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
+using Olbrasoft.Data.Sorting;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Olbrasoft.Blog.Business
     {
         Task<bool> SaveAsync(string title, string content, int categoryId, int userId = 0, IEnumerable<int> tagIds = null, int id = 0);
 
-        Task<IBasicPagedResult<PostDto>> PostsAsync(string search, IPageInfo paging);
+        Task<IPagedEnumerable<PostDto>> PostsAsync(string search, IPageInfo paging);
 
         Task<PostDetailDto> PostAsync(int id);
 

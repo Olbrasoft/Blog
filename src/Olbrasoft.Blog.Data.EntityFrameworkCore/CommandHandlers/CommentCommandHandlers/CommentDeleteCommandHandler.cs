@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommand
 {
     public class CommentDeleteCommandHandler : DbCommandHandler<CommentDeleteCommand, BlogDbContext, Comment>
     {
-        public CommentDeleteCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> context) : base(mapper, context)
+        public CommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 

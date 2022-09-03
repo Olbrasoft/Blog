@@ -1,13 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>Net6</TargetFramework>
+	<nullable>enable</nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="7.0.1" />
+    <PackageReference Include="Mapster" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.1" />
-    <PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="6.0.8" />
+    <PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.6.0" />
+    <PackageReference Include="Olbrasoft.Data.Entities.Identity" Version="1.0.0" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Using Include="System" />
+		<Using Include="System.Linq" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="Olbrasoft.Dispatching" />
+		<Using Include="Olbrasoft.Data.Paging" />
+		<Using Include="Olbrasoft.Data.Cqrs.Requests" />
+		<Using Include="Olbrasoft.Data.Cqrs.Queries" />
+
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
+	</ItemGroup>
+	
 </Project>

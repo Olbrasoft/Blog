@@ -1,14 +1,11 @@
-﻿using Olbrasoft.Dispatching.Common;
+﻿namespace Olbrasoft.Blog.Data.Queries.TagQueries;
 
-namespace Olbrasoft.Blog.Data.Queries.TagQueries
+public class TagExistsQuery : Request<bool>
 {
-    public class TagExistsQuery : Request<bool>
+    public TagExistsQuery(IDispatcher dispatcher) : base(dispatcher)
     {
-        public TagExistsQuery(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-
-        public int ExceptId { get; set; }
-        public string Label { get; set; } = string.Empty;
     }
+
+    public int ExceptId { get; set; }
+    public string Label { get; set; } = string.Empty;
 }

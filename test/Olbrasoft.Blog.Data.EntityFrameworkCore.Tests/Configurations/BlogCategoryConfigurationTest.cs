@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Olbrasoft.Blog.Data.Entities;
+﻿using Olbrasoft.Blog.Data.Entities;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations

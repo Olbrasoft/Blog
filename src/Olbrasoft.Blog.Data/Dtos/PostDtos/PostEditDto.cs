@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
+﻿namespace Olbrasoft.Blog.Data.Dtos.PostDtos;
 
-namespace Olbrasoft.Blog.Data.Dtos.PostDtos
+public class PostEditDto : SmallDto
 {
-    public class PostEditDto : SmallDto
-    {
-        public string Title { get; set; }
-        public string Content { get; set; }
-        public int CategoryId { get; set; }
-        public IEnumerable<int> TagIds { get; set; }
-    }
+    public string Title { get; set; } = string.Empty;
+    public string Content { get; set; } = string.Empty;
+    public int CategoryId { get; set; }
+    public IEnumerable<int> TagIds { get; set; } = Enumerable.Empty<int>();
 }

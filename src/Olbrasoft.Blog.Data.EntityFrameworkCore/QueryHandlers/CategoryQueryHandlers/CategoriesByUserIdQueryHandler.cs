@@ -3,18 +3,20 @@ using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Data.Linq.Expressions;
+using Olbrasoft.Extensions.Linq;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Mapping;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Olbrasoft.Extensions.Paging;
+using System;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
     public class CategoriesByUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByUserIdQuery, IPagedResult<CategoryOfUserDto>>
     {
-        public CategoriesByUserIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
+        public CategoriesByUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
@@ -26,19 +28,16 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHan
 
             if (!string.IsNullOrEmpty(query.Search))
             {
-                filteredCategories = filteredCategories.Where(p => p.Name.ToLower().Contains(query.Search.ToLower()) || p.Tooltip.ToLower().Contains(query.Search.ToLower()));
+                filteredCategories = filteredCategories.Where(p => p.Name.Contains(query.Search) || p.Tooltip.Contains(query.Search));
             }
+
+           
 
             var categories = ProjectTo<CategoryOfUserDto>(filteredCategories.OrderBy(query.OrderByColumnName, query.OrderByDirection))
                 .Skip(query.Paging.CalculateSkip())
-                .Take(query.Paging.PageSize);
-
-            return new PagedResult<CategoryOfUserDto>(await categories.ToArrayAsync(token))
-            {
-                TotalCount = await userCategories.CountAsync(token),
-
-                FilteredCount = await filteredCategories.CountAsync(token)
-            };
+                .Take(query.Paging.PageSize).ToArrayAsync(token);
+                    
+            return (await categories).AsPagedResult(await userCategories.CountAsync(token), await filteredCategories.CountAsync(token));
         }
     }
 }

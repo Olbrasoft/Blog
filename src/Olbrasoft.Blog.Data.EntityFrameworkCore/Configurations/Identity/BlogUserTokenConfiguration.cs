@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Olbrasoft.Blog.Data.Entities.Identity;
+using Olbrasoft.Data.Entities.Identity;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
 {
-    public class BlogUserTokenConfiguration : BlogTypeConfiguration<BlogUserToken>
+    public class BlogUserTokenConfiguration : BlogTypeConfiguration<UserToken>
     {
-        public BlogUserTokenConfiguration():base((string) "Tokens")
+        public BlogUserTokenConfiguration() : base((string)"Tokens")
         {
-            
         }
-        public override void TypeConfigure(EntityTypeBuilder<BlogUserToken> builder)
+
+        public override void TypeConfigure(EntityTypeBuilder<UserToken> builder)
         {
             builder.HasKey(userToken => new { userToken.UserId, userToken.LoginProvider, userToken.Name });
         }

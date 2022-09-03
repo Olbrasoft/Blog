@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Olbrasoft.Blog.Data.Entities.Identity;
+﻿using Olbrasoft.Data.Entities.Identity;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
@@ -14,7 +9,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
         public void Instance_Inherit_From_BogTypeConfiguration_Of_BlogRoleClaim()
         {
             //Arrange
-            var type = typeof(BlogTypeConfiguration<BlogRoleClaim>);
+            var type = typeof(BlogTypeConfiguration<RoleClaim>);
 
             //Act
             var config = new BlogRoleClaimConfiguration();

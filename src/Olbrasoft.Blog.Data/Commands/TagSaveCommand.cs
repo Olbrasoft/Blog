@@ -1,14 +1,10 @@
-﻿using Olbrasoft.Data.Cqrs;
-using Olbrasoft.Dispatching.Common;
+﻿namespace Olbrasoft.Blog.Data.Commands;
 
-namespace Olbrasoft.Blog.Data.Commands
+public class TagSaveCommand : CreatorSaveCommand
 {
-    public class TagSaveCommand : CreatorSaveCommand
+    public TagSaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
-        public TagSaveCommand(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-
-        public string Label { get; set; } = string.Empty;
     }
+
+    public string Label { get; set; } = string.Empty;
 }

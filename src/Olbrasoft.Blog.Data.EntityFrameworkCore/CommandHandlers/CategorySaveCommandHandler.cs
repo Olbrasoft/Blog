@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
     public class CategorySaveCommandHandler : DbCommandHandler<CategorySaveCommand, BlogDbContext, Category>
     {
-        public CategorySaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> contextFactory) : base(mapper, contextFactory)
+        public CategorySaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 
@@ -24,12 +24,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
             else
             {
                 var category = await Entities.FirstAsync(p => p.Id == Command.Id, token);
-
-                if (category == null)
-                {
+                                
+                if (category is null) 
                     throw new Exception("Category not found");
-                }
-
+                
                 category.Name = Command.Name;
 
                 category.Tooltip = Command.Tooltip;

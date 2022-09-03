@@ -1,14 +1,10 @@
-﻿using Olbrasoft.Data.Cqrs.Queries;
-using Olbrasoft.Dispatching.Common;
+﻿namespace Olbrasoft.Blog.Data.Queries;
 
-namespace Olbrasoft.Blog.Data.Queries.TagQueries
+public abstract class ItemsExceptUserIdQuery<TResult> : DataTablesPagedQuery<TResult>
 {
-    public abstract class ItemsExceptUserIdQuery<TResult> : DataTablesPagedQuery<TResult>
+    protected ItemsExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
-        protected ItemsExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-
-        public int ExceptUserId { get; set; }
     }
+
+    public int ExceptUserId { get; set; }
 }

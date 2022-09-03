@@ -1,6 +1,5 @@
-﻿namespace Olbrasoft.Blog.Data.Dtos.PostDtos
+﻿namespace Olbrasoft.Blog.Data.Dtos.PostDtos;
+
+public class PostDetailDto : PostDto
 {
-    public class PostDetailDto : PostDto
-    {
-    }
 }

@@ -8,7 +8,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
     public class TagExistsQueryHandler : BlogDbQueryHandler<Tag, TagExistsQuery>
     {
-        public TagExistsQueryHandler(IDbContextFactory<BlogDbContext> factory) : base(factory)
+        public TagExistsQueryHandler(BlogDbContext context) : base(context)
         {
         }
 

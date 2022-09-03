@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.NestedCommentQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Mapping;
 using System.Linq;
 using System.Threading;
@@ -11,7 +10,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.NestedCommentQue
 {
     public class NestedCommentTextForEditingQueryHandler : BlogDbQueryHandler<NestedComment, NestedCommentTextForEditingQuery, string>
     {
-        public NestedCommentTextForEditingQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
+        public NestedCommentTextForEditingQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

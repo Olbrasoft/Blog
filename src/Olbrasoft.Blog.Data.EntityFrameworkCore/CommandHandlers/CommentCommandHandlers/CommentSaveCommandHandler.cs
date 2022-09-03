@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommand
 {
     public class CommentSaveCommandHandler : DbCommandHandler<CommentSaveCommand, BlogDbContext, Comment>
     {
-        public CommentSaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
+        public CommentSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 

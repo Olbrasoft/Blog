@@ -1,13 +1,10 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
-using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching.Common;
 
-namespace Olbrasoft.Blog.Data.Queries.TagQueries
+namespace Olbrasoft.Blog.Data.Queries.TagQueries;
+
+public class TagsByExceptUserIdQuery : ItemsExceptUserIdQuery<IPagedResult<TagOfUsersDto>>
 {
-    public class TagsByExceptUserIdQuery : ItemsExceptUserIdQuery<IPagedResult<TagOfUsersDto>>
+    public TagsByExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
-        public TagsByExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
     }
 }

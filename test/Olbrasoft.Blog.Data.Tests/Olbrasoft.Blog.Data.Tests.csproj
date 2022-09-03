@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
 
@@ -23,6 +23,15 @@
     </PackageReference>
   </ItemGroup>
 
+	<ItemGroup>
+		<Using Include="Xunit" />
+		<Using Include="Moq" />
+		<Using Include="Olbrasoft.Dispatching" />
+		<Using Include="Olbrasoft.Data.Paging" />
+		<Using Include="Olbrasoft.Data.Entities" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
+	</ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\..\src\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
   </ItemGroup>

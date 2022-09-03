@@ -12,7 +12,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
     public class PostSaveCommandHandler : DbCommandHandler<PostSaveCommand, BlogDbContext, Post>
     {
-        public PostSaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
+        public PostSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 

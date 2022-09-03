@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Commands.NestedCommentCommands;
+using Olbrasoft.Blog.Data.Commands.CommentCommands;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
 using Olbrasoft.Mapping;
@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentC
 {
     public class NestedCommentSaveComandHandler : DbCommandHandler<NestedCommentSaveCommand, BlogDbContext, NestedComment>
     {
-        public NestedCommentSaveComandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> context) : base(mapper, context)
+        public NestedCommentSaveComandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 

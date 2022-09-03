@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Dispatching.Common;
+﻿using Olbrasoft.Dispatching;
 
 namespace Olbrasoft.Blog.Business.Services
 {

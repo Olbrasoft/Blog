@@ -12,7 +12,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandler
 {
     public class PostDetailByIdQueryHandler : BlogDbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
     {
-        public PostDetailByIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
+        public PostDetailByIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

@@ -1,31 +1,30 @@
 ﻿using System;
 using Microsoft.AspNetCore.Identity;
-using Xunit;
+using Olbrasoft.Data.Entities.Identity;
 
-namespace Olbrasoft.Blog.Data.Entities.Identity
+namespace Olbrasoft.Blog.Data.Entities.Identity;
+
+public class BlogUserClaimTest
 {
-    public class BlogUserClaimTest
+    [Fact]
+    public void Instance_Inherits_From_IdentityUserClaim_Of_Integer()
     {
-        [Fact]
-        public void Instance_Inherits_From_IdentityUserClaim_Of_Integer()
-        {
-            var type = typeof(IdentityUserClaim<int>);
+        var type = typeof(IdentityUserClaim<int>);
 
-            var claim = new BlogUserClaim();
+        var claim = new UserClaim();
 
-            Assert.IsAssignableFrom(type, claim);
-        }
+        Assert.IsAssignableFrom(type, claim);
+    }
 
-        [Fact]
-        public void Instance_Implement_Interface_IHaveCreated()
-        {
-            var type = typeof(IHaveCreated);
+    [Fact]
+    public void Instance_Implement_Interface_IHaveCreated()
+    {
+        var type = typeof(IHaveCreated);
 
-            var claim = new BlogUserClaim();
+        var claim = new UserClaim();
 
-            Assert.IsAssignableFrom(type, claim);
+        Assert.IsAssignableFrom(type, claim);
 
-            claim.Created = DateTime.Now;
-        }
+        claim.Created = DateTime.Now;
     }
 }

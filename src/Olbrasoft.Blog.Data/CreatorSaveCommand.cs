@@ -1,15 +1,10 @@
-﻿using Olbrasoft.Data.Cqrs;
-using Olbrasoft.Data.Cqrs.Requests;
-using Olbrasoft.Dispatching.Common;
+﻿namespace Olbrasoft.Blog.Data;
 
-namespace Olbrasoft.Blog.Data
+public abstract class CreatorSaveCommand : ByIdRequest
 {
-    public abstract class CreatorSaveCommand : ByIdRequest
+    public CreatorSaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
-        public CreatorSaveCommand(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-
-        public int CreatorId { get; set; }
     }
+
+    public int CreatorId { get; set; }
 }

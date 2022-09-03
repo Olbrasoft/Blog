@@ -13,7 +13,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHand
 {
     public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>
     {
-        public CommentsByPostIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
+        public CommentsByPostIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

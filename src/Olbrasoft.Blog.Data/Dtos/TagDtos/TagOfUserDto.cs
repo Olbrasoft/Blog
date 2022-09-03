@@ -1,10 +1,7 @@
-﻿using System;
+﻿namespace Olbrasoft.Blog.Data.Dtos.TagDtos;
 
-namespace Olbrasoft.Blog.Data.Dtos.TagDtos
+public class TagOfUserDto : TagSmallDto
 {
-    public class TagOfUserDto : TagSmallDto
-    {
-        public int PostCount { get; set; }
-        public DateTimeOffset Created { get; set; }
-    }
+    public int PostCount { get; set; }
+    public DateTimeOffset Created { get; set; }
 }

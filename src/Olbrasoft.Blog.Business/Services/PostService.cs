@@ -4,7 +4,8 @@ using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching.Common;
+using Olbrasoft.Data.Sorting;
+using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace Olbrasoft.Blog.Business.Services
             return await new PostByIdQuery(Dispatcher) { Id = id }.ExecuteAsync();
         }
 
-        public async Task<IBasicPagedResult<PostDto>> PostsAsync(string search, IPageInfo paging)
+        public async Task<IPagedEnumerable<PostDto>> PostsAsync(string search, IPageInfo paging)
         {
             return await new PostsPagedQuery(Dispatcher) { Search = search, Paging = paging }.ExecuteAsync();
         }

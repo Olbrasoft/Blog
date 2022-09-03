@@ -12,11 +12,14 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
 
         public override void TypeConfigure(EntityTypeBuilder<BlogUser> builder)
         {
+            builder.Property(user => user.FirstName).HasMaxLength(100).IsRequired();
+            builder.Property(user => user.LastName).HasMaxLength(100).IsRequired();
+
             builder.Property(user => user.Email).HasMaxLength(256).IsRequired();
 
             builder.Property(user => user.UserName).HasMaxLength(256).IsRequired();
 
-            builder.HasIndex(user => user.UserName).HasName("UserNameIndex").IsUnique();
+            builder.HasIndex(user => user.UserName).HasDatabaseName("UserNameIndex").IsUnique();
 
             builder.HasMany(p => p.Posts).WithOne(p => p.Creator).HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Cascade);

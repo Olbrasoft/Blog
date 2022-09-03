@@ -3,6 +3,7 @@ using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
 using Olbrasoft.Data.Paging;
+using Olbrasoft.Extensions.Paging;
 using Olbrasoft.Mapping;
 using System.Linq;
 using System.Threading;
@@ -10,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
 {
-    public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IBasicPagedResult<PostDto>>
+    public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>
     {
-        public PostsPagedQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
+        public PostsPagedQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 
-        public override async Task<IBasicPagedResult<PostDto>> HandleAsync(PostsPagedQuery query, CancellationToken token)
+        public override async Task<IPagedEnumerable<PostDto>> HandleAsync(PostsPagedQuery query, CancellationToken token)
         {
             var filteredEntities = Entities;
 
@@ -55,10 +56,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandler
                 .Skip(query.Paging.CalculateSkip())
                 .Take(query.Paging.PageSize).ToArrayAsync(token);
 
-            return new BasicPagedResult<PostDto>(posts)
-            {
-                TotalCount = filteredEntities.Count()
-            };
+            return posts.AsPagedEnumerable(await filteredEntities.CountAsync());
         }
     }
 }

@@ -3,7 +3,8 @@ using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
 using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching.Common;
+using Olbrasoft.Data.Sorting;
+using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

@@ -1,15 +1,12 @@
-﻿using Olbrasoft.Dispatching.Common;
+﻿namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
 
-namespace Olbrasoft.Blog.Data.Commands.CommentCommands
+public class CommentSaveCommand : CreatorSaveCommand
 {
-    public class CommentSaveCommand : CreatorSaveCommand
+    public CommentSaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
-        public CommentSaveCommand(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-
-        public int PostId { get; set; }
-
-        public string Text { get; set; }
     }
+
+    public int PostId { get; set; }
+
+    public string Text { get; set; } = string.Empty;
 }

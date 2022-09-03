@@ -13,7 +13,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
     public class TagsByIdsQueryHandler : BlogDbQueryHandler<Tag, TagsByIdsQuery, IEnumerable<TagSmallDto>>
     {
-        public TagsByIdsQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> factory) : base(projector, factory)
+        public TagsByIdsQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

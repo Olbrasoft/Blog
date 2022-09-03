@@ -1,14 +1,10 @@
-﻿using Olbrasoft.Data.Cqrs.Queries;
-using Olbrasoft.Dispatching.Common;
+﻿namespace Olbrasoft.Blog.Data.Queries;
 
-namespace Olbrasoft.Blog.Data.Queries
+public abstract class ItemsByUserIdQuery<TResult> : DataTablesPagedQuery<TResult>
 {
-    public abstract class ItemsByUserIdQuery<TResult> : DataTablesPagedQuery<TResult>
+    protected ItemsByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
-        protected ItemsByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
-        {
-        }
-
-        public int UserId { get; set; }
     }
+
+    public int UserId { get; set; }
 }

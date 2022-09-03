@@ -10,7 +10,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
     public class TagSaveCommandHandler : DbCommandHandler<TagSaveCommand, BlogDbContext, Tag>
     {
-        public TagSaveCommandHandler(IMapper mapper, IDbContextFactory<BlogDbContext> factory) : base(mapper, factory)
+        public TagSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
         }
 

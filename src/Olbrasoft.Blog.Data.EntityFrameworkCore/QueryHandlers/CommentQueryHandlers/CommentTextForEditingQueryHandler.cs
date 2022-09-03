@@ -10,7 +10,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHand
 {
     public class CommentTextForEditingQueryHandler : BlogDbQueryHandler<Comment, CommentTextForEditingQuery, string>
     {
-        public CommentTextForEditingQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
+        public CommentTextForEditingQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

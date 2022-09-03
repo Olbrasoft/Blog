@@ -1,7 +1,6 @@
-﻿namespace Olbrasoft.Blog.Data.Dtos.CategoryDtos
+﻿namespace Olbrasoft.Blog.Data.Dtos.CategoryDtos;
+
+public class CategorySmallDto : SmallDto
 {
-    public class CategorySmallDto : SmallDto
-    {
-        public string Name { get; set; } = string.Empty;
-    }
+    public string Name { get; set; } = string.Empty;
 }

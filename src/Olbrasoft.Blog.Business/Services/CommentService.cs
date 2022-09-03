@@ -1,9 +1,8 @@
 ﻿using Olbrasoft.Blog.Data.Commands.CommentCommands;
-using Olbrasoft.Blog.Data.Commands.NestedCommentCommands;
 using Olbrasoft.Blog.Data.Dtos.CommentDtos;
 using Olbrasoft.Blog.Data.Queries.CommentQueries;
 using Olbrasoft.Blog.Data.Queries.NestedCommentQueries;
-using Olbrasoft.Dispatching.Common;
+using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

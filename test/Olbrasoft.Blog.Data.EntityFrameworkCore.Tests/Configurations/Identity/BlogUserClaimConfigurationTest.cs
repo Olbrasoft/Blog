@@ -1,4 +1,4 @@
-﻿using Olbrasoft.Blog.Data.Entities.Identity;
+﻿using Olbrasoft.Data.Entities.Identity;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
@@ -9,7 +9,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
         public void Instance_Inherit_From_BlogTypeConfiguration_Of_BlogUserClaim()
         {
             //Arrange
-            var type = typeof(BlogTypeConfiguration<BlogUserClaim>);
+            var type = typeof(BlogTypeConfiguration<UserClaim>);
 
             //Act
             var config = new BlogUserClaimConfiguration();

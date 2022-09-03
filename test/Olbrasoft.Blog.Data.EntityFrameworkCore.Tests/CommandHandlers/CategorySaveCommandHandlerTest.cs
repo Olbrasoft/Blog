@@ -1,9 +1,7 @@
-﻿using Moq;
+﻿using Microsoft.EntityFrameworkCore;
+using Moq;
 using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Data.Cqrs;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Dispatching.Common;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers

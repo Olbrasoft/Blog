@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandler
 {
     public class PostByIdQueryHandler : BlogDbQueryHandler<Post, PostByIdQuery, PostEditDto>
     {
-        public PostByIdQueryHandler(IProjector projector, IDbContextFactory<BlogDbContext> context) : base(projector, context)
+        public PostByIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
         }
 

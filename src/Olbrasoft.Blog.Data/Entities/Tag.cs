@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Olbrasoft.Blog.Data.Entities
+namespace Olbrasoft.Blog.Data.Entities;
+
+public class Tag : CreationInfo
 {
-    public class Tag : CreationInfo
-    {
-        [Required]
-        [StringLength(25)]
-        public string Label { get; set; } = string.Empty;
-        public IEnumerable<PostToTag> ToPosts { get; set; } = new HashSet<PostToTag>();
-    }
+    [Required]
+    [StringLength(25)]
+    public string Label { get; set; } = string.Empty;
+    public IEnumerable<PostToTag> ToPosts { get; set; } = new HashSet<PostToTag>();
 }

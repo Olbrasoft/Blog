@@ -1,11 +1,6 @@
 ﻿using Moq;
 using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Data.Cqrs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers

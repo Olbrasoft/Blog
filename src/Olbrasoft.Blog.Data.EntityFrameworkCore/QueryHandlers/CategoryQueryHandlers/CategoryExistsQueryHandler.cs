@@ -9,7 +9,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHan
 {
     public class CategoryExistsQueryHandler : BlogDbQueryHandler<Category, CategoryExistsQuery>
     {
-        public CategoryExistsQueryHandler(IDbContextFactory<BlogDbContext> factory) : base(factory)
+        public CategoryExistsQueryHandler(BlogDbContext context) : base(context)
         {
         }
 

@@ -7,6 +7,7 @@ using Olbrasoft.Blog.Business;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Paging.X.PagedList;
 using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc;
+using Olbrasoft.Extensions.Paging;
 using Olbrasoft.Linq;
 using System.Diagnostics;
 using System.Globalization;
