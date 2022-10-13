@@ -6,7 +6,7 @@ public class CategoryQueryTest
     public void Instance_Implement_Interface_IRequest_Of_CategoryDto()
     {
         //Arrange
-        var type = typeof(IRequest<CategoryOfUserDto>);
+        var type = typeof(BaseQuery<CategoryOfUserDto>);
 
         //Act
         var query = CreateQuery();
@@ -17,9 +17,9 @@ public class CategoryQueryTest
 
     private static CategoryQuery CreateQuery()
     {
-        var dispatcherMock = new Mock<IDispatcher>();
+        var processorMock = new Mock<IQueryProcessor>();
 
-        return new CategoryQuery(dispatcherMock.Object);
+        return new CategoryQuery(processorMock.Object);
     }
 
     [Fact]
@@ -34,4 +34,16 @@ public class CategoryQueryTest
         //Assert
         Assert.IsAssignableFrom<int>(id);
     }
+
+    [Fact]
+    public void Ctor_Dispatcher_ShouldByAssingableToByIdQuery()
+    {
+        // Arrange
+        var dispatcher = new Mock<IDispatcher>().Object;
+        // Act
+        var sut = new CategoryQuery(dispatcher);
+        // Assert
+        sut.Should().BeAssignableTo<ByIdQuery<CategoryOfUserDto>>();
+    }
+
 }

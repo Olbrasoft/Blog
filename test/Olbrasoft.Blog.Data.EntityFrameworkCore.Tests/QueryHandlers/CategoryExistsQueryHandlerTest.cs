@@ -35,7 +35,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         {
             //Arrange
             var handler = CreateHandler();
-            var dispatcherMock = MockOfDispatcher();
+            var dispatcherMock = CreateMockProcessor();
 
             var query = new CategoryExistsQuery(dispatcherMock.Object) { Name = "NotExist" };
 
@@ -46,9 +46,9 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
             Assert.False(result);
         }
 
-        private static Mock<IDispatcher> MockOfDispatcher()
+        private static Mock<IQueryProcessor > CreateMockProcessor()
         {
-            return new Mock<IDispatcher>();
+            return new Mock<IQueryProcessor>();
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
             //Arrange
             var handler = CreateHandler();
 
-            var query = new CategoryExistsQuery(MockOfDispatcher().Object) { Name = string.Empty };
+            var query = new CategoryExistsQuery(CreateMockProcessor().Object) { Name = string.Empty };
 
             //Act
             var result = await handler.HandleAsync(query, default);
@@ -71,7 +71,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         {
             //Arrange
             var handler = CreateHandler();
-            var query = new CategoryExistsQuery(MockOfDispatcher().Object) { ExceptId = 1, Name = "NotExist" };
+            var query = new CategoryExistsQuery(CreateMockProcessor().Object) { ExceptId = 1, Name = "NotExist" };
 
             //Act
             var result = await handler.HandleAsync(query, default);
@@ -84,7 +84,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         public void Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(QueryHandler<CategoryExistsQuery>);
+            var type = typeof(IRequestHandler<CategoryExistsQuery,bool>);
 
             //Act
             var handler = CreateHandler();

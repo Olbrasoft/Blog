@@ -2,7 +2,6 @@
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Dispatching.Common;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,23 +24,23 @@ namespace Olbrasoft.Blog.Business.Services
             Assert.IsAssignableFrom(type, service);
         }
 
-        private static CategoryService CreateServiceAsync()
-        {
-            IPagedResult<CategoryOfUserDto> pagedResult = new PagedResult<CategoryOfUserDto>(new[] { new CategoryOfUserDto() });
+        //private static CategoryService CreateServiceAsync()
+        //{
+        //    IPagedResult<CategoryOfUserDto> pagedResult = new PagedResult<CategoryOfUserDto>(new[] { new CategoryOfUserDto() });
 
-            var taskResult = Task.FromResult(pagedResult);
-            var mediatorMock = new Mock<IDispatcher>();
-            mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoryExistsQuery>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(true));
+        //    var taskResult = Task.FromResult(pagedResult);
+        //    var mediatorMock = new Mock<IDispatcher>();
+        //    mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoryExistsQuery>(), It.IsAny<CancellationToken>()))
+        //        .Returns(Task.FromResult(true));
 
-            mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoriesByUserIdQuery>(), It.IsAny<CancellationToken>()))
-                .Returns(taskResult);
+        //    mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoriesByUserIdQuery>(), It.IsAny<CancellationToken>()))
+        //        .Returns(taskResult);
 
-            mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoryQuery>(), It.IsAny<CancellationToken>()))
-              .Returns(Task.FromResult(new CategoryOfUserDto()));
+        //    mediatorMock.Setup(m => m.DispatchAsync(It.IsAny<CategoryQuery>(), It.IsAny<CancellationToken>()))
+        //      .Returns(Task.FromResult(new CategoryOfUserDto()));
 
-            return new CategoryService(mediatorMock.Object);
-        }
+        //    return new CategoryService(mediatorMock.Object);
+        //}
 
         [Fact]
         public async Task ExistAsync()

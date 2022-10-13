@@ -1,18 +1,16 @@
-﻿using Olbrasoft.Data.Cqrs.Requests;
-
-namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
+﻿namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
 public class CommentDeleteCommandTest
 {
     [Fact]
     public void CommentDeleteCommand_Inherit_From_()
     {
         //Arrange
-        var dm = new Mock<IDispatcher>();
+        var dm = new Mock<ICommandExecutor>();
 
         //Act
         var command = new CommentDeleteCommand(dm.Object);
 
         //Assert
-        Assert.IsAssignableFrom<ByIdAndCreatorIdRequest>(command);
+        Assert.IsAssignableFrom<BlogCommand>(command);
     }
 }

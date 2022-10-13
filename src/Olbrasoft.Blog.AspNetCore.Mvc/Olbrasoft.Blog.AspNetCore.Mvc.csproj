@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Administration\Views\Home\vendor\**" />
     <Compile Remove="Profiles\**" />
+    <Content Remove="Areas\Administration\Views\Home\vendor\**" />
     <Content Remove="Profiles\**" />
+    <EmbeddedResource Remove="Areas\Administration\Views\Home\vendor\**" />
     <EmbeddedResource Remove="Profiles\**" />
+    <None Remove="Areas\Administration\Views\Home\vendor\**" />
     <None Remove="Profiles\**" />
   </ItemGroup>
 
@@ -105,31 +109,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FreeSql.DbContext" Version="3.2.680" />
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.680" />
+    <PackageReference Include="Grace.AspNetCore.Hosting" Version="7.1.0" />
+    <PackageReference Include="Grace.AspNetCore.MVC" Version="7.1.0" />
     <PackageReference Include="jQuery.Validation" Version="1.19.5" />
     <PackageReference Include="LightInject.Microsoft.Hosting" Version="1.3.0" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
-    <PackageReference Include="Markdown" Version="2.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <TreatAsUsed>true</TreatAsUsed>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
     <PackageReference Include="Olbrasoft.Data.Paging.DataTables" Version="1.0.2" />
     <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList" Version="1.0.4" />
     <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc" Version="1.0.6" />
-    <PackageReference Include="Olbrasoft.Dispatching.DI.Microsoft" Version="1.4.0" />
-    <PackageReference Include="Olbrasoft.Extensions" Version="1.0.6" />
     <PackageReference Include="Olbrasoft.Linq" Version="1.0.0" />
     <PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="1.0.2" />
     <PackageReference Include="Olbrasoft.Text.Transformation.Markdown" Version="1.0.1" />
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
+    <PackageReference Include="Singularity.AspNetCore.MVC" Version="0.18.0" />
+	  <PackageReference Include="Olbrasoft.Dispatching.Extensions.Microsoft.DependencyInjection" Version="1.6.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj" />
     <ProjectReference Include="..\Olbrasoft.Blog.Data.EntityFrameworkCore\Olbrasoft.Blog.Data.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -166,7 +175,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Administration\Views\Home\vendor\" />
     <Folder Include="wwwroot\admin\vendor\" />
   </ItemGroup>
 

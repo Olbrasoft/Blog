@@ -1,15 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Commands.CommentCommands;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Mapping;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
 {
-    public class NestedCommentDeleteCommandHandler : DbCommandHandler<NestedCommentDeleteCommand, BlogDbContext, NestedComment>
+    public class NestedCommentDeleteCommandHandler : BlogDbCommandHandler<NestedCommentDeleteCommand,  NestedComment>
     {
         public NestedCommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {

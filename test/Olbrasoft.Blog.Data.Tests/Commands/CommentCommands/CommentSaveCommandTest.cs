@@ -5,26 +5,26 @@ public class CommentSaveCommandTest
     public void CommentSaveCommand_Inherit_From_()
     {
         //Arrange
-        Mock<IDispatcher> dispatchingMock = CreateDispatchinkMock();
+        Mock<ICommandExecutor> dispatchingMock = CreateMock();
 
         //Act
         var command = new CommentSaveCommand(dispatchingMock.Object);
 
         //Assert
-        Assert.IsAssignableFrom<CreatorSaveCommand>(command);
+        Assert.IsAssignableFrom<BlogCommand>(command);
 
     }
 
-    private static Mock<IDispatcher> CreateDispatchinkMock()
+    private static Mock<ICommandExecutor> CreateMock()
     {
-        return new Mock<IDispatcher>();
+        return new Mock<ICommandExecutor>();
     }
 
     [Fact]
     public void CommantSaveCommand_Have_Propperty_PostId_With_Default_Value_Zero()
     {
         //Arrange
-        var command = new CommentSaveCommand(CreateDispatchinkMock().Object);
+        var command = new CommentSaveCommand(CreateMock().Object);
 
         //Act
         var postId = command.PostId;

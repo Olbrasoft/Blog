@@ -1,11 +1,4 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
-using Olbrasoft.Data.Cqrs.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace Olbrasoft.Blog.Data.Queries.PostQueries;
 public class PostsPagedQueryTest
@@ -14,12 +7,25 @@ public class PostsPagedQueryTest
     public void PostsPagedQuery_Inherits_From_PagedQuery_Of_IPagedEnumerable_Of_PostDto()
     {
         //Arrange
-        var dm = new Mock<IDispatcher>();
+        var processorMock = new Mock<IQueryProcessor>();
 
         //Act
-        var query = new PostsPagedQuery(dm.Object);
+        var query = new PostsPagedQuery(processorMock.Object);
 
         //Assert
-        Assert.IsAssignableFrom<PagedQuery<IPagedEnumerable<PostDto>>>(query);
+        Assert.IsAssignableFrom<BaseQuery<IPagedEnumerable<PostDto>>>(query);
     }
+
+    [Fact]
+    public void Ctor_Dispatcher_PagingShouldBeAssingabletoPageInfo()
+    {
+        // Arrange
+        var dispatcher = new Mock<IDispatcher>().Object;
+        // Act
+        var sut = new PostsPagedQuery(dispatcher);
+        // Assert
+        sut.Paging.Should().BeAssignableTo<PageInfo>();  
+    }
+
+
 }

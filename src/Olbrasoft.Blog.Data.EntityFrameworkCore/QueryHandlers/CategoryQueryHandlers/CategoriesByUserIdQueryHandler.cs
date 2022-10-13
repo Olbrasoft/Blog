@@ -1,18 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Extensions.Linq;
-using Olbrasoft.Data.Paging;
-using Olbrasoft.Mapping;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Olbrasoft.Extensions.Paging;
-using System;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
     public class CategoriesByUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByUserIdQuery, IPagedResult<CategoryOfUserDto>>
     {
@@ -30,8 +16,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHan
             {
                 filteredCategories = filteredCategories.Where(p => p.Name.Contains(query.Search) || p.Tooltip.Contains(query.Search));
             }
-
-           
 
             var categories = ProjectTo<CategoryOfUserDto>(filteredCategories.OrderBy(query.OrderByColumnName, query.OrderByDirection))
                 .Skip(query.Paging.CalculateSkip())

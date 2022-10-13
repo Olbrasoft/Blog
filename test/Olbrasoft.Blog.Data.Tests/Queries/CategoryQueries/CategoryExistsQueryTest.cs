@@ -6,7 +6,7 @@ public class CategoryExistsQueryTest
     public void Instance_Implement_Interface_IRequest_Of_True()
     {
         //Arrange
-        var type = typeof(IRequest<bool>);
+        var type = typeof(BaseQuery<bool>);
 
         //Act
         var query = CreateQuery();
@@ -30,9 +30,9 @@ public class CategoryExistsQueryTest
 
     private static CategoryExistsQuery CreateQuery()
     {
-        var dispatcherMock = new Mock<IDispatcher>();
+        var procesorMock = new Mock<IQueryProcessor>();
 
-        return new CategoryExistsQuery(dispatcherMock.Object) { ExceptId = 0 };
+        return new CategoryExistsQuery(procesorMock.Object) { ExceptId = 0 };
     }
 
     [Fact]

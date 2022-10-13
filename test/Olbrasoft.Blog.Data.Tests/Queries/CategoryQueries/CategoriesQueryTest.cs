@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Olbrasoft.Blog.Data.Queries.CategoryQueries;
+﻿namespace Olbrasoft.Blog.Data.Queries.CategoryQueries;
 public class CategoriesQueryTest
 {
 
@@ -8,13 +6,13 @@ public class CategoriesQueryTest
     public void CategoriesQuery_Inherit_From_Request_Of_IEnumerable_Of_CategorySmallDto()
     {
         //Arrange
-        var dispatcherMock = new Mock<IDispatcher>();
+        var processorMock = new Mock<IQueryProcessor>();
 
         //Act
-        var query = new CategoriesQuery(dispatcherMock.Object);
+        var query = new CategoriesQuery(processorMock.Object);
 
         //Assert
-        Assert.IsAssignableFrom<Request<IEnumerable<CategorySmallDto>>>(query);
+        Assert.IsAssignableFrom<BaseQuery<IEnumerable<CategorySmallDto>>>(query);
     }
 
 }

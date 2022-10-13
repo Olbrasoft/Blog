@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
 {
     public abstract class BlogTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : class
     {

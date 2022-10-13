@@ -6,13 +6,24 @@ public class CategoriesByExceptUserIdQueryTest
     public void CategoriesByExceptUserIdQuery_Inherit_From_ItemsExceptUserIdQuery_Of_IPagedResult_Of_CategoryOfUsersDto()
     {
         //Arrange
-        var dispatcherMock = new Mock<IDispatcher>();
+        var processor = new Mock<IQueryProcessor>();
 
         //Act
-        var query = new CategoriesByExceptUserIdQuery(dispatcherMock.Object);
+        var query = new CategoriesByExceptUserIdQuery(processor.Object);
 
         //Assert
-        Assert.IsAssignableFrom<ItemsExceptUserIdQuery<IPagedResult<CategoryOfUsersDto>>>(query);
+        Assert.IsAssignableFrom<ExceptUserIdQuery<IPagedResult<CategoryOfUsersDto>>>(query);
+    }
+
+    [Fact]
+    public void Ctor_Dispatcher_ShouldBeAssingableExpected()
+    {
+        // Arrange
+        var dispatcher = new Mock<IDispatcher>().Object;
+        // Act
+        var sut = new CategoriesByExceptUserIdQuery(dispatcher);
+        // Assert
+        sut.Should().BeAssignableTo<ExceptUserIdQuery<IPagedResult<CategoryOfUsersDto>>>();
     }
 
 }

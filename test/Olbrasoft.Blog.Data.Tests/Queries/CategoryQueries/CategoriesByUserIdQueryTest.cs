@@ -7,10 +7,10 @@ public class CategoriesByUserIdQueryTest
     {
         //Arrange
         var type = typeof(IRequest<IPagedResult<CategoryOfUserDto>>);
-        var dispatcherMock = new Mock<IDispatcher>();
+        var processorMock = new Mock<IQueryProcessor>();
 
         //Act
-        var query = new CategoriesByUserIdQuery(dispatcherMock.Object);
+        var query = new CategoriesByUserIdQuery(processorMock.Object);
 
         //Assert
         Assert.IsAssignableFrom(type, query);
@@ -19,14 +19,27 @@ public class CategoriesByUserIdQueryTest
     [Fact]
     public void Have_Paging()
     {
-        var dispatcherMock = new Mock<IDispatcher>();
+        var processorMock = new Mock<IQueryProcessor>();
         //Arrange
-        var query = new CategoriesByUserIdQuery(dispatcherMock.Object);
+        var query = new CategoriesByUserIdQuery(processorMock.Object);
 
         //Act
         var paging = query.Paging;
 
         //Assert
         Assert.IsAssignableFrom<IPageInfo>(paging);
+    }
+
+    [Fact]
+    public void Ctor_Dispatcher_ShouldBeAssingableToExpected()
+    {
+        // Arrange
+        var expected = typeof(ByUserIdQuery<IPagedResult<CategoryOfUserDto>>);
+        var dispatcher = new Mock<IDispatcher>().Object;
+        // Act
+        var sut = new CategoriesByUserIdQuery(dispatcher);
+        // Assert
+        sut.Should().BeAssignableTo(expected);
+
     }
 }

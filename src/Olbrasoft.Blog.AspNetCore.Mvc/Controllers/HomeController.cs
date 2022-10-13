@@ -4,13 +4,15 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Olbrasoft.Blog.AspNetCore.Mvc.Models;
 using Olbrasoft.Blog.Business;
+using Olbrasoft.Blog.Data.Queries;
+using Olbrasoft.Data.Cqrs;
 using Olbrasoft.Data.Paging;
-using Olbrasoft.Data.Paging.X.PagedList;
 using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc;
+using Olbrasoft.Dispatching;
 using Olbrasoft.Extensions.Paging;
 using Olbrasoft.Linq;
 using System.Diagnostics;
-using System.Globalization;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
@@ -23,8 +25,18 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
         private readonly ITagService _tagService;
         private readonly ICommentService _commentService;
         private readonly IStringLocalizer<HomeController> _localizer;
+        private readonly IDispatcher _dispatcher;
+        private readonly IQueryProcessor _processor;
 
-        public HomeController(ILogger<HomeController> logger, IPostService postService, ICategoryService categoryService, ITagService tagService, ICommentService commentService, IStringLocalizer<HomeController> localizer)
+        public HomeController(ILogger<HomeController> logger,
+            IPostService postService,
+            ICategoryService categoryService,
+            ITagService tagService,
+            ICommentService commentService,
+            IStringLocalizer<HomeController> localizer,
+            IDispatcher dispatcher,
+            IQueryProcessor processor)
+
         {
             _logger = logger;
             _postService = postService;
@@ -32,9 +44,11 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
             _tagService = tagService;
             _commentService = commentService;
             _localizer = localizer;
+            _dispatcher = dispatcher;
+            _processor = processor;
         }
 
-        public async Task<IActionResult> IndexAsync(string query, string search, int page = 1)
+        public async Task<IActionResult> IndexAsync(string query, string search, CancellationToken token, int page = 1)
         {
             //var cultureInfo = new CultureInfo("cs");
             //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
@@ -45,8 +59,8 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
 
             var model = new HomePageViewModel
             {
-                Posts = (await _postService.PostsAsync(search, paging)).AsPagedList(paging),
-                NestedModel = await BuildNestedModel()
+                Posts = (await _postService.PostsAsync(search, paging, token)).AsPagedList(paging),
+                NestedModel = await BuildNestedModel(token)
             };
 
             var options = PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext;
@@ -66,30 +80,47 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
             return View();
         }
 
-        public async Task<IActionResult> PostAsync(int id, int commentId = 0, int parentCommentId = 0)
+        public async Task<IActionResult> TestSpeedDiContainer()
+        {
+            var model = new SpeedModel();
+            var query = new SpeedQuery(_processor);
+
+            var timer = new Stopwatch();
+
+            timer.Start();
+            for (int i = 0; i < 100000000; i++)
+            {
+                model.Hello = await query.ToResultAsync();
+            }
+
+            timer.Stop();
+            model.TimeTaken = timer.Elapsed;
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> PostAsync(int id, CancellationToken token, int commentId = 0, int parentCommentId = 0)
         {
             if (id < 1) return RedirectToAction("Index");
 
             var model = new PostDetailViewModel
             {
                 Id = id,
-                Post = (await _postService.PostAsync(id)),
-                NestedModel = await BuildNestedModel(),
-                Comments = await _commentService.CommentsByPostIdAsync(id)
+                Post = (await _postService.PostAsync(id, token)),
+                NestedModel = await BuildNestedModel(token),
+                Comments = await _commentService.CommentsByPostIdAsync(id, token),
+                CommentId = commentId,
+                ParentCommentId = parentCommentId
             };
-
-            model.CommentId = commentId;
-            model.ParentCommentId = parentCommentId;
 
             if (parentCommentId > 0)
             {
-                model.CommentText = await _commentService.TextEditNestedComment(commentId, CurrentUserId);
-                model.CommentedCommentText = await _commentService.TextEditComment(parentCommentId);
+                model.CommentText = await _commentService.TextEditNestedComment(commentId, CurrentUserId, token);
+                model.CommentedCommentText = await _commentService.TextEditComment(parentCommentId, 0, token);
             }
             else
             {
-                if (commentId > 0)
-                    model.CommentText = await _commentService.TextEditComment(commentId, CurrentUserId);
+                if (commentId > 0) model.CommentText = await _commentService.TextEditComment(commentId, CurrentUserId, token);
             }
 
             return View(model);
@@ -126,12 +157,12 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Controllers
             return RedirectToAction("Post", new { id = postId });
         }
 
-        private async Task<RightColumnViewModel> BuildNestedModel()
+        private async Task<RightColumnViewModel> BuildNestedModel(CancellationToken token)
         {
             return new RightColumnViewModel
             {
-                Categories = (await _categoryService.CategoriesAsync()).SplitToTwo(),
-                Tags = (await _tagService.TagsAsync()).SplitToTwo()
+                Categories = (await _categoryService.CategoriesAsync(token)).SplitToTwo(),
+                Tags = (await _tagService.TagsAsync(token)).SplitToTwo()
             };
         }
 

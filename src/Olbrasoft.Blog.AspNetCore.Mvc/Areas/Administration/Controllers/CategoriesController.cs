@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Options;
 using Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 using Olbrasoft.Blog.Business;
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
-using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Paging.DataTables;
 using System.Security.Claims;
 using System.Threading.Tasks;

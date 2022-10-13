@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Olbrasoft.Blog.Data.EntityFrameworkCore;
 
+#nullable disable
+
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
@@ -15,16 +17,18 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
@@ -36,12 +40,12 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("Tooltip")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -50,15 +54,16 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
@@ -73,8 +78,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -82,15 +87,16 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
@@ -108,13 +114,13 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles","Identity");
+                    b.ToTable("Roles", "Identity");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "392415e3-3a60-4b9e-ae01-01d8afe24360",
+                            ConcurrencyStamp = "61c12089-f6ee-4ead-942e-da09de96d540",
                             Created = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
@@ -122,45 +128,20 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "9aab9c86-7a12-4417-ab79-37667cfa112c",
+                            ConcurrencyStamp = "e92f1fea-1203-45d5-a7bb-a100f6d6b478",
                             Created = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Blogger",
                             NormalizedName = "BLOGGER"
                         });
                 });
 
-            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogRoleClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RoleClaims","Identity");
-                });
-
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -175,19 +156,21 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -218,66 +201,16 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("Users","Identity");
-                });
-
-            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUserClaim", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserClaims","Identity");
-                });
-
-            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUserLogin", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
-
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "ProviderKey");
-
-                    b.ToTable("Logins","Identity");
+                    b.ToTable("Users", "Identity");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUserToRole", b =>
@@ -297,39 +230,33 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles","Identity");
+                    b.ToTable("UserRoles", "Identity");
                 });
 
-            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUserToken", b =>
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Man", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
-
-                    b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId", "LoginProvider", "Name");
+                    b.HasKey("Id");
 
-                    b.ToTable("Tokens","Identity");
+                    b.ToTable("Mans");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.NestedComment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CommentId")
                         .HasColumnType("int");
@@ -344,8 +271,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Text")
                         .IsRequired()
-                        .HasColumnType("nvarchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.HasKey("Id");
 
@@ -353,15 +280,16 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("NestedComments");
+                    b.ToTable("NestedComments", (string)null);
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -380,8 +308,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(33)")
-                        .HasMaxLength(33);
+                        .HasMaxLength(33)
+                        .HasColumnType("nvarchar(33)");
 
                     b.HasKey("Id");
 
@@ -389,7 +317,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.PostToTag", b =>
@@ -414,15 +342,16 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.HasIndex("ToId");
 
-                    b.ToTable("PostTags");
+                    b.ToTable("PostTags", (string)null);
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
@@ -434,8 +363,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
                     b.Property<string>("Label")
                         .IsRequired()
-                        .HasColumnType("nvarchar(25)")
-                        .HasMaxLength(25);
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.HasKey("Id");
 
@@ -444,7 +373,109 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.HasIndex("Label")
                         .IsUnique();
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
+                });
+
+            modelBuilder.Entity("Olbrasoft.Data.Entities.Identity.RoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleClaims", "Identity");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Data.Entities.Identity.UserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserClaims", "Identity");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Data.Entities.Identity.UserLogin", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "ProviderKey");
+
+                    b.ToTable("Logins", "Identity");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Data.Entities.Identity.UserToken", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("Tokens", "Identity");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Category", b =>
@@ -454,6 +485,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Comment", b =>
@@ -469,6 +502,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUserToRole", b =>
@@ -484,6 +521,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.NestedComment", b =>
@@ -499,6 +540,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Comment");
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Post", b =>
@@ -514,6 +559,10 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.PostToTag", b =>
@@ -535,6 +584,12 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("ToId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Tag", b =>
@@ -544,6 +599,52 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         .HasForeignKey("CreatorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Category", b =>
+                {
+                    b.Navigation("Posts");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Comment", b =>
+                {
+                    b.Navigation("NestedComments");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogRole", b =>
+                {
+                    b.Navigation("ToUsers");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Identity.BlogUser", b =>
+                {
+                    b.Navigation("Categories");
+
+                    b.Navigation("Comments");
+
+                    b.Navigation("NestedComments");
+
+                    b.Navigation("PostToTags");
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("Tags");
+
+                    b.Navigation("ToRoles");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Post", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("ToTags");
+                });
+
+            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Tag", b =>
+                {
+                    b.Navigation("ToPosts");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
 
-public class NestedCommentDeleteCommand : ByIdAndCreatorIdRequest
-{
+public class NestedCommentDeleteCommand : BlogCommand
+{ 
+    public NestedCommentDeleteCommand(ICommandExecutor executor) : base(executor)
+    {
+    }
+
     public NestedCommentDeleteCommand(IDispatcher dispatcher) : base(dispatcher)
     {
     }

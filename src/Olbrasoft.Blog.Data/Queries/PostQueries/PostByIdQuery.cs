@@ -1,9 +1,11 @@
-﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
+﻿namespace Olbrasoft.Blog.Data.Queries.PostQueries;
 
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers;
-
-public class PostByIdQuery : ByIdRequest<PostEditDto>
+public class PostByIdQuery : ByIdQuery<PostEditDto>
 {
+    public PostByIdQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public PostByIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Moq;
 
 namespace MockQueryable.Moq
@@ -28,22 +24,13 @@ namespace MockQueryable.Moq
 			return mock;
 		}
 
-		[Obsolete("Use BuildMockDbSet<TEntity> instead")]
-		public static Mock<DbQuery<TEntity>> BuildMockDbQuery<TEntity>(this IQueryable<TEntity> data)
-			where TEntity : class
-		{
-			var mock = new Mock<DbQuery<TEntity>>();
-			var enumerable = new TestAsyncEnumerable<TEntity>(data);
-			mock.As<IAsyncEnumerable<TEntity>>().ConfigureAsyncEnumerableCalls(enumerable);
-			mock.As<IQueryable<TEntity>>().ConfigureQueryableCalls(enumerable, data);
-			return mock;
-		}
+	
 
 		private static void ConfigureDbSetCalls<TEntity>(this Mock<DbSet<TEntity>> mock) 
 			where TEntity : class
 		{
 			mock.Setup(m => m.AsQueryable()).Returns(mock.Object);
-			mock.Setup(m => m.AsAsyncEnumerable()).Returns(mock.Object);
+			mock.Setup(m => m.AsAsyncEnumerable()).Returns((IAsyncEnumerable<TEntity>)mock.Object);
 		}
 
 		private static void ConfigureQueryableCalls<TEntity>(

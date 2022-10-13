@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xunit;
-
-namespace Olbrasoft.Blog.Data.Dtos.CommentDtos;
+﻿namespace Olbrasoft.Blog.Data.Dtos.CommentDtos;
 public class CommentDtoTest
 {
 

@@ -1,15 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Commands.CommentCommands;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Mapping;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommandHandlers
 {
-    public class CommentDeleteCommandHandler : DbCommandHandler<CommentDeleteCommand, BlogDbContext, Comment>
+    public class CommentDeleteCommandHandler : BlogDbCommandHandler<CommentDeleteCommand, Comment>
     {
         public CommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {

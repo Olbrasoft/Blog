@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace Olbrasoft.Blog.Data.Entities;
@@ -57,10 +56,16 @@ public class CategoryTest
         var property = typeof(Category).GetProperty("Name");
 
         //Act
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
         var attribute = (StringLengthAttribute)property.GetCustomAttribute(typeof(StringLengthAttribute));
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         //Assert
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         Assert.True(attribute.MaximumLength == 25);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
     }
             
     [Fact]
@@ -70,7 +75,11 @@ public class CategoryTest
         var property = typeof(Category).GetProperty("Name");
 
         //Act
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
         var attribute = (RequiredAttribute)property.GetCustomAttribute(typeof(RequiredAttribute));
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         //Assert
         Assert.IsAssignableFrom<RequiredAttribute>(attribute);
@@ -96,10 +105,16 @@ public class CategoryTest
         var property = typeof(Category).GetProperty(nameof(Category.Tooltip));
 
         //Act
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8604 // Possible null reference argument.
         var attribute = (StringLengthAttribute)property.GetCustomAttribute(typeof(StringLengthAttribute));
+#pragma warning restore CS8604 // Possible null reference argument.
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
         //Assert
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
         Assert.True(attribute.MaximumLength == 50);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
     }
 

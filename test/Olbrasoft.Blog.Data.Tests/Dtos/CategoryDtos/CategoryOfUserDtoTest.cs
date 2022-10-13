@@ -1,5 +1,4 @@
 ﻿using System;
-using Xunit;
 namespace Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 
 public class CategoryOfUserDtoTest

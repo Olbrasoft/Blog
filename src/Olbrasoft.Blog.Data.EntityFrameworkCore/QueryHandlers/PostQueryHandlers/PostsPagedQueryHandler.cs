@@ -1,15 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Dtos.PostDtos;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Blog.Data.Queries.PostQueries;
-using Olbrasoft.Data.Paging;
-using Olbrasoft.Extensions.Paging;
-using Olbrasoft.Mapping;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers
 {
     public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>
     {

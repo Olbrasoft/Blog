@@ -1,16 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Dtos.TagDtos;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Blog.Data.Queries.TagQueries;
-using Olbrasoft.Extensions.Linq;
-using Olbrasoft.Data.Paging;
-using Olbrasoft.Extensions.Paging;
-using Olbrasoft.Mapping;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
 {
     public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>
     {

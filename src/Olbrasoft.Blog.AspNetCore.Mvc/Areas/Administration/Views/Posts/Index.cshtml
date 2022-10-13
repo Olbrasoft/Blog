@@ -5,7 +5,7 @@
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Posts</h1>
+    <h1 class="h3 mb-0 text-gray-800" localize>Posts</h1>
 </div>
 
 <div class="row">
@@ -13,41 +13,40 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tag information</h6>
+                <h6 class="m-0 font-weight-bold text-primary" localize>Add new post</h6>
             </div>
             <div class="card-body">
-
-                <form asp-area="Administration" asp-controller="Posts" asp-action="Save" method="post" role="form" >
+                <form asp-area="Administration" asp-controller="Posts" asp-action="Save" method="post" role="form">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <input id="id" asp-for="Id" type="hidden">
                     <div class="form-group">
-                        <label>Title</label>
-                        <input  autofocus="autofocus" id="post-title" asp-for="Title" class="form-control ">
+                        <label localize>Title</label>
+                        <input autofocus="autofocus" id="post-title" asp-for="Title" class="form-control ">
                         <p class="help-block"><span id="remaingCharacters">@Model.MaxLength</span> Character(s) Remaining </p>
                         <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label>Category</label>
+                        <label localize>Category</label>
                         <select class="form-control" asp-for="CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Name", Model.CategoryId))">
-                            <option value="">Select category please</option>
+                            <option value="" localize>Select category please</option>
                         </select>
                         <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label>Tags</label>
+                        <label localize>Tags</label>
                         <input id="post-tags" class="form-control" asp-for="TagIds" />
                     </div>
 
                     <div class="form-group">
 
-                        <label>Content</label>
+                        <label localize>Content</label>
                         <textarea rows="50" class="form-control" asp-for="Content" id="post-content"></textarea>
 
                         <span asp-validation-for="Content" class="text-danger"></span>
                     </div>
-                    <button type="submit" id="save-content" class="btn btn-primary">Save</button>
+                    <button type="submit" id="save-content" class="btn btn-primary" localize>Save</button>
                 </form>
             </div>
         </div>
@@ -59,17 +58,17 @@
 
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Tag information</h6>
+                <h6 class="m-0 font-weight-bold text-primary" localize>Your posts</h6>
             </div>
             <div class="card-body">
 
                 <table class="table table-striped table-bordered table-hover" id="your-posts">
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Category</th>
-                            <th>Created</th>
-                            <th>Actions</th>
+                            <th localize>Title</th>
+                            <th localize>Category</th>
+                            <th localize>Created</th>
+                            <th localize>Actions</th>
                         </tr>
                     </thead>
                 </table>
@@ -104,7 +103,7 @@
 
 }
 
-@section scripts {
+    @section scripts {
 
     <script src="~/js/mditor.min.js"></script>
     @*<script src="https://unpkg.com/mditor@1.1.1/dist/js/mditor.min.js"></script>*@
@@ -125,9 +124,9 @@
         var textlen
 
         $('#post-title').keyup(function () {
-        textlen = @Model.MaxLength - $(this).val().length;
-        $('#remaingCharacters').text(textlen);
-         });
+            textlen = @Model.MaxLength - $(this).val().length;
+            $('#remaingCharacters').text(textlen);
+        });
 
         var tags = new Bloodhound({
 
@@ -173,89 +172,89 @@
             }
         });
 
-       @foreach (var tag in Model.Tags)
+        @foreach (var tag in Model.Tags)
         {
-              @:elt.tagsinput('add', { "value": "@tag.Id", "text": "@tag.Label" });
+            @:elt.tagsinput('add', { "value": "@tag.Id", "text": "@tag.Label" });
         }
 
-        $(() => {
-            $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
-            $.fn.dataTable.moment("DD/MM/YYYY");
+            $(() => {
+                $.fn.dataTable.moment("DD/MM/YYYY HH:mm:ss");
+                $.fn.dataTable.moment("DD/MM/YYYY");
 
-            $("#your-posts").DataTable({
-                // Design Assets
-                stateSave: true,
-                autoWidth: true,
-                // ServerSide Setups
-                processing: true,
-                serverSide: true,
-                // Paging Setups
-                paging: true,
-                // Searching Setups
-                searching: { regex: true },
-                searchable: true,
-                // Ajax Filter
-                ajax: {
-                    url: "/Administration/Posts/CurrentUserPosts",
-                    type: "POST",
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: function (d) {
-                        return JSON.stringify(d);
-                    }
-                },
-                language: {
-                    processing: "<img src='/Images/GearLoading.gif'>",
-                    emptyTable: "No data available in table"
-                },
-                // Columns Setups
-                columns: [
-                    { data: "title" },
-                    { data: "categoryName" },
-
-                    {
-                        data: "created",
-                        render: function (data, type, row) {
-                            // If display or filter data is requested, format the date
-                            if (type === "display" || type === "filter") {
-                                return moment(data).format("ddd DD/MM/YYYY HH:mm:ss");
-                            }
-                            // Otherwise the data type requested (`type`) is type detection or
-                            // sorting data, for which we want to use the raw date value, so just return
-                            // that, unaltered
-                            return data;
-                        }
-                    }
-                ],
-                // Column Definitions
-                columnDefs: [
-                    { "name": "Title", "targets": 0 },
-                    { "name": "CategoryName", "targets": 1 , "orderable": false},
-                    { "name": "Created", "targets": 2 },
-                    {
-                        "targets": 3, "data": "id", "className": "dt-body-right", "render": function (data, type, full, meta) {
-                            return '<a  href=/Administration/Posts/Index/' + data + '><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>'
-
+                $("#your-posts").DataTable({
+                    // Design Assets
+                    stateSave: true,
+                    autoWidth: true,
+                    // ServerSide Setups
+                    processing: true,
+                    serverSide: true,
+                    // Paging Setups
+                    paging: true,
+                    // Searching Setups
+                    searching: { regex: true },
+                    searchable: true,
+                    // Ajax Filter
+                    ajax: {
+                        url: "/Administration/Posts/CurrentUserPosts",
+                        type: "POST",
+                        contentType: "application/json",
+                        dataType: "json",
+                        data: function (d) {
+                            return JSON.stringify(d);
                         }
                     },
-
-                    { "searchable": true, "targets": 0 },
-                    { targets: "no-sort", orderable: false },
-                    { targets: "no-search", searchable: false },
-                    {
-                        targets: "trim",
-                        render: function (data, type, full, meta) {
-                            if (type === "display") {
-                                data = strtrunc(data, 10);
-                            }
-
-                            return data;
-                        }
+                    language: {
+                        processing: "<img src='/Images/GearLoading.gif'>",
+                        emptyTable: "No data available in table"
                     },
-                    { targets: "date-type", type: "date-eu" }
-                ]
+                    // Columns Setups
+                    columns: [
+                        { data: "title" },
+                        { data: "categoryName" },
+
+                        {
+                            data: "created",
+                            render: function (data, type, row) {
+                                // If display or filter data is requested, format the date
+                                if (type === "display" || type === "filter") {
+                                    return moment(data).format("ddd DD/MM/YYYY HH:mm:ss");
+                                }
+                                // Otherwise the data type requested (`type`) is type detection or
+                                // sorting data, for which we want to use the raw date value, so just return
+                                // that, unaltered
+                                return data;
+                            }
+                        }
+                    ],
+                    // Column Definitions
+                    columnDefs: [
+                        { "name": "Title", "targets": 0 },
+                        { "name": "CategoryName", "targets": 1, "orderable": false },
+                        { "name": "Created", "targets": 2 },
+                        {
+                            "targets": 3, "data": "id", "className": "dt-body-right", "render": function (data, type, full, meta) {
+                                return '<a  href=/Administration/Posts/Index/' + data + '><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>'
+
+                            }
+                        },
+
+                        { "searchable": true, "targets": 0 },
+                        { targets: "no-sort", orderable: false },
+                        { targets: "no-search", searchable: false },
+                        {
+                            targets: "trim",
+                            render: function (data, type, full, meta) {
+                                if (type === "display") {
+                                    data = strtrunc(data, 10);
+                                }
+
+                                return data;
+                            }
+                        },
+                        { targets: "date-type", type: "date-eu" }
+                    ]
+                });
             });
-        });
     </script>
 
 }

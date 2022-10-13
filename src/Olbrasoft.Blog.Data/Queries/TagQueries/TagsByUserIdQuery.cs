@@ -1,9 +1,11 @@
-﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
+﻿namespace Olbrasoft.Blog.Data.Queries.TagQueries;
 
-namespace Olbrasoft.Blog.Data.Queries.TagQueries;
-
-public class TagsByUserIdQuery : ItemsByUserIdQuery<IPagedResult<TagOfUserDto>>
+public class TagsByUserIdQuery : ByUserIdQuery<IPagedResult<TagOfUserDto>>
 {
+    public TagsByUserIdQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public TagsByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }

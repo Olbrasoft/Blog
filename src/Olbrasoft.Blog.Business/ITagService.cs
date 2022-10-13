@@ -1,8 +1,8 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
-using Olbrasoft.Data;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Sorting;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Business
@@ -27,6 +27,8 @@ namespace Olbrasoft.Blog.Business
 
         Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids);
 
-        Task<IEnumerable<TagSmallDto>> TagsAsync();
+        Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token);
+
+        Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token);
     }
 }

@@ -1,19 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Extensions.Linq;
-using Olbrasoft.Data.Paging;
-using Olbrasoft.Extensions.Paging;
-using Olbrasoft.Mapping;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
-using System;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
     public class CategoriesByExceptUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByExceptUserIdQuery, IPagedResult<CategoryOfUsersDto>>
     {

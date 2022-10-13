@@ -2,11 +2,15 @@
 
 namespace Olbrasoft.Blog.Data.Queries.CommentQueries;
 
-public class CommentsByPostIdQuery : Request<IEnumerable<CommentDto>>
+public class CommentsByPostIdQuery : BaseQuery<IEnumerable<CommentDto>>
 {
-    public CommentsByPostIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public int PostId { get; set; }
+
+    public CommentsByPostIdQuery(IQueryProcessor processor) : base(processor)
     {
     }
 
-    public int PostId { get; set; }
+    public CommentsByPostIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    {
+    }
 }

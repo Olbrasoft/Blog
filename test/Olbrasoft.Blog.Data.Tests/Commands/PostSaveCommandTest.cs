@@ -5,19 +5,19 @@ public class PostSaveCommandTest
     public void PostSaveCommand_Inherit_From_CreatorSaveCommand()
     {
         //Arrange
-        var dispatcher = CreateDispatcher();
+        var dispatcher = CreateExecutor();
 
         //Act
         var command = new PostSaveCommand(dispatcher);
 
         //Assert
-        Assert.IsAssignableFrom<CreatorSaveCommand>(command);
+        Assert.IsAssignableFrom<BlogCommand>(command);
     }
 
-    private static IDispatcher CreateDispatcher()
+    private static ICommandExecutor CreateExecutor()
     {
-        var dispatcherMock = new Mock<IDispatcher>();
-        return dispatcherMock.Object;
+        var commandExecutor = new Mock<ICommandExecutor>();
+        return commandExecutor.Object;
     }
 
 
@@ -25,8 +25,8 @@ public class PostSaveCommandTest
     public void PostSaveCommand_CategoryId_Is_Integer()
     {
         //Arrange
-        var command = new PostSaveCommand(CreateDispatcher());
-
+        var command = new PostSaveCommand(CreateExecutor());
+        
         //Act
         var categoryId = command.CategoryId;
 

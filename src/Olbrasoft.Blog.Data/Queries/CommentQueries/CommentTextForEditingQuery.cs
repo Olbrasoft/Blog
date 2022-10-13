@@ -1,10 +1,15 @@
 ﻿namespace Olbrasoft.Blog.Data.Queries.CommentQueries;
 
-public class CommentTextForEditingQuery : ByIdRequest<string>
+public class CommentTextForEditingQuery : ByIdQuery<string>
 {
+    public int CreatorId { get; set; }
+
+    public CommentTextForEditingQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public CommentTextForEditingQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }
 
-    public int CreatorId { get; set; }
 }

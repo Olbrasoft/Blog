@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
 {
     public class CategoryExistsQueryHandler : BlogDbQueryHandler<Category, CategoryExistsQuery>
     {

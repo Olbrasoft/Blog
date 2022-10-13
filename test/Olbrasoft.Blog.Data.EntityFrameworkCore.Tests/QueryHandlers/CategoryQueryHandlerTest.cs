@@ -2,7 +2,7 @@
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs;
+using Olbrasoft.Dispatching;
 using Olbrasoft.Mapping;
 using Xunit;
 
@@ -14,7 +14,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         public void Instance_Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(QueryHandler<CategoryQuery, CategoryOfUserDto>);
+            var type = typeof(IRequestHandler<CategoryQuery, CategoryOfUserDto>);
 
             //Act
             var handler = CreateHandler();

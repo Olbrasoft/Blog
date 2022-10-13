@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net6</TargetFramework>
+	  <LangVersion>10</LangVersion>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,21 +22,45 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
 	
-	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.8" />
-	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
-    <PackageReference Include="Olbrasoft.Data.Cqrs.EntityFrameworkCore" Version="1.6.0" />
     <PackageReference Include="Olbrasoft.Data.Sorting.Extensions" Version="1.0.1" />
+    <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		
+		<Using Include="System"/>
+		<Using Include="System.Linq"/>
+		<Using Include="System.Threading"/>
+		<Using Include="System.Threading.Tasks"/>
+		<Using Include="System.Collections.Generic"/>
+		<Using Include="Microsoft.EntityFrameworkCore"/>
+		<Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders"/>
+		<Using Include="Olbrasoft.Data.Entities.Identity"/>
+		<Using Include="Olbrasoft.Blog.Data.Entities.Identity"/>
+		<Using Include="Olbrasoft.Blog.Data.Entities"/>
+		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos"/>
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos"/>
+		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos"/>
+		<Using Include="Olbrasoft.Blog.Data.Queries.PostQueries"/>
+		<Using Include="Olbrasoft.Blog.Data.Queries.CategoryQueries"/>
+		<Using Include="Olbrasoft.Blog.Data.Queries.TagQueries"/>
+		<Using Include="Olbrasoft.Blog.Data.Queries.CommentQueries"/>
+		<Using Include="Olbrasoft.Blog.Data.Commands"/>
+		<Using Include="Olbrasoft.Blog.Data.Commands.CommentCommands"/>
+		<Using Include="Olbrasoft.Mapping"/>
+		<Using Include="Olbrasoft.Dispatching"/>
+		<Using Include="Olbrasoft.Data.Cqrs"/>
+		<Using Include="Olbrasoft.Data.Paging"/>
+		<Using Include="Olbrasoft.Extensions.Paging"/>
+		<Using Include="Olbrasoft.Extensions.Linq"/>
+	</ItemGroup>
 </Project>

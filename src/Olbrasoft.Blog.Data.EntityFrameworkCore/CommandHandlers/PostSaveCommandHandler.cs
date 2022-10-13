@@ -1,16 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Commands;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Mapping;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
-    public class PostSaveCommandHandler : DbCommandHandler<PostSaveCommand, BlogDbContext, Post>
+    public class PostSaveCommandHandler : BlogDbCommandHandler<PostSaveCommand,  Post>
     {
         public PostSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {

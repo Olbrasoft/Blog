@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
 
-public class NestedCommentSaveCommand : CreatorSaveCommand
+public class NestedCommentSaveCommand : BlogCommand
 {
+    public NestedCommentSaveCommand(ICommandExecutor executor) : base(executor)
+    {
+    }
+
     public NestedCommentSaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
     }

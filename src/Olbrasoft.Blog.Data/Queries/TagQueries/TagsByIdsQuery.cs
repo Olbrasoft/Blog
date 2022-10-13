@@ -1,12 +1,17 @@
-﻿using Olbrasoft.Blog.Data.Dtos.TagDtos;
+﻿namespace Olbrasoft.Blog.Data.Queries.TagQueries;
 
-namespace Olbrasoft.Blog.Data.Queries.TagQueries;
-
-public class TagsByIdsQuery : Request<IEnumerable<TagSmallDto>>
+public class TagsByIdsQuery : BaseQuery<IEnumerable<TagSmallDto>>
 {
+
+    public TagsByIdsQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public TagsByIdsQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }
 
     public IEnumerable<int> Ids { get; set; } = Enumerable.Empty<int>();
 }
+
+

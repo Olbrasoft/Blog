@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Queries.CategoryQueries;
 
-public class CategoryExistsQuery : Request<bool>
+public class CategoryExistsQuery : BaseQuery<bool>
 {
+    public CategoryExistsQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public CategoryExistsQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }

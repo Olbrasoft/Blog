@@ -1,5 +1,3 @@
-using System;
-
 namespace Olbrasoft.Blog.AspNetCore.Mvc.Models
 {
     public class ErrorViewModel

@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands;
 
-public class TagSaveCommand : CreatorSaveCommand
+public class TagSaveCommand : BlogCommand
 {
+    public TagSaveCommand(ICommandExecutor executor) : base(executor)
+    {
+    }
+
     public TagSaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
     }

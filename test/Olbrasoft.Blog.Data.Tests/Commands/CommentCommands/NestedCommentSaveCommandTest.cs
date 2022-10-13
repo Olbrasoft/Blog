@@ -1,26 +1,23 @@
-﻿using Olbrasoft.Data.Cqrs.Requests;
-using Xunit;
-
-namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
+﻿namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
 public class NestedCommentSaveCommandTest
 {
     [Fact]
     public void NestedCommentSaveCommand_Inherit_From_CreatorSaveCommand()
     {
-        Mock<IDispatcher> dm = CreateDispatcherMock();
+        var dm = CreateDispatcherMock();
 
         //Act
         var command = new NestedCommentSaveCommand(dm.Object);
 
         //Assert
-        Assert.IsAssignableFrom<CreatorSaveCommand>(command);
+        Assert.IsAssignableFrom<BlogCommand>(command);
 
     }
 
-    private static Mock<IDispatcher> CreateDispatcherMock()
+    private static Mock<ICommandExecutor> CreateDispatcherMock()
     {
         //Arrange
-        return new Mock<IDispatcher>();
+        return new Mock<ICommandExecutor>();
     }
 
     [Fact]

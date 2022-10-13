@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands.CommentCommands;
 
-public class CommentDeleteCommand : ByIdAndCreatorIdRequest
+public class CommentDeleteCommand : BlogCommand
 {
+    public CommentDeleteCommand(ICommandExecutor executor) : base(executor)
+    {
+    }
+
     public CommentDeleteCommand(IDispatcher dispatcher) : base(dispatcher)
     {
     }

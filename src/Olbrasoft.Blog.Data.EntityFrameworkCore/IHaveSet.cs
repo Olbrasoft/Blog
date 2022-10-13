@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore
 {
     public interface IHaveSet
     {

@@ -6,7 +6,7 @@ public class TagSaveCommandTest
     public void Instance_Implement_Interface_IRequest_Of_Bool()
     {
         //Arrange
-        var type = typeof(Dispatching.IRequest<bool>);
+        var type = typeof(BaseCommand<bool>);
 
         //Act
         var cmd = CreateCommand();
@@ -17,7 +17,7 @@ public class TagSaveCommandTest
 
     private static TagSaveCommand CreateCommand()
     {
-        var dispatcherMock = new Mock<IDispatcher>();
+        var dispatcherMock = new Mock<ICommandExecutor>();
 
         return new TagSaveCommand(dispatcherMock.Object);
     }

@@ -1,9 +1,11 @@
-﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
+﻿namespace Olbrasoft.Blog.Data.Queries.PostQueries;
 
-namespace Olbrasoft.Blog.Data.Queries.PostQueries;
-
-public class PostDetailByIdQuery : ByIdRequest<PostDetailDto>
+public class PostDetailByIdQuery : ByIdQuery<PostDetailDto>
 {
+    public PostDetailByIdQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public PostDetailByIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }

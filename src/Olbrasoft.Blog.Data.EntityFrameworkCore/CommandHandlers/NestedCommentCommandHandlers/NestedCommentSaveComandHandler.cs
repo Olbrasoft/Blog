@@ -1,20 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.Commands.CommentCommands;
-using Olbrasoft.Blog.Data.Entities;
-using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
-using Olbrasoft.Mapping;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
 {
-    public class NestedCommentSaveComandHandler : DbCommandHandler<NestedCommentSaveCommand, BlogDbContext, NestedComment>
-    {
+    public class NestedCommentSaveComandHandler : BlogDbCommandHandler<NestedCommentSaveCommand, NestedComment>
+     {
         public NestedCommentSaveComandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
         {
+       
         }
-
+              
         public override async Task<bool> HandleAsync(NestedCommentSaveCommand command, CancellationToken token)
         {
             if (command.Id == 0 && command.CommentId > 0)

@@ -1,6 +1,6 @@
 ﻿using Moq;
 using Olbrasoft.Blog.Data.Commands;
-using Olbrasoft.Data.Cqrs;
+using Olbrasoft.Dispatching;
 using Xunit;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
@@ -11,7 +11,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         public void Inherit_From_Handler()
         {
             //Arrange
-            var type = typeof(CommandHandler<TagSaveCommand, bool>);
+            var type = typeof(IRequestHandler<TagSaveCommand, bool>);
 
             //Act
             var handler = CreateHandler();

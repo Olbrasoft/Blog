@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands;
 
-public class CategorySaveCommand : CreatorSaveCommand
+public class CategorySaveCommand : BlogCommand
 {
+    public CategorySaveCommand(ICommandExecutor executor) : base(executor)
+    {
+    }
+
     public CategorySaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
     }

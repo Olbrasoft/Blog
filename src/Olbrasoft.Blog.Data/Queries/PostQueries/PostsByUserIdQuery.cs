@@ -1,9 +1,11 @@
-﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
+﻿namespace Olbrasoft.Blog.Data.Queries.PostQueries;
 
-namespace Olbrasoft.Blog.Data.Queries.PostQueries;
-
-public class PostsByUserIdQuery : ItemsByUserIdQuery<IPagedResult<PostOfUserDto>>
+public class PostsByUserIdQuery : ByUserIdQuery<IPagedResult<PostOfUserDto>>
 {
+    public PostsByUserIdQuery(IQueryProcessor processor) : base(processor)
+    {
+    }
+
     public PostsByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
     {
     }

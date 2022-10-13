@@ -26,57 +26,57 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore
             return ctx;
         }
 
-        [Fact]
-        public void Have_Posts()
-        {
-            //Arrange
-            var ctx = BlogDbContext();
+        //[Fact]
+        //public void Have_Posts()
+        //{
+        //    //Arrange
+        //    var ctx = BlogDbContext();
 
-            //Act
-            var posts = ctx.Posts;
+        //    //Act
+        //    var posts = ctx.Posts;
 
-            //Assert
-            Assert.IsAssignableFrom<DbSet<Post>>(posts);
-        }
+        //    //Assert
+        //    Assert.IsAssignableFrom<DbSet<Post>>(posts);
+        //}
 
-        [Fact]
-        public void Have_Categories()
-        {
-            //Arrange
-            var ctx = BlogDbContext();
+        //[Fact]
+        //public void Have_Categories()
+        //{
+        //    //Arrange
+        //    var ctx = BlogDbContext();
 
-            //Act
-            var categories = ctx.Categories;
+        //    //Act
+        //    var categories = ctx.Categories;
 
-            //Assert
-            Assert.IsAssignableFrom<DbSet<Category>>(categories);
-        }
+        //    //Assert
+        //    Assert.IsAssignableFrom<DbSet<Category>>(categories);
+        //}
 
-        [Fact]
-        public void Have_Comments()
-        {
-            //Arrange
-            var ctx = BlogDbContext();
+        //[Fact]
+        //public void Have_Comments()
+        //{
+        //    //Arrange
+        //    var ctx = BlogDbContext();
 
-            //Act
-            var comments = ctx.Comments;
+        //    //Act
+        //    var comments = ctx.Comments;
 
-            //Assert
-            Assert.IsAssignableFrom<DbSet<Comment>>(comments);
-        }
+        //    //Assert
+        //    Assert.IsAssignableFrom<DbSet<Comment>>(comments);
+        //}
 
-        [Fact]
-        public void Have_Tags()
-        {
-            //Arrange
-            var ctx = BlogDbContext();
+        //[Fact]
+        //public void Have_Tags()
+        //{
+        //    //Arrange
+        //    var ctx = BlogDbContext();
 
-            //Act
-            var tags = ctx.Tags;
+        //    //Act
+        //    var tags = ctx.Tags;
 
-            //Assert
-            Assert.IsAssignableFrom<DbSet<Tag>>(tags);
-        }
+        //    //Assert
+        //    Assert.IsAssignableFrom<DbSet<Tag>>(tags);
+        //}
 
         [Fact]
         public void Have_DefaultRoles()

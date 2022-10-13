@@ -3,10 +3,10 @@
 public class CategorySaveCommandTest
 {
     [Fact]
-    public void Implement_Interface_IRequest_Of_Bool()
+    public void Implement_Interface_ICommand_Of_Bool()
     {
         //Arrange
-        var type = typeof(IRequest<bool>);
+        var type = typeof(BaseCommand<bool>);
 
         //Act
         var cmd = CreateCommand();
@@ -17,7 +17,7 @@ public class CategorySaveCommandTest
 
     private static CategorySaveCommand CreateCommand()
     {
-        var dispatcherMock = new Mock<IDispatcher>();
+        var dispatcherMock = new Mock<ICommandExecutor>();
 
         return new CategorySaveCommand(dispatcherMock.Object) { Id = 0 };
     }

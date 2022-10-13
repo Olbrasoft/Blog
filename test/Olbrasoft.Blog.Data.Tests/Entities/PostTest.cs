@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Olbrasoft.Blog.Data.Entities;
+﻿namespace Olbrasoft.Blog.Data.Entities;
 
 public class PostTest
 {

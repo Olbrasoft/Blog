@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	  <LangVersion>10</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <AssemblyName>Olbrasoft.Blog.Data.FreeSql</AssemblyName>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FreeSql.Extensions.Linq" Version="3.2.680" />
+    <PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.517" />
+    <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Include="FreeSql" />
+		<Using Include="Olbrasoft.Data.Paging" />
+		<Using Include="Olbrasoft.Extensions.Paging" />
+		<Using Include="Olbrasoft.Blog.Data.Entities" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CommentDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Queries.PostQueries" />
+		<Using Include="Olbrasoft.Blog.Data.Queries.CategoryQueries" />
+		<Using Include="Olbrasoft.Blog.Data.Queries.TagQueries" />
+		<Using Include="Olbrasoft.Blog.Data.Queries.CommentQueries" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
+		<Using Include="Olbrasoft.Dispatching" />
+		<Using Include="Olbrasoft.Mapping" />
+	</ItemGroup>
+
+
+</Project>

@@ -150,6 +150,9 @@
   <data name="RepeatPassword" xml:space="preserve">
     <value>Zopakovat Heslo</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
+  </data>
   <data name="Text" xml:space="preserve">
     <value>Text</value>
   </data>

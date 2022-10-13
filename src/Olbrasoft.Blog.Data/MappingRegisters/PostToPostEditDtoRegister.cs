@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Blog.Data.Entities;
 
 namespace Olbrasoft.Blog.Data.MappingRegisters;

@@ -1,7 +1,11 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands;
 
-public class PostSaveCommand : CreatorSaveCommand
+public class PostSaveCommand : BlogCommand
 {
+    public PostSaveCommand(ICommandExecutor executor) : base(executor)
+    {
+    }
+
     public PostSaveCommand(IDispatcher dispatcher) : base(dispatcher)
     {
     }

@@ -1,5 +1,6 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.CommentDtos;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Business
@@ -10,11 +11,11 @@ namespace Olbrasoft.Blog.Business
 
         Task<bool> SaveNestedCommentAsync(int id, int commentId, string text, int userId);
 
-        Task<IEnumerable<CommentDto>> CommentsByPostIdAsync(int postId);
+        Task<IEnumerable<CommentDto>> CommentsByPostIdAsync(int postId, CancellationToken token);
 
-        Task<string> TextEditComment(int id, int creatorId = 0);
+        Task<string> TextEditComment(int id, int creatorId, CancellationToken token);
 
-        Task<string> TextEditNestedComment(int id, int creatorId = 0);
+        Task<string> TextEditNestedComment(int id, int creatorId, CancellationToken token);
 
         Task<bool> DeleteNestedComment(int id, int creatorId);
 
