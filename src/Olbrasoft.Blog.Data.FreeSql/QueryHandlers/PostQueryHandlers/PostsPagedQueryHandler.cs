@@ -2,48 +2,42 @@
 
 public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>
 {
-  
     public PostsPagedQueryHandler(IDataSelector selector) : base(selector)
     {
     }
 
     public override async Task<IPagedEnumerable<PostDto>> HandleAsync(PostsPagedQuery query, CancellationToken token)
     {
-        var filteredSelect = Select;
+        ThrowIfQueryIsNullOrCancellationRequested(query, token);
 
-        if (!string.IsNullOrEmpty(query.Search))
-        {
-            var adeptToCategoryId = query.Search.ToLower().Replace("searchbycategoryid:", "");
+        var resultSelect = BuildResultSelect(Select, query);
 
-            if (adeptToCategoryId != query.Search.ToLower() && int.TryParse(adeptToCategoryId.Trim(), out int categoryId))
-            {
-                filteredSelect = filteredSelect.Where(p => p.CategoryId == categoryId);
-            }
-            else
-            {
-                var adeptToCreatorId = query.Search.ToLower().Replace("searchbycreatorid:", "");
-
-                if (adeptToCreatorId != query.Search.ToLower() && int.TryParse(adeptToCreatorId.Trim(), out int creatorId))
-                {
-                    filteredSelect = filteredSelect.Where(p => p.CreatorId == creatorId);
-                }
-                else
-                {
-                    var adeptToTagId = query.Search.ToLower().Replace("searchbytagid:", "");
-
-                    if (adeptToTagId != query.Search.ToLower() && int.TryParse(adeptToTagId.Trim(), out int tagId))
-                    {
-                       filteredSelect.InnerJoin<PostToTag>((p, ptt) => p.Id == ptt.Id && ptt.ToId == tagId);
-                    }
-                    else filteredSelect = filteredSelect.Where(p => p.Title.Contains(query.Search));
-                }
-            }
-        }
-
-        var posts = await filteredSelect.OrderByDescending(p => p.Created)
+        var posts = await resultSelect.OrderByDescending(p => p.Created)
                .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
                .ToListAsync(post => new PostDto { Creator = post.Creator.FirstName + " " + post.Creator.LastName }, token);
 
-        return posts.AsPagedEnumerable((int)await filteredSelect.CountAsync(token));
+        return posts.AsPagedEnumerable(await resultSelect.CountAsync(token));
+    }
+
+    private static ISelect<Post> BuildResultSelect(ISelect<Post> sourceSelect, PostsPagedQuery query) => string.IsNullOrEmpty(query.Search)
+            ? sourceSelect
+            : TrySearchBy(query.Search, "searchbycategoryid:", out int categoryId)
+            ? sourceSelect.Where(p => p.CategoryId == categoryId)
+            : TrySearchBy(query.Search, "searchbycreatorid:", out int creatorId)
+                ? sourceSelect.Where(p => p.CreatorId == creatorId)
+                : TrySearchBy(query.Search, "searchbytagid:", out int tagId)
+                    ? sourceSelect.InnerJoin<PostToTag>((p, ptt) => p.Id == ptt.Id && ptt.ToId == tagId)
+                    : sourceSelect.Where(p => p.Title.Contains(query.Search));
+
+    private static bool TrySearchBy(string search, string searchBy, out int entityId)
+    {
+        var adeptToId = search.ToLower().Replace(searchBy, "");
+        if (adeptToId != search.ToLower() && int.TryParse(adeptToId.Trim(), out int id))
+        {
+            entityId = id;
+            return true;
+        }
+        entityId = 0;
+        return false;
     }
 }

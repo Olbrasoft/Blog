@@ -1,6 +1,4 @@
-﻿using FreeSql.Extensions.EfCoreFluentApi;
-
-namespace Olbrasoft.Blog.Data.FreeSql.Configurations;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.Configurations;
 public class PostConfiguration : IEntityTypeConfiguration<Post>
 {
     public void Configure(EfCoreTableFluent<Post> model)

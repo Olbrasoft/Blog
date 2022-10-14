@@ -1,19 +1,15 @@
 ﻿@model HomePageViewModel
-
 @{
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
-
 <div class="row">
     <div class="col-md-8">
         <h1 class="my-4">
             <localize>Blog</localize>
             <small localize>listing of posts</small>
         </h1>
-
         <a asp-area="" asp-controller="Home" asp-action="TestSpeedDiContainer" localize-title="Test Speed" >Test Speed</a>
-
         @foreach (var post in Model.Posts)
         {
             <div class="card mb-4">

@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FreeSql.Extensions.Linq" Version="3.2.680" />
+    <PackageReference Include="FreeSql.Extensions.Linq" Version="3.2.681" />
     <PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.517" />
     <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
   </ItemGroup>
@@ -20,6 +20,7 @@
 
 	<ItemGroup>
 		<Using Include="FreeSql" />
+		<Using Include="FreeSql.Extensions.EfCoreFluentApi"/>
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Extensions.Paging" />
 		<Using Include="Olbrasoft.Blog.Data.Entities" />
@@ -31,6 +32,7 @@
 		<Using Include="Olbrasoft.Blog.Data.Queries.CategoryQueries" />
 		<Using Include="Olbrasoft.Blog.Data.Queries.TagQueries" />
 		<Using Include="Olbrasoft.Blog.Data.Queries.CommentQueries" />
+		<Using Include="Olbrasoft.Blog.Data.FreeSql.QueryHandlers" />
 		<Using Include="Olbrasoft.Data.Cqrs" />
 		<Using Include="Olbrasoft.Dispatching" />
 		<Using Include="Olbrasoft.Mapping" />

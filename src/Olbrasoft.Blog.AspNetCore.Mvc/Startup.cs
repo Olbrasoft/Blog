@@ -1,31 +1,21 @@
-using FreeSql;
 using IGeekFan.AspNetCore.Identity.FreeSql;
 using Localization.AspNetCore.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Olbrasoft.Blog.Business;
 using Olbrasoft.Blog.Business.Services;
-using Olbrasoft.Blog.Data.Entities.Identity;
 using Olbrasoft.Blog.Data.EntityFrameworkCore;
-using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
 using Olbrasoft.Blog.Data.FreeSql;
 using Olbrasoft.Blog.Data.FreeSql.Tests;
 using Olbrasoft.Blog.Data.MappingRegisters;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs;
-using Olbrasoft.Data.Paging.DataTables;
-using Olbrasoft.Dispatching;
 using Olbrasoft.Extensions.DependencyInjection;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc;
@@ -121,13 +111,19 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+        services.AddLocalization(options =>
+        {
+            options.ResourcesPath = "Resources";
+           
+        }
+        );
         services.AddControllersWithViews()
-              .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization();
+               .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+               .AddDataAnnotationsLocalization();
 
-        services.AddSingleton<SharedLocalizer>();
+
+
+        //services.AddSingleton<SharedLocalizer>();
 
         services.Configure<LocalizeTagHelperOptions>(options =>
         {

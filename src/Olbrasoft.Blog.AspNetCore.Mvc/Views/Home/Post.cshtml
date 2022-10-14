@@ -4,7 +4,7 @@
 @using System.Security.Claims;
 @model PostDetailViewModel
 @inject SignInManager<BlogUser> SignInManager
-@inject SharedLocalizer Localizer
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<Olbrasoft.Blog.AspNetCore.Mvc.SharedResources> Localizer
 
 @{
     Layout = "_Layout";

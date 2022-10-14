@@ -1,35 +1,28 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Olbrasoft.Blog.AspNetCore.Mvc.Controllers;
-using Olbrasoft.Data.Paging;
-using Olbrasoft.Data.Paging.DataTables;
+﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers
+[Authorize]
+[Area("Administration")]
+public class AdminDataTablesController : BlogController
 {
-    [Authorize]
-    [Area("Administration")]
-    public class AdminDataTablesController : BlogController
+    private readonly IDataTableOptionBuilder _builder;
+
+    public AdminDataTablesController(IDataTableOptionBuilder builder)
     {
-        private readonly IDataTableOptionBuilder _builder;
+        _builder = builder;
+    }
 
-        public AdminDataTablesController(IDataTableOptionBuilder builder)
+    protected IActionResult BuildDataTableJson<T>(IPagedResult<T> result)
+    {
+        return Json(new
         {
-            _builder = builder;
-        }
+            recordsTotal = result.TotalCount,
+            recordsFiltered = result.FilteredCount,
+            data = result
+        });
+    }
 
-        protected IActionResult BuildDataTableJson<T>(IPagedResult<T> result)
-        {
-            return Json(new
-            {
-                recordsTotal = result.TotalCount,
-                recordsFiltered = result.FilteredCount,
-                data = result
-            });
-        }
-
-        protected DataTableQueryOption BuildDataTableQueryOption(DataTableModel model, string defaultColumnName)
-        {
-            return _builder.BuildOption(model, defaultColumnName);
-        }
+    protected DataTableQueryOption BuildDataTableQueryOption(DataTableModel model, string defaultColumnName)
+    {
+        return _builder.BuildOption(model, defaultColumnName);
     }
 }

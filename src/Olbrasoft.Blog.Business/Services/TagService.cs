@@ -42,27 +42,52 @@ namespace Olbrasoft.Blog.Business.Services
             return await command.ToResultAsync();
         }
 
-        public async Task<IPagedResult<TagOfUserDto>> TagsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search)
-        { return await new TagsByUserIdQuery(Processor) { UserId = userId, Paging = paging, OrderByColumnName = column, OrderByDirection = direction, Search = search }.ToResultAsync(); }
+        public async Task<IPagedResult<TagOfUserDto>> TagsByUserIdAsync(int userId,
+                                                                        IPageInfo paging,
+                                                                        string column,
+                                                                        OrderDirection direction,
+                                                                        string search,
+                                                                        CancellationToken token = default)
+        { return await new TagsByUserIdQuery(Dispatcher)
+        {
+            UserId = userId,
+            Paging = paging,
+            OrderByColumnName = column,
+            OrderByDirection = direction,
+            Search = search
+        }.ToResultAsync(token); }
 
-        public async Task<TagSmallDto> UserTagAsync(int id, int userId)
-        { return await new TagByIdAndUserIdQuery(Processor) { Id = id, UserId = userId }.ToResultAsync(); }
+        public async Task<TagSmallDto> UserTagAsync(int id, int userId, CancellationToken token = default)
+        { return await new TagByIdAndUserIdQuery(Dispatcher) { Id = id, UserId = userId }.ToResultAsync(token); }
 
-        public async Task<IPagedResult<TagOfUsersDto>> TagsByExceptUserIdAsync(int exceptUserId, IPageInfo paging, string column, OrderDirection direction, string search)
-        { return await new TagsByExceptUserIdQuery(Processor) { ExceptUserId = exceptUserId, Paging = paging, OrderByColumnName = column, OrderByDirection = direction, Search = search }.ToResultAsync(); }
+        public async Task<IPagedResult<TagOfUsersDto>> TagsByExceptUserIdAsync(int exceptUserId,
+                                                                               IPageInfo paging,
+                                                                               string column,
+                                                                               OrderDirection direction,
+                                                                               string search,
+                                                                               CancellationToken token)
+            => await new TagsByExceptUserIdQuery(Dispatcher)
+            {
+                ExceptUserId = exceptUserId,
+                Paging = paging,
+                OrderByColumnName = column,
+                OrderByDirection = direction,
+                Search = search
+            }
+            .ToResultAsync(token);
 
         public async Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds)
-        { return await new TagsByLabelContainsQuery(Processor) { Text = term, ExceptTagIds = exceptTagIds }.ToResultAsync(); }
+        { return await new TagsByLabelContainsQuery(Dispatcher) { Text = term, ExceptTagIds = exceptTagIds }.ToResultAsync(); }
 
         public async Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids)
         {
             return await new TagsByIdsQuery(Processor) { Ids = ids }.ToResultAsync();
         }
 
-        public async Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token = default) 
+        public async Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token = default)
             => await new TagsQuery(Dispatcher).ToResultAsync(token);
 
-        public async Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token) 
+        public async Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token)
             => await new TagsByPostIdQuery(Dispatcher) { PostId = postId }.ToResultAsync(token);
     }
 }

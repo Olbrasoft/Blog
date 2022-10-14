@@ -8,18 +8,15 @@ public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQ
 
     public override async Task<IPagedResult<PostOfUserDto>> HandleAsync(PostsByUserIdQuery query, CancellationToken token)
     {
-        var filteredPostSelect = Select.Where(p => p.CreatorId == query.UserId);
+        var userPostsSelect = Select.Where(p => p.CreatorId == query.UserId);
 
         if (!string.IsNullOrEmpty(query.Search))
         {
-            filteredPostSelect = filteredPostSelect.Where(p => p.Title.ToLower().Contains(query.Search.ToLower()) || p.Content.ToLower().Contains(query.Search.ToLower()));
+            Select = Select.Where(p => p.Title.ToLower().Contains(query.Search.ToLower()) || p.Content.ToLower().Contains(query.Search.ToLower()));
         }
 
-        var orderByDirection = true;
-        if (query.OrderByDirection is Olbrasoft.Data.Sorting.OrderDirection.Desc) orderByDirection = false;
-
-        return (await filteredPostSelect.OrderByPropertyName(query.OrderByColumnName, orderByDirection).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
+        return (await Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean()).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
             .ToListAsync(p => new PostOfUserDto { CategoryName = p.Category.Name }, token))
-            .AsPagedResult((int)await Select.Where(p => p.CreatorId == query.UserId).CountAsync(token), (int)await filteredPostSelect.CountAsync(token));
+            .AsPagedResult(await userPostsSelect.Where(p => p.CreatorId == query.UserId).CountAsync(token), await Select.CountAsync(token));
     }
 }

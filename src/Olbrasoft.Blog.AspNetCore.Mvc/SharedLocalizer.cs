@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Localization;
-using Olbrasoft.Blog.AspNetCore.Mvc.Resources;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
 
 namespace Olbrasoft.Blog.AspNetCore.Mvc
 {
-    public class SharedLocalizer : IHtmlLocalizer
+
+    
+
+    public class SharedLocalizer : IHtmlLocalizer 
     {
         private readonly IHtmlLocalizer _localizer;
 
         public SharedLocalizer(IHtmlLocalizerFactory factory)
         {
-            var type = typeof(Shared);
-            var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
-            _localizer = factory.Create("Shared", assemblyName.Name);
+            _localizer = factory.Create("Shared", typeof(SharedLocalizer).Assembly.FullName );
+
         }
 
         public LocalizedHtmlString this[string name] => Text(name);

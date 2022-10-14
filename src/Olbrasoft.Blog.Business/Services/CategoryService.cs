@@ -22,46 +22,53 @@ namespace Olbrasoft.Blog.Business.Services
             _executor = executor;
         }
 
-        public async Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token = default )
+        public async Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token = default)
         {
             var query = new CategoriesQuery(Dispatcher);
 
             return await query.ToResultAsync(token);
         }
 
-        public async Task<IPagedResult<CategoryOfUsersDto>> CategoriesByExceptUserIdAsync(int exceptUserId, IPageInfo paging, string column, OrderDirection direction, string search)
+        public async Task<IPagedResult<CategoryOfUsersDto>> CategoriesByExceptUserIdAsync(int exceptUserId,
+                                                                                          IPageInfo paging,
+                                                                                          string column,
+                                                                                          OrderDirection direction,
+                                                                                          string search,
+                                                                                          CancellationToken token = default)
         {
-            var query = new CategoriesByExceptUserIdQuery(Processor)
+            return await new CategoriesByExceptUserIdQuery(Dispatcher)
             {
                 ExceptUserId = exceptUserId,
                 Paging = paging,
                 OrderByColumnName = column,
                 OrderByDirection = direction,
                 Search = search
-            };
 
-            var result = await query.ToResultAsync();
+            }.ToResultAsync(token);
 
-            return result;
         }
 
-        public async Task<IPagedResult<CategoryOfUserDto>> CategoriesByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search)
+        public async Task<IPagedResult<CategoryOfUserDto>> CategoriesByUserIdAsync(int userId,
+                                                                                   IPageInfo paging,
+                                                                                   string column,
+                                                                                   OrderDirection direction,
+                                                                                   string search,
+                                                                                   CancellationToken token = default)
         {
-            var query = new CategoriesByUserIdQuery(Processor)
+            return await new CategoriesByUserIdQuery(Dispatcher)
             {
                 UserId = userId,
                 Paging = paging,
                 OrderByColumnName = column,
                 OrderByDirection = direction,
                 Search = search
-            };
 
-            return await query.ToResultAsync();
+            }.ToResultAsync(token);
         }
 
-        public async Task<CategoryOfUserDto> CategoryAsync(int id)
+        public async Task<CategoryOfUserDto> CategoryAsync(int id, CancellationToken token = default)
         {
-            return await new CategoryQuery(Processor) { Id = id }.ToResultAsync();
+            return await new CategoryQuery(Dispatcher) { Id = id }.ToResultAsync(token);
         }
 
         public async Task<bool> ExistsAsync(int ExceptId = 0, string name = "")

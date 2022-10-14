@@ -1,5 +1,6 @@
 ﻿@model LoginViewModel
-@inject SharedLocalizer Localizer
+
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<Olbrasoft.Blog.AspNetCore.Mvc.SharedResources> Localizer
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";

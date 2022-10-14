@@ -1,13 +1,10 @@
-﻿using Olbrasoft.Blog.Data.Dtos.PostDtos;
-using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc;
-using X.PagedList;
+﻿using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc;
 
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Models
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Models;
+
+public class HomePageViewModel : HomeAndPostModel
 {
-    public class HomePageViewModel : HomeAndPostModel
-    {
-        public IPagedList<PostDto> Posts { get; set; }
+    public IPagedList<PostDto> Posts { get; set; }
 
-        public PagedListRenderOptions Options { get; set; }
-    }
+    public PagedListRenderOptions Options { get; set; }
 }

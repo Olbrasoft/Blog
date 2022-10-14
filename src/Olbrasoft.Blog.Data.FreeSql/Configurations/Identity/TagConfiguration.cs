@@ -1,6 +1,4 @@
-﻿using FreeSql.Extensions.EfCoreFluentApi;
-
-namespace Olbrasoft.Blog.Data.FreeSql.Configurations;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.Configurations.Identity;
 public class TagConfiguration : IEntityTypeConfiguration<Tag>
 {
     public void Configure(EfCoreTableFluent<Tag> model)

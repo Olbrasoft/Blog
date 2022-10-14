@@ -1,11 +1,8 @@
-﻿using Olbrasoft.Blog.Data.FreeSql.QueryHandlers;
-using Olbrasoft.Extensions.Paging;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
 
-namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
-
-public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag,TagsByUserIdQuery,IPagedResult<TagOfUserDto>>
+public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>
 {
-    public TagsByUserIdQueryHandler(IDataSelector selector): base(selector)
+    public TagsByUserIdQueryHandler(IDataSelector selector) : base(selector)
     {
     }
 
@@ -15,21 +12,14 @@ public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag,TagsByUserIdQuery
 
         var userTagsSelect = Select.Where(p => p.CreatorId == query.UserId);
 
-        var direction = true;
-
-        if (query.OrderByDirection is Olbrasoft.Data.Sorting.OrderDirection.Desc) direction = false;
-
-        Select = userTagsSelect.OrderByPropertyName(query.OrderByColumnName, direction)
-                               .IncludeMany<PostToTag>(t=>t.ToPosts);
-
         if (!string.IsNullOrEmpty(query.Search))
-        {
             Select = Select.Where(p => p.Label.ToLower().Contains(query.Search.ToLower()));
-        }
 
-       return (await Select.Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
-            .ToListAsync(s => new TagOfUserDto { PostCount = s.ToPosts.Count() }))
-            .AsPagedResult((int) await userTagsSelect.CountAsync(token), (int) await Select.CountAsync(token));
-           
+        Select = Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
+                      .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
+                      .IncludeMany<PostToTag>(t => t.ToPosts);
+
+        return (await Select.ToListAsync(s => new TagOfUserDto { PostCount = s.ToPosts.Count() }, token))
+            .AsPagedResult( await Select.CountAsync(token), await userTagsSelect.CountAsync(token));
     }
 }

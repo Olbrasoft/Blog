@@ -1,9 +1,8 @@
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Models
-{
-    public class ErrorViewModel
-    {
-        public string RequestId { get; set; }
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Models;
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-    }
+public class ErrorViewModel
+{
+    public string RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 }

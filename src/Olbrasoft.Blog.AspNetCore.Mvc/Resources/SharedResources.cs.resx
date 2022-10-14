@@ -117,196 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Author" xml:space="preserve">
-    <value>Author</value>
+  <data name="Are you sure you wish to delete" xml:space="preserve">
+    <value>Opravdu chcete smazat</value>
   </data>
-  <data name="CategoryExist" xml:space="preserve">
-    <value>Category {{0}} already exists. Please enter a different category name.</value>
+  <data name="Categories" xml:space="preserve">
+    <value>Kategorie</value>
   </data>
-  <data name="CategoryName" xml:space="preserve">
-    <value>Category Name</value>
-  </data>
-  <data name="CategoryTooltip" xml:space="preserve">
-    <value>A short description of the category</value>
-  </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
+  <data name="CategoryInformation" xml:space="preserve">
+    <value>Informace o kategorii</value>
   </data>
   <data name="CommentText" xml:space="preserve">
-    <value>Comment text</value>
+    <value>Text komentáře</value>
   </data>
-  <data name="Content" xml:space="preserve">
-    <value>Content</value>
+  <data name="Create an Account" xml:space="preserve">
+    <value>Vytvořit nový účet</value>
   </data>
-  <data name="Counter" xml:space="preserve">
-    <value>Downloads</value>
+  <data name="Created" xml:space="preserve">
+    <value>Vytvořeno</value>
   </data>
-  <data name="CreatedOn" xml:space="preserve">
-    <value>Created on</value>
-  </data>
-  <data name="DeletedSuccessfully" xml:space="preserve">
-    <value>Deleted successfully</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email (optional, used for Gravatar)</value>
-  </data>
-  <data name="Email Address" xml:space="preserve">
-    <value>Email Address</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Upravit</value>
   </data>
   <data name="EmailAddress" xml:space="preserve">
-    <value>Email Address</value>
+    <value>Emailová adresa</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>First name</value>
-  </data>
-  <data name="Header" xml:space="preserve">
-    <value>Header</value>
-  </data>
-  <data name="Homepage" xml:space="preserve">
-    <value>Home page</value>
-  </data>
-  <data name="Id" xml:space="preserve">
-    <value>Id</value>
-  </data>
-  <data name="IdentityErrorConcurrencyFailure" xml:space="preserve">
-    <value>Optimistic concurrency failure, object has been modified.</value>
-  </data>
-  <data name="IdentityErrorDefaultError" xml:space="preserve">
-    <value>An unknown failure has occurred.</value>
-  </data>
-  <data name="IdentityErrorDuplicateEmail" xml:space="preserve">
-    <value>Email '{0}' is already taken.</value>
-  </data>
-  <data name="IdentityErrorDuplicateRoleName" xml:space="preserve">
-    <value>Role name '{0}' is already taken.</value>
-  </data>
-  <data name="IdentityErrorDuplicateUserName" xml:space="preserve">
-    <value>Username '{0}' is already taken.</value>
-  </data>
-  <data name="IdentityErrorInvalidEmail" xml:space="preserve">
-    <value>Email '{0}' is invalid.</value>
-  </data>
-  <data name="IdentityErrorInvalidRoleName" xml:space="preserve">
-    <value>Role name '{0}' is invalid.</value>
-  </data>
-  <data name="IdentityErrorInvalidToken" xml:space="preserve">
-    <value>Invalid token.</value>
-  </data>
-  <data name="IdentityErrorInvalidUserName" xml:space="preserve">
-    <value>User name '{0}' is invalid, can only contain letters or digits.</value>
-  </data>
-  <data name="IdentityErrorLoginAlreadyAssociated" xml:space="preserve">
-    <value>A user with this login already exists.</value>
-  </data>
-  <data name="IdentityErrorPasswordMismatch" xml:space="preserve">
-    <value>Incorrect password.</value>
-  </data>
-  <data name="IdentityErrorPasswordRequiresDigit" xml:space="preserve">
-    <value>Passwords must have at least one digit ('0'-'9').</value>
-  </data>
-  <data name="IdentityErrorPasswordRequiresLower" xml:space="preserve">
-    <value>Passwords must have at least one lowercase ('a'-'z').</value>
-  </data>
-  <data name="IdentityErrorPasswordRequiresNonAlphanumeric" xml:space="preserve">
-    <value>Passwords must have at least one non alphanumeric character.</value>
-  </data>
-  <data name="IdentityErrorPasswordRequiresUpper" xml:space="preserve">
-    <value>Passwords must have at least one uppercase ('A'-'Z').</value>
-  </data>
-  <data name="IdentityErrorPasswordTooShort" xml:space="preserve">
-    <value>Passwords must be at least {0} characters.</value>
-  </data>
-  <data name="IdentityErrorUserAlreadyHasPassword" xml:space="preserve">
-    <value>User already has a password set.</value>
-  </data>
-  <data name="IdentityErrorUserAlreadyInRole" xml:space="preserve">
-    <value>User already in role '{0}'.</value>
-  </data>
-  <data name="IdentityErrorUserLockoutNotEnabled" xml:space="preserve">
-    <value>Lockout is not enabled for this user.</value>
-  </data>
-  <data name="IdentityErrorUserNotInRole" xml:space="preserve">
-    <value>User is not in role '{0}'.</value>
-  </data>
-  <data name="Label" xml:space="preserve">
-    <value>Label</value>
+    <value>Jméno</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Last name</value>
+    <value>Příjmení</value>
   </data>
-  <data name="ListingOfPosts" xml:space="preserve">
-    <value>listing of posts</value>
+  <data name="Login" xml:space="preserve">
+    <value>Přihlásit se</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Název</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="PermalinkInUse" xml:space="preserve">
-    <value>Permalink '{0}' already in use</value>
-  </data>
-  <data name="PostContent" xml:space="preserve">
-    <value>Post text ...</value>
+    <value>Heslo</value>
   </data>
   <data name="Posted on" xml:space="preserve">
-    <value>Posted on</value>
+    <value>Zveřejněno:</value>
   </data>
-  <data name="PostTitle" xml:space="preserve">
-    <value>Post title ...</value>
-  </data>
-  <data name="PublishDate" xml:space="preserve">
-    <value>Publish date</value>
+  <data name="Register" xml:space="preserve">
+    <value>Registrovat</value>
   </data>
   <data name="RepeatPassword" xml:space="preserve">
-    <value>Repeat Password</value>
+    <value>Zopakovat Heslo</value>
   </data>
-  <data name="SavedSuccessfully" xml:space="preserve">
-    <value>Saved successfully</value>
-  </data>
-  <data name="ShortContent" xml:space="preserve">
-    <value>Short content (shown on startpage)</value>
-  </data>
-  <data name="TagExist" xml:space="preserve">
-    <value>Tag {{0}} already exists. Please enter a different tag label .</value>
-  </data>
-  <data name="TagLabel" xml:space="preserve">
-    <value>Tag Label</value>
+  <data name="Save" xml:space="preserve">
+    <value>Uložit</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value>Text</value>
   </data>
   <data name="TheEmailFieldIsRequired" xml:space="preserve">
-    <value>The Email field is required.</value>
+    <value>E-mailová adresa je povinná.</value>
   </data>
   <data name="ThePasswordFieldIsRequired" xml:space="preserve">
-    <value>The Password field is required.</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Title</value>
-  </data>
-  <data name="Tooltip" xml:space="preserve">
-    <value>Short description</value>
-  </data>
-  <data name="UpdateDate" xml:space="preserve">
-    <value>Last updated</value>
-  </data>
-  <data name="Validation_MaxLength" xml:space="preserve">
-    <value>'{0}' has a maximum length of {1}.</value>
-  </data>
-  <data name="Validation_MaxMinLength" xml:space="preserve">
-    <value>The '{0}' must be at least {2} and at max {1} characters long.</value>
+    <value>Heslo je povinné.</value>
   </data>
   <data name="Validation_Required" xml:space="preserve">
-    <value>'{0}' is required.</value>
-  </data>
-  <data name="Visible" xml:space="preserve">
-    <value>Publicly visible</value>
-  </data>
-  <data name="Visits" xml:space="preserve">
-    <value>Visits</value>
+    <value>'{0}' je povinný.</value>
   </data>
 </root>

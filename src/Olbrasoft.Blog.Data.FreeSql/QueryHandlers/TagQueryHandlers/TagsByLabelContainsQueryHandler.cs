@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Blog.Data.FreeSql.QueryHandlers;
-
-namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
 
 public class TagsByLabelContainsQueryHandler : BlogDbQueryHandler<Tag, TagsByLabelContainsQuery, IEnumerable<TagSmallDto>>
 {
@@ -12,8 +10,9 @@ public class TagsByLabelContainsQueryHandler : BlogDbQueryHandler<Tag, TagsByLab
     {
         ThrowIfQueryIsNullOrCancellationRequested(query, token);
 
-        if (query.ExceptTagIds.Any()) Select = Select.Where(p => p.Label.Contains(query.Text) && !query.ExceptTagIds.Contains(p.Id));
-        else Select = Select.Where(p => p.Label.Contains(query.Text));
+        Select = query.ExceptTagIds.Any() 
+            ? Select.Where(p => p.Label.Contains(query.Text) && !query.ExceptTagIds.Contains(p.Id)) 
+            : Select = Select.Where(p => p.Label.Contains(query.Text));
 
         return await Select.Take(6).ToListAsync<TagSmallDto>(token);
     }

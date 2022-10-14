@@ -1,9 +1,8 @@
-﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models
-{
-    public class TagModel
-    {
-        public int Value { get; set; }
+﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models;
 
-        public string Text { get; set; }
-    }
+public class TagModel
+{
+    public int Value { get; set; }
+
+    public string Text { get; set; }
 }

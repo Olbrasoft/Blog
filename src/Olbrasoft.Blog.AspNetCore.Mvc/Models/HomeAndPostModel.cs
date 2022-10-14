@@ -1,7 +1,6 @@
-﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Models
+﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Models;
+
+public class HomeAndPostModel
 {
-    public class HomeAndPostModel
-    {
-        public RightColumnViewModel NestedModel { get; set; }
-    }
+    public RightColumnViewModel NestedModel { get; set; }
 }

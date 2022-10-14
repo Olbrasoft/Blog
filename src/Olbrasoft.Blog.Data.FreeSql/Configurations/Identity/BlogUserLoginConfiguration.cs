@@ -1,7 +1,6 @@
-﻿using FreeSql.Extensions.EfCoreFluentApi;
-using Olbrasoft.Data.Entities.Identity;
+﻿using Olbrasoft.Data.Entities.Identity;
 
-namespace Olbrasoft.Blog.Data.FreeSql.Configurations;
+namespace Olbrasoft.Blog.Data.FreeSql.Configurations.Identity;
 public class BlogUserLoginConfiguration : IEntityTypeConfiguration<UserLogin>
 {
     public void Configure(EfCoreTableFluent<UserLogin> model)

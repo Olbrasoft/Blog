@@ -5,30 +5,30 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Olbrasoft.Blog.Business
+namespace Olbrasoft.Blog.Business;
+
+public interface ITagService
 {
-    public interface ITagService
-    {
-        Task<bool> ExistsAsync();
+    Task<bool> ExistsAsync();
+    Task<bool> ExistsAsync(string label);
+    Task<bool> ExistsAsync(int exceptId, string label);
+    Task<bool> SaveAsync(int id, string label, int userId);
+    Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids);
+    Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token);
+    Task<TagSmallDto> UserTagAsync(int id, int userId, CancellationToken token);
+    Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds);
+    Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token);
+    Task<IPagedResult<TagOfUserDto>> TagsByUserIdAsync(int userId,
+                                                       IPageInfo paging,
+                                                       string column,
+                                                       OrderDirection direction,
+                                                       string search,
+                                                       CancellationToken token);
+    Task<IPagedResult<TagOfUsersDto>> TagsByExceptUserIdAsync(int exceptUserId,
+                                                              IPageInfo paging,
+                                                              string column,
+                                                              OrderDirection direction,
+                                                              string search,
+                                                              CancellationToken token);
 
-        Task<bool> ExistsAsync(string label);
-
-        Task<bool> ExistsAsync(int exceptId, string label);
-
-        Task<bool> SaveAsync(int id, string label, int userId);
-
-        Task<IPagedResult<TagOfUserDto>> TagsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search);
-
-        Task<IPagedResult<TagOfUsersDto>> TagsByExceptUserIdAsync(int exceptUserId, IPageInfo paging, string column, OrderDirection direction, string search);
-
-        Task<TagSmallDto> UserTagAsync(int id, int userId);
-
-        Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds);
-
-        Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids);
-
-        Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token);
-
-        Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token);
-    }
 }

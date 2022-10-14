@@ -2,7 +2,7 @@
 @using Olbrasoft.Blog.Data.Entities.Identity
 @inject SignInManager<BlogUser> SignInManager
 @inject UserManager<BlogUser> UserManager
-@inject SharedLocalizer Localizer
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<Olbrasoft.Blog.AspNetCore.Mvc.SharedResources> Localizer
 
 <ul class="navbar-nav ">
     @if (SignInManager.IsSignedIn(User))
