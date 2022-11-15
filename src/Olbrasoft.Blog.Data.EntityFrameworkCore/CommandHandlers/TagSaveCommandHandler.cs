@@ -1,4 +1,6 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
+﻿using Olbrasoft.Blog.Data.Commands.TagCommands;
+
+namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
     public class TagSaveCommandHandler : BlogDbCommandHandler<TagSaveCommand, Tag>
     {
@@ -20,7 +22,7 @@
 
                 Entities.Update(tag);
             }
-
+            
             return (await Context.SaveChangesAsync(token) == 1);
         }
     }

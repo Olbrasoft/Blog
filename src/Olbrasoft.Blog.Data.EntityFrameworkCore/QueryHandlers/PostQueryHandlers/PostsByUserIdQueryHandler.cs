@@ -8,7 +8,7 @@ public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQ
 
     public override async Task<IPagedResult<PostOfUserDto>> HandleAsync(PostsByUserIdQuery query, CancellationToken token)
     {
-        var filteredPosts = Entities.Where(p => p.CreatorId == query.UserId);
+        var filteredPosts = EntityQueryable.Where(p => p.CreatorId == query.UserId);
 
         if (!string.IsNullOrEmpty(query.Search))
         {
@@ -19,6 +19,6 @@ public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQ
              .Skip(query.Paging.CalculateSkip())
              .Take(query.Paging.PageSize);
 
-        return (await posts.ToArrayAsync(token)).AsPagedResult(await Entities.Where(p => p.CreatorId == query.UserId).CountAsync(), await filteredPosts.CountAsync());
+        return (await posts.ToArrayAsync(token)).AsPagedResult(await EntityQueryable.Where(p => p.CreatorId == query.UserId).CountAsync(), await filteredPosts.CountAsync());
     }
 }

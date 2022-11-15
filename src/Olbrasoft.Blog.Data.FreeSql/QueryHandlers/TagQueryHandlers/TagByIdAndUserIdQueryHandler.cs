@@ -1,8 +1,10 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+
+namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
 
 public class TagByIdAndUserIdQueryHandler : BlogDbQueryHandler<Tag, TagByIdAndUserIdQuery, TagSmallDto>
 {
-    public TagByIdAndUserIdQueryHandler(IDataSelector selector) : base(selector)
+    public TagByIdAndUserIdQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
 

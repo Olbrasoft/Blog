@@ -1,8 +1,10 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+
+namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
 
 public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQuery, IPagedResult<PostOfUserDto>>
 {
-    public PostsByUserIdQueryHandler(IDataSelector selector) : base(selector)
+    public PostsByUserIdQueryHandler(IConfigure<Post> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
 

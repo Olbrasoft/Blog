@@ -1,8 +1,10 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+
+namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
 
 public class CategoriesByExceptUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByExceptUserIdQuery, IPagedResult<CategoryOfUsersDto>>
 {
-    public CategoriesByExceptUserIdQueryHandler(IDataSelector selector) : base(selector)
+    public CategoriesByExceptUserIdQueryHandler(IConfigure<Category> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
 

@@ -19,7 +19,8 @@
     <link href="~/css/blog-home.css" rel="stylesheet">
     <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="~/css/obstyle.css" rel="stylesheet" type="text/css">
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/styles.css" rel="stylesheet">
+   <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
 
         .anchor-logo {
@@ -60,20 +61,35 @@
         </div>
     </nav>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container mt-3">
         @RenderBody()
     </div>
     <!-- /.container -->
     <!-- Footer -->
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+            <div class="row">
+                <div class="col-sm">
+                    <a class="display-5 text-white" href="https://github.com/Olbrasoft/Blog"><i class="fa fa-github"></i></a>
+                </div>
+                <div class="col-sm">
+                    <p class="m-0 pt-3 text-white">  Copyright &copy; Olbrasoft 2019</p>
+                </div>
+                <div class="col-sm">
+                    One of three columns
+                </div>
+            </div>
         </div>
         <!-- /.container -->
     </footer>
     <!-- Bootstrap core JavaScript -->
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Bootstrap core JS-->
+    @*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>*@
+    <!-- Core theme JS-->
+  
     @RenderSection("scripts", required: false)
 </body>
 </html>

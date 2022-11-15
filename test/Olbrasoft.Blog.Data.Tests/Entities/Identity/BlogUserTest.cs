@@ -80,18 +80,7 @@ public class BlogUserTest
         Assert.IsAssignableFrom<IEnumerable<Post>>(posts);
     }
 
-    [Fact]
-    public void Have_PostToTags()
-    {
-        //Arrange
-        var user = new BlogUser();
-
-        //Act
-        var postToTags = user.PostToTags;
-
-        //Assert
-        Assert.IsAssignableFrom<IEnumerable<PostToTag>>(postToTags);
-    }
+ 
 
     [Fact]
     public void Have_ToRoles()

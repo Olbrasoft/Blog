@@ -8,7 +8,7 @@
 
         public override async Task<IEnumerable<TagSmallDto>> HandleAsync(TagsQuery query, CancellationToken token)
         {
-            return await ProjectTo<TagSmallDto>(Entities.OrderBy(p => p.Label)).ToArrayAsync(token);
+            return await ProjectTo<TagSmallDto>(EntityQueryable.OrderBy(p => p.Label)).ToArrayAsync(token);
         }
     }
 }

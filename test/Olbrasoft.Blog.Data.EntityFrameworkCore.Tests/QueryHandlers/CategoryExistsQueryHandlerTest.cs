@@ -3,6 +3,7 @@ using Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandler
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Data.Cqrs;
 using Olbrasoft.Dispatching;
+using Olbrasoft.Mapping;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -27,7 +28,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
         {
             var context = new InMemoryDbContextFactory().CreateContext();
 
-            return new CategoryExistsQueryHandler(context);
+            return new CategoryExistsQueryHandler(new Mock<IProjector>().Object, context);
         }
 
         [Fact]

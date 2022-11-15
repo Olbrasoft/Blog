@@ -1,4 +1,6 @@
-﻿namespace Olbrasoft.Blog.Data.Commands;
+﻿using Olbrasoft.Blog.Data.Commands.TagCommands;
+
+namespace Olbrasoft.Blog.Data.Commands;
 
 public class TagSaveCommandTest
 {

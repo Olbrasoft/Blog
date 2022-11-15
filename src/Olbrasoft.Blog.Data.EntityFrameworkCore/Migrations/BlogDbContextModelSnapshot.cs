@@ -17,7 +17,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.8")
+                .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -120,7 +120,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "61c12089-f6ee-4ead-942e-da09de96d540",
+                            ConcurrencyStamp = "73b7b8ad-7878-4391-b0e2-2c524bc9fa78",
                             Created = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
@@ -128,7 +128,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "e92f1fea-1203-45d5-a7bb-a100f6d6b478",
+                            ConcurrencyStamp = "53d700e2-85c1-4c81-8012-5e68bc8d1cda",
                             Created = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Blogger",
                             NormalizedName = "BLOGGER"
@@ -233,23 +233,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.ToTable("UserRoles", "Identity");
                 });
 
-            modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.Man", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Mans");
-                });
-
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.NestedComment", b =>
                 {
                     b.Property<int>("Id")
@@ -328,17 +311,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.Property<int>("ToId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("Created")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValueSql("SYSDATETIMEOFFSET()");
-
-                    b.Property<int>("CreatorId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id", "ToId");
-
-                    b.HasIndex("CreatorId");
 
                     b.HasIndex("ToId");
 
@@ -567,12 +540,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
 
             modelBuilder.Entity("Olbrasoft.Blog.Data.Entities.PostToTag", b =>
                 {
-                    b.HasOne("Olbrasoft.Blog.Data.Entities.Identity.BlogUser", "Creator")
-                        .WithMany("PostToTags")
-                        .HasForeignKey("CreatorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Olbrasoft.Blog.Data.Entities.Post", "Post")
                         .WithMany("ToTags")
                         .HasForeignKey("Id")
@@ -582,10 +549,8 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.HasOne("Olbrasoft.Blog.Data.Entities.Tag", "Tag")
                         .WithMany("ToPosts")
                         .HasForeignKey("ToId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Creator");
 
                     b.Navigation("Post");
 
@@ -625,8 +590,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("NestedComments");
-
-                    b.Navigation("PostToTags");
 
                     b.Navigation("Posts");
 

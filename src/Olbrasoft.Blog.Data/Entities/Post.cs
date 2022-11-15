@@ -20,5 +20,7 @@ public class Post : CreationInfo
     public Category Category { get => _category ?? throw new InvalidOperationException(nameof(Category)); set => _category = value; }
 
     public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
-    public ICollection<PostToTag> ToTags { get; set; } = new HashSet<PostToTag>();
+
+    public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+   
 }

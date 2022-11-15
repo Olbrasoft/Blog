@@ -8,7 +8,7 @@
 
         public override async Task<IPagedResult<TagOfUsersDto>> HandleAsync(TagsByExceptUserIdQuery query, CancellationToken token)
         {
-            var filteredTags = Entities.Where(p => p.CreatorId != query.ExceptUserId);
+            var filteredTags = EntityQueryable.Where(p => p.CreatorId != query.ExceptUserId);
 
             if (!string.IsNullOrEmpty(query.Search))
             {
@@ -20,7 +20,7 @@
 
             return (await tags)
                 .AsPagedResult(
-                await Entities.Where(p => p.CreatorId != query.ExceptUserId).CountAsync(token),
+                await EntityQueryable.Where(p => p.CreatorId != query.ExceptUserId).CountAsync(token),
                 await filteredTags.CountAsync(token));
         }
     }

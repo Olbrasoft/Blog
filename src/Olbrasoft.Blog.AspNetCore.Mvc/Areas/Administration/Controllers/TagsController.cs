@@ -1,4 +1,7 @@
-﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers;
+﻿using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+
+namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers;
 
 public class TagsController : AdminDataTablesController
 {
@@ -25,11 +28,11 @@ public class TagsController : AdminDataTablesController
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveAsync(TagViewModel model)
+    public async Task<IActionResult> SaveAsync(TagViewModel model, CancellationToken token)
     {
         if (ModelState.IsValid)
         {
-            await _service.SaveAsync(model.Id, model.Label, CurrentUserId);
+            await _service.SaveAsync(model.Id, model.Label, CurrentUserId, token);
 
             return RedirectToAction("Index");
         }
@@ -40,6 +43,9 @@ public class TagsController : AdminDataTablesController
     [HttpPost]
     public async Task<IActionResult> CurrentUserTagsAsync([FromBody] DataTableModel model, CancellationToken token)
     {
+        //CultureInfo uiCultureInfo = Thread.CurrentThread.CurrentUICulture.Name;
+        //CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
+
         var option = BuildDataTableQueryOption(model, nameof(TagOfUserDto.Label));
 
         var tags = await _service.TagsByUserIdAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search, token);
@@ -58,7 +64,7 @@ public class TagsController : AdminDataTablesController
     }
 
     [HttpGet]
-    public async Task<IActionResult> FindTagsAsync(string term, string values)
+    public async Task<IActionResult> FindTagsAsync(string term, string values, CancellationToken token)
     {
         IEnumerable<int> exceptTagIds = new HashSet<int>();
 
@@ -67,14 +73,22 @@ public class TagsController : AdminDataTablesController
             exceptTagIds = values.Split(',').Select(p => int.Parse(p));
         }
 
-        var tags = await _service.FindAsync(term, exceptTagIds);
+        var tags = await _service.FindAsync(term, exceptTagIds, token);
 
         return Json(tags.Select(p => new TagModel { Value = p.Id, Text = p.Label }));
     }
 
-    public async Task<JsonResult> NotExistsAsync(int Id, string label)
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAsync(int tagId, CancellationToken token)
     {
-        var exists = await _service.ExistsAsync(Id, label);
+        await _service.DeleteAsync(tagId, CurrentUserId, token);  
+
+        return Json("Deleted");
+    }
+
+    public async Task<JsonResult> NotExistsAsync(int Id, string label, CancellationToken token)
+    {
+        var exists = await _service.ExistsAsync(Id, label, token);
         return Json(!exists);
     }
 }

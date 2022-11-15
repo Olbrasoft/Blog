@@ -1,8 +1,10 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+
+namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
 
 public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
 {
-    public TagsByExceptUserIdQueryHandler(IDataSelector selector) : base(selector)
+    public TagsByExceptUserIdQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
 
@@ -16,8 +18,8 @@ public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExce
 
         return (await searchSelect.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
                                      .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
-                                     .IncludeMany<PostToTag>(t => t.ToPosts)
-            .ToListAsync(s => new TagOfUsersDto { PostCount = s.ToPosts.Count(), Creator = $"{s.Creator.FirstName} {s.Creator.LastName}" }, token)
+                                     .IncludeMany(t => t.Posts)
+            .ToListAsync(s => new TagOfUsersDto { PostCount = s.Posts.Count(), Creator = $"{s.Creator.FirstName} {s.Creator.LastName}" }, token)
                          ).AsPagedResult(await Select.CountAsync(token), await searchSelect.CountAsync(token));
     }
 

@@ -1,8 +1,10 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+
+namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
 
 public class TagsByPostIdQueryHandler : BlogDbQueryHandler<PostToTag, TagsByPostIdQuery, IEnumerable<TagSmallDto>>
 {
-    public TagsByPostIdQueryHandler(IDbSetProvider setOwner) : base(setOwner)
+    public TagsByPostIdQueryHandler(IConfigure<PostToTag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
 

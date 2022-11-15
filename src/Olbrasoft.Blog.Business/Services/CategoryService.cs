@@ -13,21 +13,13 @@ namespace Olbrasoft.Blog.Business.Services
 {
     public class CategoryService : Service, ICategoryService
     {
-        private readonly IDispatcher Dispatcher;
-        private readonly ICommandExecutor _executor;
-
-        public CategoryService(IDispatcher dispatcher, IQueryProcessor processor, ICommandExecutor executor) : base(processor)
+        public CategoryService(IDispatcher dispatcher) : base(dispatcher)
         {
-            Dispatcher = dispatcher;
-            _executor = executor;
+           
         }
 
-        public async Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token = default)
-        {
-            var query = new CategoriesQuery(Dispatcher);
-
-            return await query.ToResultAsync(token);
-        }
+        public async Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token = default) 
+            => await new CategoriesQuery(Dispatcher).ToResultAsync(token);
 
         public async Task<IPagedResult<CategoryOfUsersDto>> CategoriesByExceptUserIdAsync(int exceptUserId,
                                                                                           IPageInfo paging,
@@ -35,8 +27,7 @@ namespace Olbrasoft.Blog.Business.Services
                                                                                           OrderDirection direction,
                                                                                           string search,
                                                                                           CancellationToken token = default)
-        {
-            return await new CategoriesByExceptUserIdQuery(Dispatcher)
+            => await new CategoriesByExceptUserIdQuery(Dispatcher)
             {
                 ExceptUserId = exceptUserId,
                 Paging = paging,
@@ -46,7 +37,6 @@ namespace Olbrasoft.Blog.Business.Services
 
             }.ToResultAsync(token);
 
-        }
 
         public async Task<IPagedResult<CategoryOfUserDto>> CategoriesByUserIdAsync(int userId,
                                                                                    IPageInfo paging,
@@ -54,8 +44,7 @@ namespace Olbrasoft.Blog.Business.Services
                                                                                    OrderDirection direction,
                                                                                    string search,
                                                                                    CancellationToken token = default)
-        {
-            return await new CategoriesByUserIdQuery(Dispatcher)
+            => await new CategoriesByUserIdQuery(Dispatcher)
             {
                 UserId = userId,
                 Paging = paging,
@@ -64,29 +53,25 @@ namespace Olbrasoft.Blog.Business.Services
                 Search = search
 
             }.ToResultAsync(token);
-        }
+
 
         public async Task<CategoryOfUserDto> CategoryAsync(int id, CancellationToken token = default)
-        {
-            return await new CategoryQuery(Dispatcher) { Id = id }.ToResultAsync(token);
-        }
+            => await new CategoryQuery(Dispatcher) { Id = id }.ToResultAsync(token);
 
-        public async Task<bool> ExistsAsync(int ExceptId = 0, string name = "")
-        {
-            var query = new CategoryExistsQuery(Processor) { ExceptId = ExceptId, Name = name };
-            return await query.ToResultAsync();
-        }
 
-        public async Task<bool> SaveAsync(int Id, string name, string tooltip, int userId)
-        {
-            var command = new CategorySaveCommand(_executor)
+        public async Task<bool> ExistsAsync(int ExceptId = 0, string name = "", CancellationToken token = default)
+            => await new CategoryExistsQuery(Dispatcher) { ExceptId = ExceptId, Name = name }.ToResultAsync(token);
+
+
+        public async Task<bool> SaveAsync(int Id, string name, string tooltip, int userId, CancellationToken token = default)
+
+            => await new CategorySaveCommand(Dispatcher)
             {
                 Id = Id,
                 Name = name,
                 Tooltip = tooltip,
                 CreatorId = userId
-            };
-            return await command.ToResultAsync();
-        }
+
+            }.ToResultAsync(token: token);
     }
 }

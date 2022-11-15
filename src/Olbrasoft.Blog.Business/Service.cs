@@ -1,14 +1,14 @@
-﻿using Olbrasoft.Data.Cqrs;
+﻿using Olbrasoft.Dispatching;
 
 namespace Olbrasoft.Blog.Business.Services
 {
     public abstract class Service
     {
-        protected IQueryProcessor Processor { get; }
+        protected IDispatcher Dispatcher { get; }
 
-        public Service(IQueryProcessor processor)
+        public Service(IDispatcher dispatcher)
         {
-            Processor = processor;
+            Dispatcher = dispatcher;
         }
     }
 }

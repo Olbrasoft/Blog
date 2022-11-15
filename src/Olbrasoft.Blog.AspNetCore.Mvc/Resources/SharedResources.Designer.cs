@@ -79,6 +79,15 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category {{0}} already exists. Please enter a different category name..
         /// </summary>
         public static string CategoryExist {
@@ -165,6 +174,15 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Resources {
         public static string CreatedOn {
             get {
                 return ResourceManager.GetString("CreatedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -570,6 +588,15 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Resources {
         public static string TagLabel {
             get {
                 return ResourceManager.GetString("TagLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        public static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
             }
         }
         

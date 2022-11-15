@@ -1,4 +1,5 @@
 ﻿using FreeSql.Extensions.EfCoreFluentApi;
+using Olbrasoft.Blog.Data.FreeSql.Configurations.EntityConfigurations;
 
 namespace Olbrasoft.Blog.Data.FreeSql.Tests.Configuration;
 public class BlogTypeConfigurationTests

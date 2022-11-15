@@ -4,15 +4,14 @@
     {
         private readonly IProjector _projector;
         protected BlogDbContext Context { get; private set; }
-        protected IQueryable<TEntity> Entities { get; private set; }
-
+        protected IQueryable<TEntity> EntityQueryable { get; set; }
 
         protected BlogDbQueryHandler(IProjector projector, BlogDbContext context) 
         {
             _projector = projector;
 
             Context = context ?? throw new ArgumentNullException(nameof(context));
-            Entities ??= Context.Set<TEntity>();
+            EntityQueryable ??= Context.Set<TEntity>();
         }
 
         protected IQueryable<TDestination> ProjectTo<TDestination>(IQueryable source)
@@ -23,22 +22,21 @@
         }
 
         public abstract Task<TResult> HandleAsync(TQuery request, CancellationToken token);
-       
-    }
 
-    public abstract class BlogDbQueryHandler<TEntity, TQuery> : IRequestHandler<TQuery, bool> where TQuery : BaseQuery<bool> where TEntity : class
-    {
-
-        protected BlogDbContext Context { get; private set; }
-        protected IQueryable<TEntity> Entities { get; private set; }
-
-        protected BlogDbQueryHandler(BlogDbContext context) 
+        protected static void ThrowIfQueryIsNullOrCancellationRequested(TQuery query, CancellationToken token)
         {
-            Context = context ?? throw new ArgumentNullException(nameof(context));
-            Entities ??= Context.Set<TEntity>();
+            if (query is null)
+                throw new ArgumentNullException(nameof(query));
+
+            token.ThrowIfCancellationRequested();
         }
 
-        public abstract Task<bool> HandleAsync(TQuery request, CancellationToken token);
-       
+    }
+
+    public abstract class BlogDbQueryHandler<TEntity, TQuery> : BlogDbQueryHandler<TEntity, TQuery, bool> where TQuery : BaseQuery<bool> where TEntity : class
+    {
+        protected BlogDbQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        {
+        }
     }
 }

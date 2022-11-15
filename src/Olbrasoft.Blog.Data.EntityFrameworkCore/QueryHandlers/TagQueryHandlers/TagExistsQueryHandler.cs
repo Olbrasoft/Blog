@@ -2,23 +2,27 @@
 {
     public class TagExistsQueryHandler : BlogDbQueryHandler<Tag, TagExistsQuery>
     {
-        public TagExistsQueryHandler(BlogDbContext context) : base(context)
+        public TagExistsQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
+           
         }
 
-        public override async Task<bool> HandleAsync(TagExistsQuery query, CancellationToken cancellationToken)
+        public override async Task<bool> HandleAsync(TagExistsQuery query, CancellationToken token)
         {
+
+            ThrowIfQueryIsNullOrCancellationRequested(query, token);
+
             if (string.IsNullOrEmpty(query.Label))
             {
-                return await Entities.AnyAsync();
+                return await EntityQueryable.AnyAsync( token);
             }
 
             if (query.ExceptId == 0)
             {
-                return await Entities.AnyAsync(p => p.Label == query.Label);
+                return await EntityQueryable.AnyAsync(p => p.Label == query.Label, token);
             }
 
-            return await Entities.AnyAsync(p => p.Id != query.ExceptId && p.Label == query.Label);
+            return await EntityQueryable.AnyAsync(p => p.Id != query.ExceptId && p.Label == query.Label, token);
         }
     }
 }

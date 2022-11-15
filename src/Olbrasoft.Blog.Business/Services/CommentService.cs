@@ -12,12 +12,12 @@ namespace Olbrasoft.Blog.Business.Services;
 
 public class CommentService : Service, ICommentService
 {
-    private readonly IDispatcher Dispatcher;
+   
     private readonly ICommandExecutor _executor;
 
-    public CommentService(IDispatcher dispatcher, IQueryProcessor processor, ICommandExecutor executor) : base(processor)
+    public CommentService(IDispatcher dispatcher, IQueryProcessor processor, ICommandExecutor executor) : base(dispatcher)
     {
-        this.Dispatcher = dispatcher;
+        
         _executor = executor;
     }
 

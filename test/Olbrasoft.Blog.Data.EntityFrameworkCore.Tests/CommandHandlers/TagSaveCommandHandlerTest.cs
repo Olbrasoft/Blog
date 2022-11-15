@@ -1,5 +1,5 @@
 ﻿using Moq;
-using Olbrasoft.Blog.Data.Commands;
+using Olbrasoft.Blog.Data.Commands.TagCommands;
 using Olbrasoft.Dispatching;
 using Xunit;
 

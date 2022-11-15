@@ -6,9 +6,9 @@
         {
         }
 
-        public override async Task<string> HandleAsync(CommentTextForEditingQuery query, CancellationToken token)
-        {
-            return await Entities.Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0)).Select(p => p.Text).FirstAsync(token);
-        }
+        public override async Task<string> HandleAsync(CommentTextForEditingQuery query, CancellationToken token) 
+            => await EntityQueryable.Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0))
+                                    .Select(p => p.Text)
+                                    .FirstAsync(token);
     }
 }

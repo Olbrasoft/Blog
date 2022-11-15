@@ -126,12 +126,6 @@
   <data name="by" xml:space="preserve">
     <value>Autor</value>
   </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Smazat</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Upravit</value>
-  </data>
   <data name="Leave a Comment:" xml:space="preserve">
     <value>Zanechat komentář:</value>
   </data>

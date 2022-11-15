@@ -10,8 +10,8 @@ namespace Olbrasoft.Blog.Business;
 public interface ICategoryService
 {
     Task<CategoryOfUserDto> CategoryAsync(int Id, CancellationToken token);
-    Task<bool> ExistsAsync(int ExceptId , string name );
-    Task<bool> SaveAsync(int Id, string name, string tooltip, int userId);
+    Task<bool> ExistsAsync(int ExceptId , string name, CancellationToken token );
+    Task<bool> SaveAsync(int Id, string name, string tooltip, int userId, CancellationToken token);
     Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token);
     
     Task<IPagedResult<CategoryOfUserDto>> CategoriesByUserIdAsync(int userId,

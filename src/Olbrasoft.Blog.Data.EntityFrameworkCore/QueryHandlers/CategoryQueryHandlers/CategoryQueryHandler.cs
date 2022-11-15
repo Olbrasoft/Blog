@@ -8,7 +8,7 @@
 
         public override async Task<CategoryOfUserDto> HandleAsync(CategoryQuery query, CancellationToken token)
         {
-            return await ProjectTo<CategoryOfUserDto>(Entities.Where(p => p.Id == query.Id)).FirstOrDefaultAsync(token);
+            return await ProjectTo<CategoryOfUserDto>(EntityQueryable.Where(p => p.Id == query.Id)).FirstAsync(token);
         }
     }
 }

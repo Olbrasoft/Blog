@@ -120,9 +120,6 @@
   <data name="Actions" xml:space="preserve">
     <value>Akce</value>
   </data>
-  <data name="Add new post" xml:space="preserve">
-    <value>Přidat nový příspěvek</value>
-  </data>
   <data name="Category" xml:space="preserve">
     <value>Kategorie</value>
   </data>
@@ -131,6 +128,9 @@
   </data>
   <data name="Created" xml:space="preserve">
     <value>Vytvořeno</value>
+  </data>
+  <data name="Post information" xml:space="preserve">
+    <value>Informace o příspěvku</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Příspěvky</value>

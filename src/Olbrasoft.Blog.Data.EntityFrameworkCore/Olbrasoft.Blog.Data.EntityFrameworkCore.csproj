@@ -25,10 +25,15 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
 	
 	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
+	
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageReference Include="Olbrasoft.Data.Sorting.Extensions" Version="1.0.1" />
-    <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
+    <PackageReference Include="Olbrasoft.Mapping.Abstractions" Version="7.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -62,5 +67,9 @@
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Extensions.Paging" />
 		<Using Include="Olbrasoft.Extensions.Linq" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Migrations\" />
 	</ItemGroup>
 </Project>

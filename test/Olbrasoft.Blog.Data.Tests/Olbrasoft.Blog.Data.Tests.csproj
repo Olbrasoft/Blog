@@ -8,9 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="6.7.0" />
+    <PackageReference Include="FluentAssertions" Version="6.8.0" />
     <PackageReference Include="FluentAssertions.ArgumentMatchers.Moq" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
+    <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -24,14 +25,14 @@
 
 	<ItemGroup>
 		<Using Include="Xunit" />
-		<Using Include="System.Collections.Generic"/>
+		<Using Include="System.Collections.Generic" />
 		<Using Include="Moq" />
-		<Using Include="FluentAssertions"/>
+		<Using Include="FluentAssertions" />
 		<Using Include="Olbrasoft.Dispatching" />
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Data.Entities" />
-		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos"/>
-		<Using Include="Olbrasoft.Data.Cqrs"/>
+		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
 	</ItemGroup>
 	

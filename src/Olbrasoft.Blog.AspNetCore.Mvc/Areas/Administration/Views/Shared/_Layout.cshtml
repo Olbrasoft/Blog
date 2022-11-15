@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -343,6 +345,42 @@
     <script src="~/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/vendor/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
+    @{
+        var DataTableLanguage = "{}";
+        switch (Context.Features.Get<IRequestCultureFeature>().RequestCulture.UICulture.Name.ToLower())
+        {
+            case "cs":
+            case "cs-cz":
+                DataTableLanguage = "languageCs";
+                <script src="~/admin/js/dataTablesResource.cs.js" asp-append-version="true"></script>
+                break;
+        }
+    }
+
+    <script type="text/javascript">
+
+        var dataTableLanguage = @DataTableLanguage;
+        //Data tables default settings
+        $.extend(true, $.fn.dataTable.defaults, {
+            processing: true
+        });
+       
+
+
+        $(window).bind('keydown', function (event) {
+            if (event.ctrlKey || event.metaKey) {
+                switch (String.fromCharCode(event.which).toLowerCase()) {
+                    case 's':
+                        event.preventDefault();
+                        $("#save-content").click();
+                        break;
+                }
+            }
+        });
+
+
+    </script>
+   
     @RenderSection("scripts", required: false)
 </body>
 </html>

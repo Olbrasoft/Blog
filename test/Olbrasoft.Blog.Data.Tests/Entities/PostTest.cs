@@ -41,18 +41,7 @@ public class PostTest
         Assert.IsAssignableFrom<Category>(category);
     }
 
-    [Fact]
-    public void Instance_Have_ToTags()
-    {
-        //Arrange
-        var post = new Post();
 
-        //Act
-        var toTags = post.ToTags;
-
-        //Assert
-        Assert.IsAssignableFrom<IEnumerable<PostToTag>>(toTags);
-    }
 
     [Fact]
     public void Instance_Have_Title()

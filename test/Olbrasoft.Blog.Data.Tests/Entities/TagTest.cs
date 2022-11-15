@@ -35,9 +35,9 @@ public class TagTest
         var tag = new Tag();
 
         //Act
-        var toPosts = tag.ToPosts;
+        var posts = tag.Posts;
 
         //Assert
-        Assert.IsAssignableFrom<IEnumerable<PostToTag>>(toPosts);
+        Assert.IsAssignableFrom<IEnumerable<Post>>(posts);
     }
 }

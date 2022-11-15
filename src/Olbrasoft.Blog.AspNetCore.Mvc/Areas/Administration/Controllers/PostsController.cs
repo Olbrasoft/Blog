@@ -24,7 +24,7 @@ public class PostsController : AdminDataTablesController
 
         if (id > 0) //edit post
         {
-            var post = await _service.PostForEditingByIdAsync(id, token);
+            PostEditDto post = await _service.PostForEditingByIdAsync(id, token);
 
             model.Id = post.Id;
 
@@ -34,7 +34,7 @@ public class PostsController : AdminDataTablesController
 
             model.CategoryId = post.CategoryId;
 
-            model.Tags = await _tagService.TagsByPostIdAsync(id, token);
+            model.Tags = post.Tags;
         }
 
         return View(model);
@@ -51,7 +51,7 @@ public class PostsController : AdminDataTablesController
             }
             else
             {
-                await _service.SaveAsync(model.Title, model.Content, model.CategoryId, CurrentUserId, null, model.Id);
+                await _service.SaveAsync(model.Title, model.Content, model.CategoryId, CurrentUserId, Enumerable.Empty<int>(), model.Id);
             }
 
             return RedirectToAction("Index");
@@ -60,7 +60,7 @@ public class PostsController : AdminDataTablesController
         //If error javascript validation
         if (!string.IsNullOrEmpty(model.TagIds))
         {
-            model.Tags = await _tagService.TagsByIds(model.TagIds.Split(',').Select(p => int.Parse(p)));
+            model.Tags = await _tagService.TagsByIds(model.TagIds.Split(',').Select(p => int.Parse(p)),token);
         }
 
         model.Categories = await _categoryService.CategoriesAsync(token);

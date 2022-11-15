@@ -9,14 +9,15 @@ namespace Olbrasoft.Blog.Business;
 
 public interface ITagService
 {
-    Task<bool> ExistsAsync();
-    Task<bool> ExistsAsync(string label);
-    Task<bool> ExistsAsync(int exceptId, string label);
-    Task<bool> SaveAsync(int id, string label, int userId);
-    Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids);
+    //Task<bool> ExistsAsync();
+    //Task<bool> ExistsAsync(string label);
+    Task<bool> ExistsAsync(int exceptId, string label, CancellationToken token);
+    Task<bool> SaveAsync(int id, string label, int userId, CancellationToken token);
+    Task<bool> DeleteAsync(int tagId, int userId, CancellationToken token);
+    Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids, CancellationToken token);
     Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token);
     Task<TagSmallDto> UserTagAsync(int id, int userId, CancellationToken token);
-    Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds);
+    Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds, CancellationToken token);
     Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token);
     Task<IPagedResult<TagOfUserDto>> TagsByUserIdAsync(int userId,
                                                        IPageInfo paging,

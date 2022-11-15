@@ -8,8 +8,6 @@ public abstract class BlogDbCommandHandler<TCommand,  TEntity> : IRequestHandler
 
     protected DbSet<TEntity> Entities { get; private set; }
 
-
-
     protected BlogDbCommandHandler(IMapper mapper, BlogDbContext context) 
     {
         Context = context ?? throw new ArgumentNullException(nameof(context));

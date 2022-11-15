@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mapster" Version="7.3.0" />
-    <PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.6.4" />
+    <PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.6.8" />
     <PackageReference Include="Olbrasoft.Data.Entities.Identity" Version="1.0.0" />
   </ItemGroup>
 
@@ -17,10 +17,10 @@
 		<Using Include="System.Collections.Generic" />
 		<Using Include="Olbrasoft.Dispatching" />
 		<Using Include="Olbrasoft.Data.Paging" />
-		<Using Include="Olbrasoft.Data.Cqrs"/>
-		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos"/>
+		<Using Include="Olbrasoft.Data.Cqrs" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
-		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos"/>
+		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
 	</ItemGroup>
 	
 </Project>

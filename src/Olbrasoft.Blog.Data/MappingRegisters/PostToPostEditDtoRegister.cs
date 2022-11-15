@@ -8,6 +8,7 @@ public class PostToPostEditDtoRegister : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<Post, PostEditDto>().Map(
-            dest => dest.TagIds, src => src.ToTags.Select(p => p.ToId));
+            dest => dest.Tags, src => src.Tags.Select(t=> new TagSmallDto { Id = t.Id, Label= t.Label }));
+        
     }
 }

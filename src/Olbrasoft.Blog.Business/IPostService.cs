@@ -9,7 +9,7 @@ namespace Olbrasoft.Blog.Business
 {
     public interface IPostService
     {
-        Task<bool> SaveAsync(string title, string content, int categoryId, int userId = 0, IEnumerable<int> tagIds = null, int id = 0);
+        Task<bool> SaveAsync(string title, string content, int categoryId, int userId, IEnumerable<int> tagIds , int id);
 
         Task<IPagedEnumerable<PostDto>> PostsAsync(string search, IPageInfo paging, CancellationToken token);
 

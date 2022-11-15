@@ -27,12 +27,12 @@ public class CategoriesController : AdminDataTablesController
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveAsync(CategoriesViewModel model)
+    public async Task<IActionResult> SaveAsync(CategoriesViewModel model, CancellationToken token)
     {
         if (ModelState.IsValid)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _service.SaveAsync(model.Id, model.Name, model.Tooltip, int.Parse(userId));
+            await _service.SaveAsync(model.Id, model.Name, model.Tooltip, int.Parse(userId), token);
 
             return RedirectToAction("Index");
         }
@@ -70,9 +70,9 @@ public class CategoriesController : AdminDataTablesController
         return BuildDataTableJson(categories);
     }
 
-    public async Task<IActionResult> NotExistsAsync(int Id, string name)
+    public async Task<IActionResult> NotExistsAsync(int Id, string name, CancellationToken token)
     {
-        var exists = await _service.ExistsAsync(Id, name);
+        var exists = await _service.ExistsAsync(Id, name, token);
         return Json(!exists);
     }
 }

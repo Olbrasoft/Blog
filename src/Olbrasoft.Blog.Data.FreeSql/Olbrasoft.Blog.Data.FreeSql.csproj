@@ -1,29 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-	  <LangVersion>10</LangVersion>
-    <ImplicitUsings>enable</ImplicitUsings>
-	  <AssemblyName>Olbrasoft.Blog.Data.FreeSql</AssemblyName>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>10</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AssemblyName>Olbrasoft.Blog.Data.FreeSql</AssemblyName>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="FreeSql.Extensions.Linq" Version="3.2.681" />
-    <PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.517" />
-    <PackageReference Include="Olbrasoft.Mapping" Version="1.0.2" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="FreeSql.Extensions.Linq" Version="3.2.681" />
+		<PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.521" />
+		<PackageReference Include="Olbrasoft.Extensions" Version="1.0.6" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Data\src\Data.Cqrs.FreeSql\Data.Cqrs.FreeSql.csproj" />
+		<ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="FreeSql" />
-		<Using Include="FreeSql.Extensions.EfCoreFluentApi"/>
+		<Using Include="FreeSql.Extensions.EfCoreFluentApi" />
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Extensions.Paging" />
 		<Using Include="Olbrasoft.Blog.Data.Entities" />
+		<Using Include="Olbrasoft.Blog.Data.Commands" />
+		<Using Include="Olbrasoft.Blog.Data.Commands.CommentCommands" />
+		<Using Include="Olbrasoft.Blog.Data.Commands.TagCommands" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />

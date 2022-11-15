@@ -1,26 +1,44 @@
 ﻿@model HomePageViewModel
+@inject Microsoft.AspNetCore.Mvc.Localization.IHtmlLocalizer<Olbrasoft.Blog.AspNetCore.Mvc.SharedResources> _localizer;
 @{
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
 <div class="row">
-    <div class="col-md-8">
-        <h1 class="my-4">
-            <localize>Blog</localize>
-            <small localize>listing of posts</small>
-        </h1>
-        <a asp-area="" asp-controller="Home" asp-action="TestSpeedDiContainer" localize-title="Test Speed" >Test Speed</a>
+    <div class="col-lg-8">
+        <header class="bg-light border-bottom mb-4">
+            
+                   <h1 class="fw-bolder"><localize>Blog</localize>
+                       <small localize>listing of posts</small>
+                    </h1>
+            
+        </header>
         @foreach (var post in Model.Posts)
         {
             <div class="card mb-4">
                 <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
                 <div class="card-body">
+                    <div class="small text-muted">@post.Created.ToString("dd MMMM yyyy")</div>
                     <h2 class="card-title">@post.Title</h2>
-                     <p class="card-text"><markdown>@post.Content</markdown></p>
+                    <p class="card-text"><markdown>@post.Content</markdown></p>
                     <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@post.Id" class="btn btn-primary"><localize>Read More</localize> &rarr;</a>
                 </div>
+
                 <div class="card-footer text-muted">
-                    <localize>Posted on</localize> @post.Created.ToString("dddd, dd MMMM yyyy") <localize>By</localize>
+                    <div>
+                        <i class="fa fa-sitemap fa-fw"></i> <localize localizer="@_localizer">Category</localize>: <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="searchByCategoryId:@post.CategoryId">@post.CategoryName</a>
+                    </div>
+                    @if (post.Tags.Any())
+                    {
+                        <div>
+                            <i class="fa fa-tags fa-fw"></i> <localize localizer="@_localizer">Tags</localize>:
+                            @foreach (var tag in post.Tags)
+                            {
+                                <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByTagId:@tag.Id">@tag.Label</a>
+                            }
+                        </div>
+                    }
+                    <i class="fa fa-user fa-fw" aria-hidden="true"></i> <localize>By</localize>
                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByCreatorId:@post.CreatorId">@post.Creator</a>
                 </div>
             </div>

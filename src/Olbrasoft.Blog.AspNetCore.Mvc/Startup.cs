@@ -10,14 +10,14 @@ using Microsoft.Extensions.Hosting;
 using Olbrasoft.Blog.Business.Services;
 using Olbrasoft.Blog.Data.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.FreeSql;
-using Olbrasoft.Blog.Data.FreeSql.Tests;
 using Olbrasoft.Blog.Data.MappingRegisters;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Data.Cqrs.FreeSql;
 using Olbrasoft.Extensions.DependencyInjection;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
 using System.Globalization;
-
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 namespace Olbrasoft.Blog.AspNetCore.Mvc;
 
 public class Startup
@@ -26,22 +26,24 @@ public class Startup
 
     public void UseFreeSql(IServiceCollection services)
     {
-
         fsql = new FreeSql.FreeSqlBuilder()
        .UseConnectionString(FreeSql.DataType.SqlServer, ConnectionString)
        .UseAutoSyncStructure(false) //automatically synchronize the entity structure to the database
        .Build();
-
-        fsql.CodeFirst.ApplyConfigurationsFromAssembly(typeof(BlogFreeSqlDbContext).Assembly);
+               
+        fsql.SetDbContextOptions(o=>o.EnableCascadeSave = true);
 
         services.AddSingleton(fsql);
                 
         services.AddFreeDbContext<BlogFreeSqlDbContext>(o => 
-        {
+        {      
             o.UseFreeSql(fsql);
         });
-
+              
+       
         services.AddTransient<IDbSetProvider>( p=>p.GetRequiredService<BlogFreeSqlDbContext>());
+        services.AddTransient<IDbContextProxy>(p => p.GetRequiredService<BlogFreeSqlDbContext>());
+        
         services.AddTransient<IDataSelector, DbSelector>();
 
         services.AddIdentity<BlogUser, BlogRole>(options =>
@@ -62,7 +64,10 @@ public class Startup
             cfg.AsScopped();
             cfg.Use<ExcutorDispatcher>();
         }
-       , typeof(CategoriesQuery).Assembly, typeof(BlogFreeSqlDbContext).Assembly);
+       ,typeof(CategoriesQuery).Assembly, typeof(BlogFreeSqlDbContext).Assembly);
+
+
+        services.AddProjectionConfigurations(typeof(BlogFreeSqlDbContext).Assembly);
     }
 
 
@@ -72,6 +77,8 @@ public class Startup
         {
             options.UseSqlServer(
                 ConnectionString);
+           // options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
         }, ServiceLifetime.Scoped);
 
         services.AddIdentity<BlogUser, BlogRole>(options =>
@@ -136,14 +143,14 @@ public class Startup
         services.AddRazorPages();
 
         services.AddDatabaseDeveloperPageExceptionFilter();
-         
-        
+                
         UseFreeSql(services);
 
+
+        //UseEntityFramework(services);
         services.AddTextTransformationMarkdown();
         
         services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);
-
 
         services.AddScoped<IQueryProcessor, QueryProcessor>();
         services.AddScoped<ICommandExecutor, CommandExecutor>();

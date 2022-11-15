@@ -6,6 +6,7 @@ using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Sorting;
 using Olbrasoft.Dispatching;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -13,26 +14,23 @@ namespace Olbrasoft.Blog.Business.Services;
 
 public class PostService : Service, IPostService
 {
-    private readonly IDispatcher Dispatcher;
-    private readonly ICommandExecutor _executor;
-
-    public PostService(IDispatcher dispatcher, IQueryProcessor processor, ICommandExecutor executor) : base(processor)
+    public PostService(IDispatcher dispatcher) : base(dispatcher)
     {
-        Dispatcher = dispatcher;
-        _executor = executor;
+
+
     }
 
     public async Task<PostDetailDto> PostAsync(int id, CancellationToken token = default)
     {
-        return await new PostDetailByIdQuery(Processor) { Id = id }.ToResultAsync(token);
+        return await new PostDetailByIdQuery(Dispatcher) { Id = id }.ToResultAsync(token);
     }
 
-    public async Task<PostEditDto> PostForEditingByIdAsync(int id, CancellationToken token) 
+    public async Task<PostEditDto> PostForEditingByIdAsync(int id, CancellationToken token)
         => await new PostByIdQuery(Dispatcher) { Id = id }.ToResultAsync(token);
 
     public async Task<IPagedEnumerable<PostDto>> PostsAsync(string search, IPageInfo paging, CancellationToken cancellationToken)
     {
-        return await new PostsPagedQuery(Processor) { Search = search, Paging = paging }.ToResultAsync(cancellationToken);
+        return await new PostsPagedQuery(Dispatcher) { Search = search, Paging = paging }.ToResultAsync(cancellationToken);
     }
 
     public async Task<IPagedResult<PostOfUserDto>> PostsByUserIdAsync(int userId, IPageInfo paging, string column, OrderDirection direction, string search, CancellationToken token = default)
@@ -49,9 +47,9 @@ public class PostService : Service, IPostService
         return await query.ToResultAsync(token);
     }
 
-    public async Task<bool> SaveAsync(string title, string content, int categoryId, int userId = 0, IEnumerable<int> tagIds = null, int id = 0)
+    public async Task<bool> SaveAsync(string title, string content, int categoryId, int userId , IEnumerable<int> tagIds  , int id )
     {
-        var command = new PostSaveCommand(_executor)
+        var command = new PostSaveCommand(Dispatcher)
         {
             Id = id,
             CategoryId = categoryId,

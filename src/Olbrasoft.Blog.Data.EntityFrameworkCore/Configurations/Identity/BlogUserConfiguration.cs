@@ -26,9 +26,6 @@
             builder.HasMany(p => p.Tags).WithOne(p => p.Creator).HasForeignKey(p => p.CreatorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasMany(p => p.PostToTags).WithOne(p => p.Creator).HasForeignKey(p => p.CreatorId)
-                .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasMany(p => p.ToRoles).WithOne(p => p.User).HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 

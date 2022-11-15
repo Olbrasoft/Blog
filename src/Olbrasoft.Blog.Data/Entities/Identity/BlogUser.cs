@@ -12,8 +12,6 @@ public class BlogUser : Olbrasoft.Data.Entities.Identity.User
 
     public IEnumerable<Tag> Tags { get; set; } = new HashSet<Tag>();
 
-    public IEnumerable<PostToTag> PostToTags { get; set; } = new HashSet<PostToTag>();
-
     public IEnumerable<BlogUserToRole> ToRoles { get; set; } = new HashSet<BlogUserToRole>();
 
     public override string ToString()

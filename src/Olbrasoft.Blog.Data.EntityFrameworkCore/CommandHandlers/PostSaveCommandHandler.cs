@@ -1,4 +1,6 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
+﻿using Olbrasoft.Blog.Data.Entities;
+
+namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
     public class PostSaveCommandHandler : BlogDbCommandHandler<PostSaveCommand,  Post>
     {
@@ -9,15 +11,9 @@
         public override async Task<bool> HandleAsync(PostSaveCommand command, CancellationToken token)
         {
             var post = MapTo<Post>(command);
-
-            if (command.TagIds != null && command.TagIds.Count() > 0 && command.CreatorId > 0)
-            {
-                var tags = await Context.Set<Tag>().Where(p => command.TagIds.Contains(p.Id)).ToArrayAsync(token);
-
-                var toTags = tags.Select(p => new PostToTag { ToId = p.Id, CreatorId = command.CreatorId }).ToArray();
-
-                post.ToTags = toTags;
-            }
+           
+            if (command.TagIds.Any())
+                 post.Tags = await Context.Set<Tag>().AsQueryable().Where(p => command.TagIds.Contains(p.Id)).ToArrayAsync(token);
 
             if (command.Id == 0)
             {
@@ -25,18 +21,20 @@
             }
             else
             {
-                var srcPost = await Entities.Include(p => p.ToTags).FirstAsync(p => p.Id == command.Id, token);
 
-                Context.Set<PostToTag>().RemoveRange(srcPost.ToTags);
-
+                var srcPost = await Entities.Include(p => p.Tags).FirstAsync(p => p.Id == command.Id, token);
+               
+                srcPost.Tags.Clear();
+               
                 await Context.SaveChangesAsync(token);
-
+                               
                 srcPost.Title = post.Title;
                 srcPost.Content = post.Content;
                 srcPost.CategoryId = post.CategoryId;
-                srcPost.ToTags = post.ToTags;
-
-                Context.Update(srcPost);
+                srcPost.Tags = post.Tags;
+                
+                Entities.Update(srcPost);
+                               
             }
 
             return (await Context.SaveChangesAsync(token) > 1);

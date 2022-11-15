@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Olbrasoft.Blog.AspNetCore.Mvc.Models;
-using Olbrasoft.Blog.Data.Queries;
 using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc;
 using Olbrasoft.Extensions.Paging;
 using Olbrasoft.Linq;
@@ -17,17 +16,16 @@ public class HomeController : BlogController
     private readonly ITagService _tagService;
     private readonly ICommentService _commentService;
     private readonly IStringLocalizer<HomeController> _localizer;
-    private readonly IDispatcher _dispatcher;
-    private readonly IQueryProcessor _processor;
+    
 
     public HomeController(ILogger<HomeController> logger,
         IPostService postService,
         ICategoryService categoryService,
         ITagService tagService,
         ICommentService commentService,
-        IStringLocalizer<HomeController> localizer,
-        IDispatcher dispatcher,
-        IQueryProcessor processor)
+        IStringLocalizer<HomeController> localizer
+      
+        )
 
     {
         _logger = logger;
@@ -36,8 +34,7 @@ public class HomeController : BlogController
         _tagService = tagService;
         _commentService = commentService;
         _localizer = localizer;
-        _dispatcher = dispatcher;
-        _processor = processor;
+      
     }
 
     public async Task<IActionResult> IndexAsync(string query, string search, CancellationToken token, int page = 1)
@@ -45,6 +42,7 @@ public class HomeController : BlogController
         //var cultureInfo = new CultureInfo("cs");
         //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 
+        //var name = Thread.CurrentThread.CurrentUICulture.Name;
         var paging = new PageInfo(3, page);
 
         if (string.IsNullOrEmpty(search)) search = query;
@@ -72,24 +70,24 @@ public class HomeController : BlogController
         return View();
     }
 
-    public async Task<IActionResult> TestSpeedDiContainer()
-    {
-        var model = new SpeedModel();
-        var query = new SpeedQuery(_processor);
+    //public async Task<IActionResult> TestSpeedDiContainer()
+    //{
+    //    var model = new SpeedModel();
+    //    var query = new SpeedQuery(_processor);
 
-        var timer = new Stopwatch();
+    //    var timer = new Stopwatch();
 
-        timer.Start();
-        for (int i = 0; i < 100000000; i++)
-        {
-            model.Hello = await query.ToResultAsync();
-        }
+    //    timer.Start();
+    //    for (int i = 0; i < 100000000; i++)
+    //    {
+    //        model.Hello = await query.ToResultAsync();
+    //    }
 
-        timer.Stop();
-        model.TimeTaken = timer.Elapsed;
+    //    timer.Stop();
+    //    model.TimeTaken = timer.Elapsed;
 
-        return View(model);
-    }
+    //    return View(model);
+    //}
 
     public async Task<IActionResult> PostAsync(int id, CancellationToken token, int commentId = 0, int parentCommentId = 0)
     {

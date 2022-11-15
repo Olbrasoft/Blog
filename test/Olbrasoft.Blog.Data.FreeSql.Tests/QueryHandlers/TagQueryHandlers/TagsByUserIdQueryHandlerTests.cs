@@ -34,37 +34,41 @@ public class TagsByUserIdQueryHandlerTests
         sut.Should().BeSameAs(expected);
     }
 
-    [Fact]
-    public void TagsByUserIdQueryHandler_TagsByUserIdQueryAs1stParamAndDefaultTokenAs2stParam_ShouldBeAssingableToExpected()
-    {
-        // Arrange           
-        var expected = typeof(BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>);
-        var query = new TagsByUserIdQuery(new Mock<IDispatcher>().Object);
+    //[Fact]
+    //public void TagsByUserIdQueryHandler_TagsByUserIdQueryAs1stParamAndDefaultTokenAs2stParam_ShouldBeAssingableToExpected()
+    //{
+    //    // Arrange           
+    //    var expected = typeof(BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>);
+    //    var query = new TagsByUserIdQuery(new Mock<IDispatcher>().Object);
         
-        var mockSelector = new Mock<IDataSelector>();
-        mockSelector.Setup(s => s.Select<Tag>()).Returns(new Mock<ISelect<Tag>>().Object);
+    //    var mockSelector = new Mock<IDataSelector>();
+    //    mockSelector.Setup(s => s.Select<Tag>()).Returns(new Mock<ISelect<Tag>>().Object);
 
-        // Act
-        var sut = new TagsByUserIdQueryHandler(selector: mockSelector.Object);
-        // Assert
-        sut.Should().BeAssignableTo(expected);    
-    }
+    //    // Act
+    //    var sut = new TagsByUserIdQueryHandler(selector: mockSelector.Object);
+    //    // Assert
+    //    sut.Should().BeAssignableTo(expected);    
+    //}
 
-    [Fact]
-    public async void HandleAsync_NullTagsByUserIdQueryAs1stParamAndDefaultTokenAs2stParam_ShouldThrowAsyncExactlyArgumentNullException()
-    {
-        // Arrange
-        TagsByUserIdQuery query = null;
-        var mockSelector = new Mock<IDataSelector>();
-        mockSelector.Setup(s => s.Select<Tag>()).Returns(new Mock<ISelect<Tag>>().Object);
-        var sut = new TagsByUserIdQueryHandler(selector: mockSelector.Object);
+//    [Fact]
+//    public async void HandleAsync_NullTagsByUserIdQueryAs1stParamAndDefaultTokenAs2stParam_ShouldThrowAsyncExactlyArgumentNullException()
+//    {
+//        // Arrange
+//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+//        TagsByUserIdQuery query = null;
+//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+//        var mockSelector = new Mock<IDataSelector>();
+//        mockSelector.Setup(s => s.Select<Tag>()).Returns(new Mock<ISelect<Tag>>().Object);
+//        var sut = new TagsByUserIdQueryHandler(selector: mockSelector.Object);
 
-        // Act
-        var act = () => sut.HandleAsync(query, default);
+//        // Act
+//#pragma warning disable CS8604 // Possible null reference argument.
+//        var act = () => sut.HandleAsync(query, default);
+//#pragma warning restore CS8604 // Possible null reference argument.
 
-        // Assert
-        await act.Should().ThrowExactlyAsync<ArgumentNullException>();
-    }
+//        // Assert
+//        await act.Should().ThrowExactlyAsync<ArgumentNullException>();
+//    }
 
 
    

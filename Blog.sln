@@ -17,9 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Business", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.AspNetCore.Mvc", "src\Olbrasoft.Blog.AspNetCore.Mvc\Olbrasoft.Blog.AspNetCore.Mvc.csproj", "{C7EB6203-C31F-4141-8C89-C5A8A82052BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olbrasoft.Blog.Data.FreeSql.Tests", "test\Olbrasoft.Blog.Data.FreeSql.Tests\Olbrasoft.Blog.Data.FreeSql.Tests.csproj", "{F6E8484A-7F66-4DCD-8A6B-774A8E65C23D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Data.FreeSql.Tests", "test\Olbrasoft.Blog.Data.FreeSql.Tests\Olbrasoft.Blog.Data.FreeSql.Tests.csproj", "{F6E8484A-7F66-4DCD-8A6B-774A8E65C23D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olbrasoft.Blog.Data.FreeSql", "src\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj", "{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Data.FreeSql", "src\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj", "{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Cqrs.FreeSql", "..\Data\src\Data.Cqrs.FreeSql\Data.Cqrs.FreeSql.csproj", "{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

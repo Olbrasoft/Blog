@@ -1,8 +1,10 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+
+namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
 
 public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>
 {
-    public TagsByUserIdQueryHandler(IDataSelector selector) : base(selector)
+    public TagsByUserIdQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
 
@@ -15,11 +17,10 @@ public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByUserIdQuer
         if (!string.IsNullOrEmpty(query.Search))
             Select = Select.Where(p => p.Label.ToLower().Contains(query.Search.ToLower()));
 
-        Select = Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
-                      .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
-                      .IncludeMany<PostToTag>(t => t.ToPosts);
+        var pageTags = await Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
+                       .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
+                       .IncludeMany(t => t.Posts).ToListAsync(s => new TagOfUserDto { PostCount = s.Posts.Count }, token);
 
-        return (await Select.ToListAsync(s => new TagOfUserDto { PostCount = s.ToPosts.Count() }, token))
-            .AsPagedResult( await Select.CountAsync(token), await userTagsSelect.CountAsync(token));
+        return pageTags.AsPagedResult(await Select.CountAsync(token), await userTagsSelect.CountAsync(token));
     }
 }

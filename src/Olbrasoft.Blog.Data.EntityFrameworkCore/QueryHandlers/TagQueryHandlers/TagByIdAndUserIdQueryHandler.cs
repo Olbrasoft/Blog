@@ -8,7 +8,7 @@
 
         public override async Task<TagSmallDto> HandleAsync(TagByIdAndUserIdQuery query, CancellationToken token)
         {
-            return await ProjectTo<TagSmallDto>(Entities.Where(p => p.CreatorId == query.UserId && p.Id == query.Id)).FirstOrDefaultAsync(token);
+            return await ProjectTo<TagSmallDto>(EntityQueryable.Where(p => p.CreatorId == query.UserId && p.Id == query.Id)).FirstAsync(token);
         }
 
     }

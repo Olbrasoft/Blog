@@ -1,4 +1,4 @@
-﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests;
+﻿namespace Olbrasoft.Blog.Data.FreeSql;
 
 public class DbSelector : IDataSelector
 {
