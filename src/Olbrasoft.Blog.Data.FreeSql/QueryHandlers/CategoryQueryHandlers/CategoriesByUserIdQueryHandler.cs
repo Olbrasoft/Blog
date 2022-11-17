@@ -8,15 +8,14 @@ public class CategoriesByUserIdQueryHandler : BlogDbQueryHandler<Category, Categ
 
     protected override async Task<IPagedResult<CategoryOfUserDto>> GetResultToHandleAsync(CategoriesByUserIdQuery query, CancellationToken token)
     {
+        var userCategory = GetWhere(p => p.CreatorId == query.UserId);
 
-        var userCategorySelect = Select.Where(p => p.CreatorId == query.UserId);
-
-        Select = BuildSearchSelect(query.Search, userCategorySelect);
+        Select = BuildSearchSelect(query.Search, userCategory);
 
         return (await Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
              .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
              .ToListAsync<CategoryOfUserDto>(token))
-             .AsPagedResult(await userCategorySelect.CountAsync(token), await Select.CountAsync(token));
+             .AsPagedResult(await userCategory.CountAsync(token), await Select.CountAsync(token));
     }
 
     private static ISelect<Category> BuildSearchSelect(string search, ISelect<Category> sourceSelect)
