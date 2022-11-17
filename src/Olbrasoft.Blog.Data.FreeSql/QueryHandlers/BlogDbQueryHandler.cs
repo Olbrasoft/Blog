@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers;
 
 public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : DbQueryHandler<BlogFreeSqlDbContext, TEntity, TQuery, TResult> where TQuery : BaseQuery<TResult> where TEntity : class
 {
@@ -11,6 +9,14 @@ public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : DbQueryHand
     protected BlogDbQueryHandler(IConfigure<TEntity> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
     }
+
+    public override Task<TResult> HandleAsync(TQuery query, CancellationToken token)
+    {
+        ThrowIfQueryIsNullOrCancellationRequested(query, token);
+        return GetResultToHandleAsync(query, token);
+    }
+
+    protected abstract Task<TResult> GetResultToHandleAsync(TQuery query, CancellationToken token);
 
 }
 

@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CommentQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CommentQueryHandlers;
 
 public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>
 {
@@ -11,7 +9,7 @@ public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, Comments
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public override async Task<IEnumerable<CommentDto>> HandleAsync(CommentsByPostIdQuery query, CancellationToken token)
+    protected override async Task<IEnumerable<CommentDto>> GetResultToHandleAsync(CommentsByPostIdQuery query, CancellationToken token)
     {
         var result = await Select.Where(p => p.PostId == query.PostId)
             .Include(c => c.Creator)

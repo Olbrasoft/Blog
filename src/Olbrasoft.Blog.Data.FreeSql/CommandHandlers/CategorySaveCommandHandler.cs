@@ -2,7 +2,7 @@
 
 public class CategorySaveCommandHandler : BlogDbCommandHandler<CategorySaveCommand, Category>
 {
-    public CategorySaveCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public CategorySaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(mapper, context)
     {
     }
 
@@ -12,6 +12,6 @@ public class CategorySaveCommandHandler : BlogDbCommandHandler<CategorySaveComma
         
         await Entities.AddOrUpdateAsync(MapTo<Category>(Command), token);
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }

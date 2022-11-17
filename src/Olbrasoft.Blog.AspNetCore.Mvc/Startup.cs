@@ -40,11 +40,6 @@ public class Startup
             o.UseFreeSql(fsql);
         });
               
-       
-        services.AddTransient<IDbSetProvider>( p=>p.GetRequiredService<BlogFreeSqlDbContext>());
-        services.AddTransient<IDbContextProxy>(p => p.GetRequiredService<BlogFreeSqlDbContext>());
-        
-        services.AddTransient<IDataSelector, DbSelector>();
 
         services.AddIdentity<BlogUser, BlogRole>(options =>
         {
@@ -101,7 +96,6 @@ public class Startup
        ,typeof(CategoriesQuery).Assembly, typeof(BlogDbContext).Assembly);
 
     }
-
 
     public Startup(IConfiguration configuration)
     {

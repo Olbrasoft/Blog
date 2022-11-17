@@ -8,7 +8,7 @@ internal class PingBoolDbQueryHandler : BlogDbQueryHandler<object, BaseQuery<boo
     {
     }
 
-    public override Task<bool> HandleAsync(BaseQuery<bool> query, CancellationToken token)
+    protected override Task<bool> GetResultToHandleAsync(BaseQuery<bool> query, CancellationToken token)
     {
         throw new System.NotImplementedException();
     }

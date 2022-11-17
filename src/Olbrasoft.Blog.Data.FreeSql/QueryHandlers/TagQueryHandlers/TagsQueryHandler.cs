@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
 
 public class TagsQueryHandler : BlogDbQueryHandler<Tag, TagsQuery, IEnumerable<TagSmallDto>>
 {
@@ -8,10 +6,12 @@ public class TagsQueryHandler : BlogDbQueryHandler<Tag, TagsQuery, IEnumerable<T
     {
     }
 
-    public override async Task<IEnumerable<TagSmallDto>> HandleAsync(TagsQuery query, CancellationToken token)
+    protected override async Task<IEnumerable<TagSmallDto>> GetResultToHandleAsync(TagsQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
+       
 
         return await Select.OrderBy(a => a.Label).ToListAsync<TagSmallDto>(token);
     }
+
+ 
 }

@@ -7,8 +7,6 @@ using System.Reflection;
 namespace Olbrasoft.Blog.Data.FreeSql;
 
 public class BlogFreeSqlDbContext : IdentityDbContext<BlogUser, BlogRole, int, UserClaim, BlogUserToRole, UserLogin, RoleClaim, UserToken>
-    , IDbSetProvider
-    , IDbContextProxy
 {
     protected override void OnModelCreating(ICodeFirst builder)
     {

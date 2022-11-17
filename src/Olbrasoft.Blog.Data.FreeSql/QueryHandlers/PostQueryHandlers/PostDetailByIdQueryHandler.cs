@@ -1,26 +1,18 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
 
 public class PostDetailByIdQueryHandler : BlogDbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
 {
-    private readonly IMapper _mapper;
-
-    public PostDetailByIdQueryHandler(IMapper mapper, IConfigure<Post> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
+    public PostDetailByIdQueryHandler(IConfigure<Post> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
     {
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    public override async Task<PostDetailDto> HandleAsync(PostDetailByIdQuery query, CancellationToken token)
+    protected override async Task<PostDetailDto> GetResultToHandleAsync(PostDetailByIdQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
+        var post = await GetOneOrNullAsync<PostDetailDto>(p => p.Id == query.Id, token);
 
-        var posts = await Select.Where(p => p.Id == query.Id)
-                                .Include(p=>p.Category)    
-                                .Include(p => p.Creator)
-                                .IncludeMany(p => p.Tags)
-                                .FirstAsync(token);
+        post.Tags = await Context.Orm.Select<PostToTag, Tag>().InnerJoin((ptt, t) => ptt.ToId == t.Id && ptt.Id == query.Id)
+             .ToListAsync((ptt, t) => new TagSmallDto { Id = t.Id, Label = t.Label }, token);
 
-        return _mapper.MapTo<PostDetailDto>(posts);
+        return post;
     }
 }

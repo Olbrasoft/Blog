@@ -2,7 +2,7 @@
 
 public class CommentSaveCommandHandler : BlogDbCommandHandler<CommentSaveCommand, Comment>
 {
-    public CommentSaveCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public CommentSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(mapper, context)
     {
     }
 
@@ -31,6 +31,6 @@ public class CommentSaveCommandHandler : BlogDbCommandHandler<CommentSaveCommand
 
         await Entities.AddOrUpdateAsync(MapTo<Comment>(command), token);
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }

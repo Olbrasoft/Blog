@@ -2,7 +2,7 @@
 
 public class NestedCommentSaveComandHandler : BlogDbCommandHandler<NestedCommentSaveCommand, NestedComment>
 {
-    public NestedCommentSaveComandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public NestedCommentSaveComandHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(mapper, context)
     {
     }
 
@@ -24,6 +24,6 @@ public class NestedCommentSaveComandHandler : BlogDbCommandHandler<NestedComment
 
         await Entities.AddOrUpdateAsync(MapTo<NestedComment>(command), token);
 
-        return await SaveChangesAsync(token) ;
+        return await SaveOneEntityAsync(token) ;
     }
 }

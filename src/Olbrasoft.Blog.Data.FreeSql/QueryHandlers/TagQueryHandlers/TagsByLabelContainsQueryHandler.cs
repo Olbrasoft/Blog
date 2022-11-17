@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
 
 public class TagsByLabelContainsQueryHandler : BlogDbQueryHandler<Tag, TagsByLabelContainsQuery, IEnumerable<TagSmallDto>>
 {
@@ -8,9 +6,9 @@ public class TagsByLabelContainsQueryHandler : BlogDbQueryHandler<Tag, TagsByLab
     {
     }
 
-    public override async Task<IEnumerable<TagSmallDto>> HandleAsync(TagsByLabelContainsQuery query, CancellationToken token)
+    protected override async Task<IEnumerable<TagSmallDto>> GetResultToHandleAsync(TagsByLabelContainsQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
+        
 
         Select = query.ExceptTagIds.Any() 
             ? Select.Where(p => p.Label.Contains(query.Text) && !query.ExceptTagIds.Contains(p.Id)) 

@@ -2,7 +2,7 @@
 
 public class NestedCommentDeleteCommandHandler : BlogDbCommandHandler<NestedCommentDeleteCommand, NestedComment>
 {
-    public NestedCommentDeleteCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public NestedCommentDeleteCommandHandler(BlogFreeSqlDbContext context) : base(context)
     {
     }
 
@@ -13,6 +13,6 @@ public class NestedCommentDeleteCommandHandler : BlogDbCommandHandler<NestedComm
         await Entities
             .RemoveAsync(nc => nc.Id == command.Id && (nc.CreatorId == command.CreatorId || command.CreatorId == 0), token);
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }

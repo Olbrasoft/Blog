@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers;
 
 public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
 {
@@ -8,10 +6,9 @@ public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExce
     {
     }
 
-    public override async Task<IPagedResult<TagOfUsersDto>> HandleAsync(TagsByExceptUserIdQuery query, CancellationToken token)
+    protected override async Task<IPagedResult<TagOfUsersDto>> GetResultToHandleAsync(TagsByExceptUserIdQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
-
+     
         Select = Select.Where(p => p.CreatorId != query.ExceptUserId);
 
         var searchSelect = BuildSearchSelect(query.Search, Select);

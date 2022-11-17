@@ -1,7 +1,7 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.CommandHandlers.TagCommandHandlers;
 public class TagDeleteCommandHandler : BlogDbCommandHandler<TagDeleteCommand, Tag>
 {
-    public TagDeleteCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public TagDeleteCommandHandler(BlogFreeSqlDbContext context) : base(context)
     {
     }
 
@@ -11,6 +11,6 @@ public class TagDeleteCommandHandler : BlogDbCommandHandler<TagDeleteCommand, Ta
 
         await Entities.RemoveAsync(t => t.Id == command.Id && t.CreatorId == command.CreatorId, token);
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }

@@ -2,7 +2,7 @@
 
 public class CommentDeleteCommandHandler : BlogDbCommandHandler<CommentDeleteCommand, Comment>
 {
-    public CommentDeleteCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public CommentDeleteCommandHandler(BlogFreeSqlDbContext context) : base(context)
     {
     }
 
@@ -12,6 +12,6 @@ public class CommentDeleteCommandHandler : BlogDbCommandHandler<CommentDeleteCom
 
         await Entities.RemoveAsync(c => c.Id == command.Id && (c.CreatorId == command.CreatorId || command.CreatorId == 0), token);
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }

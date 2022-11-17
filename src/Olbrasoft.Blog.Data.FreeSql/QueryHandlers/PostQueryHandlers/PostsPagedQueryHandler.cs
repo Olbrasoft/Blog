@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
 
 public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>
 {
@@ -9,10 +7,8 @@ public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, 
     {
     }
 
-    public override async Task<IPagedEnumerable<PostDto>> HandleAsync(PostsPagedQuery query, CancellationToken token)
+    protected override async Task<IPagedEnumerable<PostDto>> GetResultToHandleAsync(PostsPagedQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
-
         var whereSelect = BuildWhereSelect(Select, query);
 
         var posts = await GetEnumerableAsync<PostDto>(whereSelect.OrderByDescending(p => p.Created).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize), token);

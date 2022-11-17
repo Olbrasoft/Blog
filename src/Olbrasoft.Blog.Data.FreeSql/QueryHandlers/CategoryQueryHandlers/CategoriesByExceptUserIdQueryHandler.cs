@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
 
 public class CategoriesByExceptUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByExceptUserIdQuery, IPagedResult<CategoryOfUsersDto>>
 {
@@ -8,10 +6,8 @@ public class CategoriesByExceptUserIdQueryHandler : BlogDbQueryHandler<Category,
     {
     }
 
-    public override async Task<IPagedResult<CategoryOfUsersDto>> HandleAsync(CategoriesByExceptUserIdQuery query, CancellationToken token)
+    protected override async Task<IPagedResult<CategoryOfUsersDto>> GetResultToHandleAsync(CategoriesByExceptUserIdQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
-
         var exceptUserCategories = Select.Where(p => p.CreatorId != query.ExceptUserId);
 
         Select = BuildSearchSelect(query.Search, exceptUserCategories);

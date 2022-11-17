@@ -2,7 +2,7 @@
 
 public class TagSaveCommandHandler : BlogDbCommandHandler<TagSaveCommand, Tag>
 {
-    public TagSaveCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public TagSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(mapper, context)
     {
     }
 
@@ -12,6 +12,6 @@ public class TagSaveCommandHandler : BlogDbCommandHandler<TagSaveCommand, Tag>
 
         await Entities.AddOrUpdateAsync(MapTo<Tag>(command), token);
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }

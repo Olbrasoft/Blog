@@ -22,7 +22,7 @@ internal class PingDbQueryHandler : BlogDbQueryHandler<object, BaseQuery<object>
         ThrowIfQueryIsNullOrCancellationRequested(query, token);
     }
 
-    public override Task<object> HandleAsync(BaseQuery<object> query, CancellationToken token)
+    protected override Task<object> GetResultToHandleAsync(BaseQuery<object> query, CancellationToken token)
     {
         throw new NotImplementedException();
     }

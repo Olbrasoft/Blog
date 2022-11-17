@@ -9,7 +9,7 @@ public class PostByIdQueryHandler : BlogDbQueryHandler<Post, PostByIdQuery, Post
         _mapper = mapper;
     }
 
-    public override async Task<PostEditDto> HandleAsync(PostByIdQuery query, CancellationToken token)
+    protected override async Task<PostEditDto> GetResultToHandleAsync(PostByIdQuery query, CancellationToken token)
     {
         var post = await Select.Where(p => p.Id == query.Id).IncludeMany(p => p.Tags).FirstAsync(token);
 

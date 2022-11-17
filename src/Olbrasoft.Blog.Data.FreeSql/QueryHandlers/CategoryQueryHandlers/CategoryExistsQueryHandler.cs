@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Data.Cqrs.FreeSql;
-
-namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
+﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
 
 public class CategoryExistsQueryHandler : BlogDbQueryHandler<Category, CategoryExistsQuery>
 {
@@ -8,9 +6,8 @@ public class CategoryExistsQueryHandler : BlogDbQueryHandler<Category, CategoryE
     {
     }
 
-    public override async Task<bool> HandleAsync(CategoryExistsQuery query, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(CategoryExistsQuery query, CancellationToken token)
     {
-        ThrowIfQueryIsNullOrCancellationRequested(query, token);
 
         return string.IsNullOrEmpty(query.Name)
             ? await Select.AnyAsync(token)

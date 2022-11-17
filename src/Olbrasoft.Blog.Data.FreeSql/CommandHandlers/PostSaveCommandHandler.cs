@@ -2,7 +2,7 @@
 
 public class PostSaveCommandHandler : BlogDbCommandHandler<PostSaveCommand, Post>
 {
-    public PostSaveCommandHandler(IMapper mapper, IDbContextProxy proxy) : base(mapper, proxy)
+    public PostSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(mapper, context)
     {
     }
 
@@ -21,6 +21,6 @@ public class PostSaveCommandHandler : BlogDbCommandHandler<PostSaveCommand, Post
             await Entities.AddOrUpdateAsync(post, token);
         }
 
-        return await SaveChangesAsync(token);
+        return await SaveOneEntityAsync(token);
     }
 }
