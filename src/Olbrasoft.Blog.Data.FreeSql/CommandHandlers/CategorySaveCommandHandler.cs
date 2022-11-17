@@ -6,10 +6,8 @@ public class CategorySaveCommandHandler : BlogDbCommandHandler<CategorySaveComma
     {
     }
 
-    public override async Task<bool> HandleAsync(CategorySaveCommand Command, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(CategorySaveCommand Command, CancellationToken token)
     {
-        ThrowIfCommandIsNullOrCancellationRequested(Command, token);
-        
         await Entities.AddOrUpdateAsync(MapTo<Category>(Command), token);
 
         return await SaveOneEntityAsync(token);

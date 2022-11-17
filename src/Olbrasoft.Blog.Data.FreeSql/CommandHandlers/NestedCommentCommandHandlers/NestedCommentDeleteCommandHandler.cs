@@ -6,7 +6,7 @@ public class NestedCommentDeleteCommandHandler : BlogDbCommandHandler<NestedComm
     {
     }
 
-    public override async Task<bool> HandleAsync(NestedCommentDeleteCommand command, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(NestedCommentDeleteCommand command, CancellationToken token)
     {
         ThrowIfCommandIsNullOrCancellationRequested(command, token);
 

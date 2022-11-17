@@ -6,10 +6,9 @@ public class PostSaveCommandHandler : BlogDbCommandHandler<PostSaveCommand, Post
     {
     }
 
-    public override async Task<bool> HandleAsync(PostSaveCommand command, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(PostSaveCommand command, CancellationToken token)
     {
-        ThrowIfCommandIsNullOrCancellationRequested(command, token);
-
+       
         var post = MapTo<Post>(command);
 
         await Entities.AddOrUpdateAsync(post, token);

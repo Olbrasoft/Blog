@@ -1,4 +1,5 @@
-﻿using Olbrasoft.Data.Sorting;
+﻿using Olbrasoft.Data.Cqrs.FreeSql;
+using Olbrasoft.Data.Sorting;
 using System;
 using System.Collections.Generic;
 using System.Linq;

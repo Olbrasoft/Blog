@@ -18,4 +18,14 @@ public abstract class BlogDbCommandHandler<TCommand, TEntity> : DbCommandHandler
     protected BlogDbCommandHandler(IMapper mapper, IConfigure<TEntity> configurator, BlogFreeSqlDbContext context) : base(mapper, configurator, context)
     {
     }
+
+    public override Task<bool> HandleAsync(TCommand command, CancellationToken token)
+    {
+        ThrowIfCommandIsNullOrCancellationRequested(command, token);
+
+        return GetResultToHandleAsync(command, token);
+    }
+
+    protected abstract Task<bool> GetResultToHandleAsync(TCommand command, CancellationToken token);
+
 }

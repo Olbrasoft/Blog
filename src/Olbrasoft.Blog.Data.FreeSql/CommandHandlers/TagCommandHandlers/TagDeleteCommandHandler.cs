@@ -5,10 +5,8 @@ public class TagDeleteCommandHandler : BlogDbCommandHandler<TagDeleteCommand, Ta
     {
     }
 
-    public override async Task<bool> HandleAsync(TagDeleteCommand command, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(TagDeleteCommand command, CancellationToken token)
     {
-        ThrowIfCommandIsNullOrCancellationRequested(command, token);
-
         await Entities.RemoveAsync(t => t.Id == command.Id && t.CreatorId == command.CreatorId, token);
 
         return await SaveOneEntityAsync(token);

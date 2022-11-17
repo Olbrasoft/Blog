@@ -6,10 +6,8 @@ public class TagSaveCommandHandler : BlogDbCommandHandler<TagSaveCommand, Tag>
     {
     }
 
-    public override async Task<bool> HandleAsync(TagSaveCommand command, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(TagSaveCommand command, CancellationToken token)
     {
-        ThrowIfCommandIsNullOrCancellationRequested(command, token);
-
         await Entities.AddOrUpdateAsync(MapTo<Tag>(command), token);
 
         return await SaveOneEntityAsync(token);

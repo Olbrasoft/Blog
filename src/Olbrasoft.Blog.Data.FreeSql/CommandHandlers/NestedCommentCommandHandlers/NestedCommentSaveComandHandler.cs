@@ -6,22 +6,8 @@ public class NestedCommentSaveComandHandler : BlogDbCommandHandler<NestedComment
     {
     }
 
-    public override async Task<bool> HandleAsync(NestedCommentSaveCommand command, CancellationToken token)
+    protected override async Task<bool> GetResultToHandleAsync(NestedCommentSaveCommand command, CancellationToken token)
     {
-        //if (command.Id == 0 && command.CommentId > 0)
-        //{
-        //    await Entities.AddAsync(MapTo<NestedComment>(command), token);
-        //}
-        //else
-        //{
-        //    var comment = await Entities.Select.Where(p => p.Id == command.Id && p.CreatorId == command.CreatorId).FirstAsync(token);
-
-        //    comment.Text = command.Text;
-
-        //    Entities.Update(comment);
-        //}
-        ThrowIfCommandIsNullOrCancellationRequested(command, token);
-
         await Entities.AddOrUpdateAsync(MapTo<NestedComment>(command), token);
 
         return await SaveOneEntityAsync(token) ;
