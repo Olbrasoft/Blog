@@ -6,7 +6,7 @@
         {
         }
 
-        public override async Task<bool> HandleAsync(NestedCommentDeleteCommand command, CancellationToken token)
+        protected override async Task<bool> GetResultToHandleAsync(NestedCommentDeleteCommand command, CancellationToken token)
         {
             var comment = await Entities.Where(p => p.Id == command.Id && (p.CreatorId == command.CreatorId || command.CreatorId == 0)).FirstAsync(token);
 

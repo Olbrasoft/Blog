@@ -6,9 +6,9 @@
         {
         }
 
-        public override async Task<IPagedResult<CategoryOfUsersDto>> HandleAsync(CategoriesByExceptUserIdQuery query, CancellationToken token)
+        protected override async Task<IPagedResult<CategoryOfUsersDto>> GetResultToHandleAsync(CategoriesByExceptUserIdQuery query, CancellationToken token)
         {
-            var exceptUserCategories = EntityQueryable.Where(p => p.CreatorId != query.ExceptUserId);
+            var exceptUserCategories = GetWhere(p => p.CreatorId != query.ExceptUserId);
 
             var filteredCategories = exceptUserCategories;
 
@@ -22,9 +22,7 @@
                 .Skip(query.Paging.CalculateSkip())
                 .Take(query.Paging.PageSize).ToArrayAsync(token);
 
-
             return (await categories).AsPagedResult(await exceptUserCategories.CountAsync(token), await filteredCategories.CountAsync(token));
-
         }
     }
 }

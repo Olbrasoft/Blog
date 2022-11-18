@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
 {
     public class BlogPostConfiguration : BlogTypeConfiguration<Post>
     {

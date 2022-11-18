@@ -6,7 +6,7 @@
         {
         }
 
-        public override async Task<bool> HandleAsync(CommentSaveCommand command, CancellationToken token)
+        protected override async Task<bool> GetResultToHandleAsync(CommentSaveCommand command, CancellationToken token)
         {
             if (command.Id == 0 && command.PostId > 0)
             {

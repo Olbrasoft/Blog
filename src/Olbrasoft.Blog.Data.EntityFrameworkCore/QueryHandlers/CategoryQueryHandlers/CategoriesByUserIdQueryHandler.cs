@@ -6,9 +6,9 @@
         {
         }
 
-        public override async Task<IPagedResult<CategoryOfUserDto>> HandleAsync(CategoriesByUserIdQuery query, CancellationToken token)
+        protected override async Task<IPagedResult<CategoryOfUserDto>> GetResultToHandleAsync(CategoriesByUserIdQuery query, CancellationToken token)
         {
-            var userCategories = EntityQueryable.Where(p => p.CreatorId == query.UserId);
+            var userCategories = Queryable.Where(p => p.CreatorId == query.UserId);
 
             var filteredCategories = userCategories;
 

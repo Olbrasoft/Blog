@@ -6,13 +6,11 @@
         {
         }
 
-        public override async Task<bool> HandleAsync(CommentDeleteCommand command, CancellationToken token)
+        protected override async Task<bool> GetResultToHandleAsync(CommentDeleteCommand command, CancellationToken token)
         {
             var comment = await Entities.Where(p => p.Id == command.Id && (p.CreatorId == command.CreatorId || command.CreatorId == 0)).FirstAsync(token);
-
-            Entities.Remove(comment);
-
-            return (await Context.SaveChangesAsync(token) == 1);
+           
+            return (await RemoveAndSaveAsync(comment, token) == CommandStatus.Deleted);
         }
     }
 }

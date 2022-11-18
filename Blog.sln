@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olbrasoft.Blog.Data.FreeSql
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Cqrs.FreeSql", "..\Data\src\Data.Cqrs.FreeSql\Data.Cqrs.FreeSql.csproj", "{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Cqrs.EntityFrameworkCore", "..\Data\src\Data.Cqrs.EntityFrameworkCore\Data.Cqrs.EntityFrameworkCore.csproj", "{E1E3F78C-437A-489B-9DC2-B8515F89EE15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,10 +63,14 @@ Global
 		{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA80EFE-0B66-4658-8C8B-B95B11B4A8B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ECF89A1-E4BA-4889-B855-FDB46B898FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1E3F78C-437A-489B-9DC2-B8515F89EE15}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E3F78C-437A-489B-9DC2-B8515F89EE15}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{E1E3F78C-437A-489B-9DC2-B8515F89EE15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1E3F78C-437A-489B-9DC2-B8515F89EE15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

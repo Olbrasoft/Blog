@@ -1,6 +1,4 @@
-﻿using Olbrasoft.Blog.Data.Entities;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
 {
     public class PostSaveCommandHandler : BlogDbCommandHandler<PostSaveCommand,  Post>
     {
@@ -8,7 +6,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         {
         }
 
-        public override async Task<bool> HandleAsync(PostSaveCommand command, CancellationToken token)
+        protected override async Task<bool> GetResultToHandleAsync(PostSaveCommand command, CancellationToken token)
         {
             var post = MapTo<Post>(command);
            
@@ -21,7 +19,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
             }
             else
             {
-
                 var srcPost = await Entities.Include(p => p.Tags).FirstAsync(p => p.Id == command.Id, token);
                
                 srcPost.Tags.Clear();
@@ -34,7 +31,6 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
                 srcPost.Tags = post.Tags;
                 
                 Entities.Update(srcPost);
-                               
             }
 
             return (await Context.SaveChangesAsync(token) > 1);

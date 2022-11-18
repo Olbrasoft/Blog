@@ -8,7 +8,7 @@ public class SpeedQueryHandler : BlogDbQueryHandler<Tag, SpeedQuery, string>
 
     }
 
-    public override Task<string> HandleAsync(SpeedQuery request, CancellationToken token)
+    protected override Task<string> GetResultToHandleAsync(SpeedQuery request, CancellationToken token)
     {
         return Task.FromResult("I am Speed query Hello world ");
     }

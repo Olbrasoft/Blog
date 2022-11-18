@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations;
-using Olbrasoft.Blog.Data.EntityFrameworkCore.Migrations;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore;
 

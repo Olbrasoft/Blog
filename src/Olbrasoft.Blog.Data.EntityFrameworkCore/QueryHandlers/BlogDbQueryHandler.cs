@@ -1,36 +1,22 @@
 ﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers
 {
-    public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : IRequestHandler<TQuery,TResult>  where TQuery : BaseQuery<TResult> where TEntity : class
+    public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : DbQueryHandler<BlogDbContext, TEntity, TQuery, TResult> where TQuery : BaseQuery<TResult> where TEntity : class
     {
-        private readonly IProjector _projector;
-        protected BlogDbContext Context { get; private set; }
-        protected IQueryable<TEntity> EntityQueryable { get; set; }
-
-        protected BlogDbQueryHandler(IProjector projector, BlogDbContext context) 
+        protected BlogDbQueryHandler(BlogDbContext context) : base(context)
         {
-            _projector = projector;
-
-            Context = context ?? throw new ArgumentNullException(nameof(context));
-            EntityQueryable ??= Context.Set<TEntity>();
         }
 
-        protected IQueryable<TDestination> ProjectTo<TDestination>(IQueryable source)
+        protected BlogDbQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
         {
-            return source is null
-                ? throw new ArgumentNullException(nameof(source))
-                : _projector.ProjectTo<TDestination>(source);
         }
 
-        public abstract Task<TResult> HandleAsync(TQuery request, CancellationToken token);
-
-        protected static void ThrowIfQueryIsNullOrCancellationRequested(TQuery query, CancellationToken token)
+        public override Task<TResult> HandleAsync(TQuery query, CancellationToken token)
         {
-            if (query is null)
-                throw new ArgumentNullException(nameof(query));
-
-            token.ThrowIfCancellationRequested();
+            ThrowIfQueryIsNullOrCancellationRequested(query, token);
+            return GetResultToHandleAsync(query, token);
         }
 
+        protected abstract Task<TResult> GetResultToHandleAsync(TQuery query, CancellationToken token);
     }
 
     public abstract class BlogDbQueryHandler<TEntity, TQuery> : BlogDbQueryHandler<TEntity, TQuery, bool> where TQuery : BaseQuery<bool> where TEntity : class
@@ -39,4 +25,8 @@
         {
         }
     }
+
+
+
+
 }

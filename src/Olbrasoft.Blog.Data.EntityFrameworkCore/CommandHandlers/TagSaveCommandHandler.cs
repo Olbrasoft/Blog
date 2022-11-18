@@ -8,7 +8,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
         {
         }
 
-        public override async Task<bool> HandleAsync(TagSaveCommand command, CancellationToken token)
+        protected override async Task<bool> GetResultToHandleAsync(TagSaveCommand command, CancellationToken token)
         {
             if (command.Id == 0)
             {

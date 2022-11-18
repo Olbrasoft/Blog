@@ -138,10 +138,10 @@ public class Startup
 
         services.AddDatabaseDeveloperPageExceptionFilter();
                 
-        UseFreeSql(services);
+        //UseFreeSql(services);
 
+        UseEntityFramework(services);
 
-        //UseEntityFramework(services);
         services.AddTextTransformationMarkdown();
         
         services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);

@@ -7,22 +7,20 @@
            
         }
 
-        public override async Task<bool> HandleAsync(TagExistsQuery query, CancellationToken token)
+        protected override async Task<bool> GetResultToHandleAsync(TagExistsQuery query, CancellationToken token)
         {
-
-            ThrowIfQueryIsNullOrCancellationRequested(query, token);
 
             if (string.IsNullOrEmpty(query.Label))
             {
-                return await EntityQueryable.AnyAsync( token);
+                return await Queryable.AnyAsync( token);
             }
 
             if (query.ExceptId == 0)
             {
-                return await EntityQueryable.AnyAsync(p => p.Label == query.Label, token);
+                return await Queryable.AnyAsync(p => p.Label == query.Label, token);
             }
 
-            return await EntityQueryable.AnyAsync(p => p.Id != query.ExceptId && p.Label == query.Label, token);
+            return await Queryable.AnyAsync(p => p.Id != query.ExceptId && p.Label == query.Label, token);
         }
     }
 }

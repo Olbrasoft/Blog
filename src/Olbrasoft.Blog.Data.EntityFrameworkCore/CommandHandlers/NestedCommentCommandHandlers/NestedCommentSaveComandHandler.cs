@@ -6,8 +6,8 @@
         {
        
         }
-              
-        public override async Task<bool> HandleAsync(NestedCommentSaveCommand command, CancellationToken token)
+
+        protected override async Task<bool> GetResultToHandleAsync(NestedCommentSaveCommand command, CancellationToken token)
         {
             if (command.Id == 0 && command.CommentId > 0)
             {

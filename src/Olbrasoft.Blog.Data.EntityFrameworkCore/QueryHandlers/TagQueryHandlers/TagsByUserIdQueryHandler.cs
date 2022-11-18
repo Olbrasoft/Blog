@@ -6,9 +6,9 @@
         {
         }
 
-        public override async Task<IPagedResult<TagOfUserDto>> HandleAsync(TagsByUserIdQuery query, CancellationToken token)
+        protected override async Task<IPagedResult<TagOfUserDto>> GetResultToHandleAsync(TagsByUserIdQuery query, CancellationToken token)
         {
-            var filteredTags = EntityQueryable.Where(p => p.CreatorId == query.UserId);
+            var filteredTags = Queryable.Where(p => p.CreatorId == query.UserId);
 
             if (!string.IsNullOrEmpty(query.Search))
             {
@@ -19,7 +19,7 @@
                  .Skip(query.Paging.CalculateSkip())
                  .Take(query.Paging.PageSize).ToArrayAsync(token);
 
-            return (await tags).AsPagedResult(await EntityQueryable.Where(p => p.CreatorId == query.UserId).CountAsync(token), await filteredTags.CountAsync(token));
+            return (await tags).AsPagedResult(await Queryable.Where(p => p.CreatorId == query.UserId).CountAsync(token), await filteredTags.CountAsync(token));
         }
     }
 }

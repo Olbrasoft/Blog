@@ -17,7 +17,6 @@ public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : DbQueryHand
     }
 
     protected abstract Task<TResult> GetResultToHandleAsync(TQuery query, CancellationToken token);
-
 }
 
 
