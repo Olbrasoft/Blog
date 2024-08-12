@@ -10,7 +10,7 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHand
 
         protected override async Task<IEnumerable<CommentDto>> GetResultToHandleAsync(CommentsByPostIdQuery query, CancellationToken token)
         {
-            return await ProjectTo<CommentDto>(Queryable.Where(p => p.PostId == query.PostId)
+            return await ProjectTo<CommentDto>(Entities.Where(p => p.PostId == query.PostId)
                 .OrderByDescending(p => p.Created)).ToArrayAsync(token);
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Olbrasoft.Blog.Data.Entities;
 
-public abstract class CreationInfo : Olbrasoft.Data.Entities.CreationInfo<BlogUser>
+public abstract class CreationInfo : Olbrasoft.Data.Entities.Abstractions.CreationInfo<BlogUser>
 {
    
 }

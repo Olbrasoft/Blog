@@ -6,7 +6,7 @@ public abstract class ByIdQuery<TResult> : BaseQuery<TResult>
     {
     }
 
-    protected ByIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    protected ByIdQuery(IMediator mediator) : base(mediator)
     {
     }
 

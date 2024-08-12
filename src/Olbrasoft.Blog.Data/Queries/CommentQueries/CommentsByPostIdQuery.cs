@@ -10,7 +10,7 @@ public class CommentsByPostIdQuery : BaseQuery<IEnumerable<CommentDto>>
     {
     }
 
-    public CommentsByPostIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CommentsByPostIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

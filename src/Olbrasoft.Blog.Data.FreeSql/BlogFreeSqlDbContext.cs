@@ -17,7 +17,7 @@ public class BlogFreeSqlDbContext : IdentityDbContext<BlogUser, BlogRole, int, U
         .SelectMany(openType => typeof(BlogFreeSqlDbContext).Assembly.DefinedTypes
         .Where(t => !t.IsAbstract && !t.IsGenericTypeDefinition && t.AsType().ImplementsGenericInterface(openType)));
 
-   
+
         foreach (TypeInfo constructibleType in typeInfos)
         {
             if (constructibleType.GetConstructor(Type.EmptyTypes) is null)
@@ -37,6 +37,9 @@ public class BlogFreeSqlDbContext : IdentityDbContext<BlogUser, BlogRole, int, U
                         .Help()
                         .CanUpdate(false)
                         .CanInsert(false));
+
+
+
             }
         }
     }

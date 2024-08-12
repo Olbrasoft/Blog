@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 using Olbrasoft.Blog.AspNetCore.Mvc.Models;
 using Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc;
 using Olbrasoft.Extensions.Paging;
@@ -39,10 +38,6 @@ public class HomeController : BlogController
 
     public async Task<IActionResult> IndexAsync(string query, string search, CancellationToken token, int page = 1)
     {
-        //var cultureInfo = new CultureInfo("cs");
-        //CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-
-        //var name = Thread.CurrentThread.CurrentUICulture.Name;
         var paging = new PageInfo(3, page);
 
         if (string.IsNullOrEmpty(search)) search = query;
@@ -52,6 +47,8 @@ public class HomeController : BlogController
             Posts = (await _postService.PostsAsync(search, paging, token)).AsPagedList(paging),
             NestedModel = await BuildNestedModel(token)
         };
+
+        _logger.LogInformation($"Total posts:{ model.Posts.TotalItemCount}");
 
         var options = PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext;
         options.UlElementClasses = new[] { "justify-content-center", "pagination" };
@@ -70,32 +67,15 @@ public class HomeController : BlogController
         return View();
     }
 
-    //public async Task<IActionResult> TestSpeedDiContainer()
-    //{
-    //    var model = new SpeedModel();
-    //    var query = new SpeedQuery(_processor);
-
-    //    var timer = new Stopwatch();
-
-    //    timer.Start();
-    //    for (int i = 0; i < 100000000; i++)
-    //    {
-    //        model.Hello = await query.ToResultAsync();
-    //    }
-
-    //    timer.Stop();
-    //    model.TimeTaken = timer.Elapsed;
-
-    //    return View(model);
-    //}
-
     public async Task<IActionResult> PostAsync(int id, CancellationToken token, int commentId = 0, int parentCommentId = 0)
     {
+       
         if (id < 1) return RedirectToAction("Index");
 
         var model = new PostDetailViewModel
         {
             Id = id,
+            CurentUserId = CurrentUserId,
             Post = (await _postService.PostAsync(id, token)),
             NestedModel = await BuildNestedModel(token),
             Comments = await _commentService.CommentsByPostIdAsync(id, token),

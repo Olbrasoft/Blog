@@ -8,7 +8,7 @@
 
         protected override async Task<IEnumerable<CategorySmallDto>> GetResultToHandleAsync(CategoriesQuery query, CancellationToken token)
         {
-            return await ProjectTo<CategorySmallDto>(Queryable).OrderBy(p => p.Name).ToArrayAsync(token);
+            return await ProjectTo<CategorySmallDto>(Entities.OrderBy(p => p.Name)).ToArrayAsync(token);
         }
     }
 }

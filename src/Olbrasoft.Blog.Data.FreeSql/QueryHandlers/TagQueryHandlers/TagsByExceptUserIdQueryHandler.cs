@@ -2,22 +2,22 @@
 
 public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
 {
-    public TagsByExceptUserIdQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
+    public TagsByExceptUserIdQueryHandler(BlogFreeSqlDbContext context) : base(context)
     {
     }
 
     protected override async Task<IPagedResult<TagOfUsersDto>> GetResultToHandleAsync(TagsByExceptUserIdQuery query, CancellationToken token)
     {
-     
-        Select = Select.Where(p => p.CreatorId != query.ExceptUserId);
 
-        var searchSelect = BuildSearchSelect(query.Search, Select);
+        var whereSelect = Select.Where(p => p.CreatorId != query.ExceptUserId);
+
+        var searchSelect = BuildSearchSelect(query.Search, whereSelect);
 
         return (await searchSelect.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
                                      .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
                                      .IncludeMany(t => t.Posts)
             .ToListAsync(s => new TagOfUsersDto { PostCount = s.Posts.Count(), Creator = $"{s.Creator.FirstName} {s.Creator.LastName}" }, token)
-                         ).AsPagedResult(await Select.CountAsync(token), await searchSelect.CountAsync(token));
+                         ).AsPagedResult(await whereSelect.CountAsync(token), await searchSelect.CountAsync(token));
     }
 
     private static ISelect<Tag> BuildSearchSelect(string search, ISelect<Tag> select)

@@ -9,7 +9,7 @@ public class TagExistsQuery : BaseQuery<bool>
     {
     }
 
-    public TagExistsQuery(IDispatcher dispatcher) : base(dispatcher)
+    public TagExistsQuery(IMediator mediator) : base(mediator)
     {
     }
 

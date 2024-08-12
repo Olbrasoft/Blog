@@ -8,7 +8,7 @@ public class CategoriesByExceptUserIdQuery : ExceptUserIdQuery<IPagedResult<Cate
     {
     }
 
-    public CategoriesByExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CategoriesByExceptUserIdQuery(IMediator mediator) : base(mediator)
     {
        
     }

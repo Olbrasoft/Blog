@@ -9,7 +9,7 @@ public abstract class BlogCommand : BaseCommand<bool>
     {
     }
 
-    protected BlogCommand(IDispatcher dispatcher) : base(dispatcher)
+    protected BlogCommand(IMediator mediator) : base(mediator)
     {
     }
 }

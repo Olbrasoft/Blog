@@ -1,5 +1,5 @@
 ﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers;
-public abstract class BlogDbCommandHandler<TCommand, TEntity> : DbCommandHandler<BlogDbContext, TEntity, TCommand, bool>
+public abstract class BlogDbCommandHandler<TCommand, TEntity> : DbBaseCommandHandler<BlogDbContext, TEntity, TCommand, bool>
     where TCommand : BaseCommand<bool> where TEntity : class
 {
     protected BlogDbCommandHandler(BlogDbContext context) : base(context)
@@ -18,7 +18,7 @@ public abstract class BlogDbCommandHandler<TCommand, TEntity> : DbCommandHandler
     {
     }
 
-    public override Task<bool> HandleAsync(TCommand command, CancellationToken token)
+    public override Task<bool> Handle(TCommand command, CancellationToken token)
     {
         ThrowIfCommandIsNullOrCancellationRequested(command, token);
 

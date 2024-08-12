@@ -20,7 +20,7 @@ public class CategoriesViewModel
 
     public bool DoNotExists { get; set; }
 
-    public IPagedList<CategoryOfUserDto> Categories { get; set; }
+    public IPagedList<CategoryOfUserDto> Categories { get; set; } = new PagedList<CategoryOfUserDto>(Enumerable.Empty<CategoryOfUserDto>(),1,1);
 
     public string SortName { get; set; } = string.Empty;
 }

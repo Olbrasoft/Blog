@@ -6,7 +6,7 @@ public class NestedCommentDeleteCommand : BlogCommand
     {
     }
 
-    public NestedCommentDeleteCommand(IDispatcher dispatcher) : base(dispatcher)
+    public NestedCommentDeleteCommand(IMediator mediator) : base(mediator)
     {
     }
 }

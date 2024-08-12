@@ -6,7 +6,7 @@ public class TagsByUserIdQuery : ByUserIdQuery<IPagedResult<TagOfUserDto>>
     {
     }
 
-    public TagsByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public TagsByUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

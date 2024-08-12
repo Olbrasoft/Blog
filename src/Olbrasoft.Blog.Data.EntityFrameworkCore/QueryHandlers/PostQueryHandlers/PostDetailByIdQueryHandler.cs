@@ -8,7 +8,7 @@
 
         protected override async Task<PostDetailDto> GetResultToHandleAsync(PostDetailByIdQuery request, CancellationToken token)
         {
-            return await ProjectTo<PostDetailDto>(Queryable.Where(p => p.Id == request.Id)).FirstAsync(token);
+            return await ProjectTo<PostDetailDto>(Entities.Where(p => p.Id == request.Id)).FirstAsync(token);
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Olbrasoft.Blog.Data.Commands.TagCommands;
 using Olbrasoft.Blog.Data.Dtos.TagDtos;
 using Olbrasoft.Blog.Data.Queries.TagQueries;
-using Olbrasoft.Data.Cqrs;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Sorting;
-using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,22 +11,22 @@ namespace Olbrasoft.Blog.Business.Services
 {
     public class TagService : Service, ITagService
     {
-        public TagService(IDispatcher dispatcher) : base(dispatcher)
+        public TagService(IMediator mediator) : base(mediator)
         {
         }
 
-        //public async Task<bool> ExistsAsync() => await new TagExistsQuery(Dispatcher).ToResultAsync();
+        //public async Task<bool> ExistsAsync() => await new TagExistsQuery(Mediator).ToResultAsync();
 
-        //public async Task<bool> ExistsAsync(string label) => await new TagExistsQuery(Dispatcher) { Label = label }.ToResultAsync();
+        //public async Task<bool> ExistsAsync(string label) => await new TagExistsQuery(Mediator) { Label = label }.ToResultAsync();
 
 
         public async Task<bool> ExistsAsync(int ExceptId, string label, CancellationToken token = default)
-            => await new TagExistsQuery(Dispatcher) { ExceptId = ExceptId, Label = label }.ToResultAsync(token);
+            => await new TagExistsQuery(Mediator) { ExceptId = ExceptId, Label = label }.ToResultAsync(token);
 
 
         public async Task<bool> SaveAsync(int Id, string label, int userId, CancellationToken token)
 
-            => await new TagSaveCommand(Dispatcher)
+            => await new TagSaveCommand(Mediator)
             {
                 Id = Id,
                 Label = label,
@@ -43,7 +41,7 @@ namespace Olbrasoft.Blog.Business.Services
                                                                         OrderDirection direction,
                                                                         string search,
                                                                         CancellationToken token = default)
-            => await new TagsByUserIdQuery(Dispatcher)
+            => await new TagsByUserIdQuery(Mediator)
             {
                 UserId = userId,
                 Paging = paging,
@@ -55,7 +53,7 @@ namespace Olbrasoft.Blog.Business.Services
 
 
         public async Task<TagSmallDto> UserTagAsync(int id, int userId, CancellationToken token = default)
-            => await new TagByIdAndUserIdQuery(Dispatcher) { Id = id, UserId = userId }.ToResultAsync(token);
+            => await new TagByIdAndUserIdQuery(Mediator) { Id = id, UserId = userId }.ToResultAsync(token);
 
 
         public async Task<IPagedResult<TagOfUsersDto>> TagsByExceptUserIdAsync(int exceptUserId,
@@ -64,7 +62,7 @@ namespace Olbrasoft.Blog.Business.Services
                                                                                OrderDirection direction,
                                                                                string search,
                                                                                CancellationToken token)
-            => await new TagsByExceptUserIdQuery(Dispatcher)
+            => await new TagsByExceptUserIdQuery(Mediator)
             {
                 ExceptUserId = exceptUserId,
                 Paging = paging,
@@ -76,22 +74,22 @@ namespace Olbrasoft.Blog.Business.Services
 
 
         public async Task<IEnumerable<TagSmallDto>> FindAsync(string term, IEnumerable<int> exceptTagIds, CancellationToken token)
-            => await new TagsByLabelContainsQuery(Dispatcher) { Text = term, ExceptTagIds = exceptTagIds }.ToResultAsync(token);
+            => await new TagsByLabelContainsQuery(Mediator) { Text = term, ExceptTagIds = exceptTagIds }.ToResultAsync(token);
 
 
         public async Task<IEnumerable<TagSmallDto>> TagsByIds(IEnumerable<int> ids, CancellationToken token)
-            => await new TagsByIdsQuery(Dispatcher) { Ids = ids }.ToResultAsync(token);
+            => await new TagsByIdsQuery(Mediator) { Ids = ids }.ToResultAsync(token);
 
 
         public async Task<IEnumerable<TagSmallDto>> TagsAsync(CancellationToken token = default)
-            => await new TagsQuery(Dispatcher).ToResultAsync(token);
+            => await new TagsQuery(Mediator).ToResultAsync(token);
 
 
         public async Task<IEnumerable<TagSmallDto>> TagsByPostIdAsync(int postId, CancellationToken token)
-            => await new TagsByPostIdQuery(Dispatcher) { PostId = postId }.ToResultAsync(token);
+            => await new TagsByPostIdQuery(Mediator) { PostId = postId }.ToResultAsync(token);
 
         public async Task<bool> DeleteAsync(int tagId, int userId, CancellationToken token = default)
-            => await new TagDeleteCommand(Dispatcher)
+            => await new TagDeleteCommand(Mediator)
             {
                 Id = tagId,
                 CreatorId = userId,

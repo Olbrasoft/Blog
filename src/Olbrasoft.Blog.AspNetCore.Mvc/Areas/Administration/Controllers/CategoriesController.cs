@@ -32,10 +32,12 @@ public class CategoriesController : AdminDataTablesController
         if (ModelState.IsValid)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _service.SaveAsync(model.Id, model.Name, model.Tooltip, int.Parse(userId), token);
+
+            if(userId != null) await _service.SaveAsync(model.Id, model.Name, model.Tooltip, int.Parse(userId), token);
 
             return RedirectToAction("Index");
         }
+                
 
         return View("Index", model);
     }

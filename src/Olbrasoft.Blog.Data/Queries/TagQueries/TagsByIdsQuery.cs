@@ -7,7 +7,7 @@ public class TagsByIdsQuery : BaseQuery<IEnumerable<TagSmallDto>>
     {
     }
 
-    public TagsByIdsQuery(IDispatcher dispatcher) : base(dispatcher)
+    public TagsByIdsQuery(IMediator mediator) : base(mediator)
     {
     }
 

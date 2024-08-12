@@ -1,23 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>Net6</TargetFramework>
+    <TargetFramework>Net8</TargetFramework>
 	<nullable>enable</nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="7.3.0" />
-    <PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.6.8" />
-    <PackageReference Include="Olbrasoft.Data.Entities.Identity" Version="1.0.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Olbrasoft.Data.Entities.Identity" Version="1.7.0" />
+    <PackageReference Include="Olbrasoft.Data.Paging" Version="1.7.0" />
+    <PackageReference Include="Olbrasoft.Data.Sorting" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MediatR.Cqrs\src\MediatR.Cqrs.Common\MediatR.Cqrs.Common.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
 		<Using Include="System" />
 		<Using Include="System.Linq" />
 		<Using Include="System.Collections.Generic" />
-		<Using Include="Olbrasoft.Dispatching" />
+	
 		<Using Include="Olbrasoft.Data.Paging" />
-		<Using Include="Olbrasoft.Data.Cqrs" />
+		<Using Include="MediatR.Cqrs.Common" />
+		<Using Include="MediatR" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />

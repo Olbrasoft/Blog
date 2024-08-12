@@ -10,7 +10,7 @@ public class NestedCommentTextForEditingQueryHandler : BlogDbQueryHandler<Nested
 
     protected override async Task<string> GetResultToHandleAsync(NestedCommentTextForEditingQuery query, CancellationToken token)
     {
-        var result = await Queryable
+        var result = await Entities
              .Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0))
              .Select(p => p.Text)
              .ToArrayAsync(token);

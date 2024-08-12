@@ -8,7 +8,7 @@
 
         protected override async Task<IEnumerable<TagSmallDto>> GetResultToHandleAsync(TagsByLabelContainsQuery query, CancellationToken token)
         {
-            return await ProjectTo<TagSmallDto>(Queryable.Where(p => p.Label.Contains(query.Text) && !query.ExceptTagIds.Contains(p.Id)))
+            return await ProjectTo<TagSmallDto>(Entities.Where(p => p.Label.Contains(query.Text) && !query.ExceptTagIds.Contains(p.Id)))
                 .Take(6)
                 .ToArrayAsync(token);
         }

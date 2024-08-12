@@ -8,7 +8,7 @@ public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, 
 
     protected override async Task<IPagedEnumerable<PostDto>> GetResultToHandleAsync(PostsPagedQuery query, CancellationToken token)
     {
-        var resultQueryable = BuildResultQueryable(Queryable, query.Search);
+        var resultQueryable = BuildResultQueryable(Entities, query.Search);
 
         var posts = await ProjectTo<PostDto>(resultQueryable.OrderByDescending(p => p.Created))
             .Skip(query.Paging.CalculateSkip())

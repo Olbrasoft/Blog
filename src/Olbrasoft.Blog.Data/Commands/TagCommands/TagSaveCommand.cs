@@ -6,7 +6,7 @@ public class TagSaveCommand : BlogCommand
     {
     }
 
-    public TagSaveCommand(IDispatcher dispatcher) : base(dispatcher)
+    public TagSaveCommand(IMediator mediator) : base(mediator)
     {
     }
 

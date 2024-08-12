@@ -6,11 +6,8 @@ public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : DbQueryHand
     {
     }
 
-    protected BlogDbQueryHandler(IConfigure<TEntity> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-    {
-    }
 
-    public override Task<TResult> HandleAsync(TQuery query, CancellationToken token)
+    public override Task<TResult> Handle(TQuery query, CancellationToken token)
     {
         ThrowIfQueryIsNullOrCancellationRequested(query, token);
         return GetResultToHandleAsync(query, token);
@@ -26,7 +23,5 @@ public abstract class BlogDbQueryHandler<TEntity, TQuery> : BlogDbQueryHandler<T
     {
     }
 
-    protected BlogDbQueryHandler(IConfigure<TEntity> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-    {
-    }
+
 }

@@ -6,7 +6,7 @@ public class CategoryExistsQuery : BaseQuery<bool>
     {
     }
 
-    public CategoryExistsQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CategoryExistsQuery(IMediator mediator) : base(mediator)
     {
     }
 

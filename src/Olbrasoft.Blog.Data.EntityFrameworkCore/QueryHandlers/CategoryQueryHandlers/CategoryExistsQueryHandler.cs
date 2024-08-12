@@ -10,15 +10,15 @@
         {
             if (string.IsNullOrEmpty(query.Name))
             {
-                return await Queryable.AnyAsync(token);
+                return await Entities.AnyAsync(token);
             }
 
             if (query.ExceptId == null || query.ExceptId == 0)
             {
-                return await Queryable.AnyAsync(p => p.Name == query.Name, token); ;
+                return await Entities.AnyAsync(p => p.Name == query.Name, token); ;
             }
 
-            return await Queryable.AnyAsync(p => p.Id != query.ExceptId && p.Name == query.Name, token);
+            return await Entities.AnyAsync(p => p.Id != query.ExceptId && p.Name == query.Name, token);
         }
     }
 }

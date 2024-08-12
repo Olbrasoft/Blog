@@ -9,7 +9,7 @@ public class TagsByLabelContainsQuery : BaseQuery<IEnumerable<TagSmallDto>>
     {
     }
 
-    public TagsByLabelContainsQuery(IDispatcher dispatcher) : base(dispatcher)
+    public TagsByLabelContainsQuery(IMediator mediator) : base(mediator)
     {
     }
 }

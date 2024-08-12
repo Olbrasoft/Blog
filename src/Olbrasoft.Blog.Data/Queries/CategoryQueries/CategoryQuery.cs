@@ -6,7 +6,7 @@ public class CategoryQuery : ByIdQuery<CategoryOfUserDto>
     {
     }
 
-    public CategoryQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CategoryQuery(IMediator mediator) : base(mediator)
     {
     }
 }

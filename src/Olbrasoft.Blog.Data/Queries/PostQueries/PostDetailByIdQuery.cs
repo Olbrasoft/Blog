@@ -6,7 +6,7 @@ public class PostDetailByIdQuery : ByIdQuery<PostDetailDto>
     {
     }
 
-    public PostDetailByIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public PostDetailByIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

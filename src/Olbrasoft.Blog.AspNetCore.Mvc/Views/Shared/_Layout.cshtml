@@ -37,6 +37,9 @@
                 font-size: 25px;
                 color: rgba(255, 255, 255, 0.5);
             }
+
+                  
+
     </style>
 </head>
 <body>
@@ -49,10 +52,10 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
+            
             <div class="collapse navbar-collapse " id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">
+                    <li class="nav-item @(ViewContext?.RouteData?.Values["Action"]?.ToString() == "About" ? "active" : "")">
                         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About" localize-title="About" localize>About</a>
                     </li>
                 </ul>
@@ -66,7 +69,7 @@
     </div>
     <!-- /.container -->
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="footer mt-auto py-3 bg-dark">
         <div class="container">
             <div class="row">
                 <div class="col-sm">

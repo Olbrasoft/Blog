@@ -6,7 +6,7 @@ public class CategorySaveCommand : BlogCommand
     {
     }
 
-    public CategorySaveCommand(IDispatcher dispatcher) : base(dispatcher)
+    public CategorySaveCommand(IMediator mediator) : base(mediator)
     {
     }
 

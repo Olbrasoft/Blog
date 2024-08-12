@@ -6,7 +6,7 @@ public class CategoriesQuery : BaseQuery<IEnumerable<CategorySmallDto>>
     {
     }
 
-    public CategoriesQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CategoriesQuery(IMediator mediator) : base(mediator)
     {
     }
 }

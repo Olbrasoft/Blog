@@ -6,7 +6,7 @@ public class NestedCommentSaveCommand : BlogCommand
     {
     }
 
-    public NestedCommentSaveCommand(IDispatcher dispatcher) : base(dispatcher)
+    public NestedCommentSaveCommand(IMediator mediator) : base(mediator)
     {
     }
 

@@ -6,7 +6,7 @@ public class CategoriesByUserIdQuery : ByUserIdQuery<IPagedResult<CategoryOfUser
     {
     }
 
-    public CategoriesByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CategoriesByUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

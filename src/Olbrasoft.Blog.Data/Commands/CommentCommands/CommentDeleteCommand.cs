@@ -6,7 +6,7 @@ public class CommentDeleteCommand : BlogCommand
     {
     }
 
-    public CommentDeleteCommand(IDispatcher dispatcher) : base(dispatcher)
+    public CommentDeleteCommand(IMediator mediator) : base(mediator)
     {
     }
 }

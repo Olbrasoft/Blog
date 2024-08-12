@@ -14,7 +14,7 @@ public abstract class PagedQuery<TResults> : BaseQuery<TResults>
     {
     }
 
-    protected PagedQuery(IDispatcher dispatcher) : base(dispatcher)
+    protected PagedQuery(IMediator mediator) : base(mediator)
     {
     }
 }

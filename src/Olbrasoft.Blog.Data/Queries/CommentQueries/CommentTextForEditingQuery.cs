@@ -8,7 +8,7 @@ public class CommentTextForEditingQuery : ByIdQuery<string>
     {
     }
 
-    public CommentTextForEditingQuery(IDispatcher dispatcher) : base(dispatcher)
+    public CommentTextForEditingQuery(IMediator mediator) : base(mediator)
     {
     }
 

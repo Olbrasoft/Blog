@@ -1,21 +1,17 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CategoryQueryHandlers;
 
-public class CategoriesByUserIdQueryHandler : BlogDbQueryHandler<Category, CategoriesByUserIdQuery, IPagedResult<CategoryOfUserDto>>
+public class CategoriesByUserIdQueryHandler(BlogFreeSqlDbContext context) : BlogDbQueryHandler<Category, CategoriesByUserIdQuery, IPagedResult<CategoryOfUserDto>>(context)
 {
-    public CategoriesByUserIdQueryHandler(IConfigure<Category> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-    {
-    }
-
     protected override async Task<IPagedResult<CategoryOfUserDto>> GetResultToHandleAsync(CategoriesByUserIdQuery query, CancellationToken token)
     {
         var userCategory = GetWhere(p => p.CreatorId == query.UserId);
 
-        Select = BuildSearchSelect(query.Search, userCategory);
+        var categories = BuildSearchSelect(query.Search, userCategory);
 
-        return (await Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
+        return (await categories.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
              .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
              .ToListAsync<CategoryOfUserDto>(token))
-             .AsPagedResult(await userCategory.CountAsync(token), await Select.CountAsync(token));
+             .AsPagedResult(await userCategory.CountAsync(token), await categories.CountAsync(token));
     }
 
     private static ISelect<Category> BuildSearchSelect(string search, ISelect<Category> sourceSelect)

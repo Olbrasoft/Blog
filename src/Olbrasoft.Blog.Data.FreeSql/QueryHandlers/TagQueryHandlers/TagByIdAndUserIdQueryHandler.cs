@@ -2,7 +2,7 @@
 
 public class TagByIdAndUserIdQueryHandler : BlogDbQueryHandler<Tag, TagByIdAndUserIdQuery, TagSmallDto>
 {
-    public TagByIdAndUserIdQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
+    public TagByIdAndUserIdQueryHandler(BlogFreeSqlDbContext context) : base(context)
     {
     }
 

@@ -9,7 +9,7 @@ public class PostsPagedQuery : BaseQuery<IPagedEnumerable<PostDto>>
     {
     }
 
-    public PostsPagedQuery(IDispatcher dispatcher) : base(dispatcher)
+    public PostsPagedQuery(IMediator mediator) : base(mediator)
     {
     }
 }

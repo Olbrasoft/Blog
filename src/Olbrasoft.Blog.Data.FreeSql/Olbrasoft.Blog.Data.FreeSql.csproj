@@ -1,26 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<LangVersion>10</LangVersion>
+		<TargetFramework>net8.0</TargetFramework>
+		<LangVersion>12</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AssemblyName>Olbrasoft.Blog.Data.FreeSql</AssemblyName>
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.521" />
-		<PackageReference Include="Olbrasoft.Extensions" Version="1.0.6" />
+		<PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.541" />
+		<PackageReference Include="Olbrasoft.Extensions" Version="1.8.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Data\src\Data.Cqrs.FreeSql\Data.Cqrs.FreeSql.csproj" />
+		<ProjectReference Include="..\..\..\MediatR.Cqrs\src\MediatR.Cqrs.FreeSql\MediatR.Cqrs.FreeSql.csproj" />
 		<ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="System.Linq.Expressions" />
-		<Using Include="Olbrasoft.Data.Cqrs.FreeSql" />
+		<Using Include="MediatR.Cqrs.FreeSql" />
 		<Using Include="FreeSql" />
 		<Using Include="FreeSql.Extensions.EfCoreFluentApi" />
 		<Using Include="Olbrasoft.Data.Paging" />
@@ -38,8 +38,7 @@
 		<Using Include="Olbrasoft.Blog.Data.Queries.TagQueries" />
 		<Using Include="Olbrasoft.Blog.Data.Queries.CommentQueries" />
 		<Using Include="Olbrasoft.Blog.Data.FreeSql.QueryHandlers" />
-		<Using Include="Olbrasoft.Data.Cqrs" />
-		<Using Include="Olbrasoft.Dispatching" />
+		<Using Include="MediatR.Cqrs.Common" />
 		<Using Include="Olbrasoft.Mapping" />
 	</ItemGroup>
 

@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Localization;
-using System.Globalization;
-
-namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers;
+﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers;
 
 public class TagsController : AdminDataTablesController
 {

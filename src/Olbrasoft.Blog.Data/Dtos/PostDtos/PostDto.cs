@@ -1,8 +1,7 @@
 ﻿namespace Olbrasoft.Blog.Data.Dtos.PostDtos;
 
 public class PostDto : SmallDto
-{
-
+{    
     public PostDto()
     {
         Tags = new HashSet<TagSmallDto>();   

@@ -1,195 +1,81 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		<LangVersion>10</LangVersion>
-		<UserSecretsId>aspnet-Olbrasoft.Blog.AspNetCore.Mvc-9296B2B1-2E82-45BC-81DC-AD5A56934A33</UserSecretsId>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<Compile Remove="Areas\Administration\Views\Home\vendor\**" />
-		<Compile Remove="Profiles\**" />
-		<Content Remove="Areas\Administration\Views\Home\vendor\**" />
-		<Content Remove="Profiles\**" />
-		<EmbeddedResource Remove="Areas\Administration\Views\Home\vendor\**" />
-		<EmbeddedResource Remove="Profiles\**" />
-		<None Remove="Areas\Administration\Views\Home\vendor\**" />
-		<None Remove="Profiles\**" />
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<Compile Remove="SharedLocalizer.cs" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.833" />
+    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
+    <PackageReference Include="Olbrasoft.Data.Paging.DataTables" Version="1.0.2" />
+    <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList" Version="1.7.1" />
+    <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc" Version="1.7.1" />
+    <PackageReference Include="Olbrasoft.Extensions" Version="1.8.0" />
+    <PackageReference Include="Olbrasoft.Linq" Version="1.0.0" />
+    <PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="7.3.2" />
+    <PackageReference Include="Olbrasoft.Text.Transformation.Markdown" Version="1.0.1" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<None Include="wwwroot\admin\js\demo\chart-area-demo.js" />
-		<None Include="wwwroot\admin\js\demo\chart-bar-demo.js" />
-		<None Include="wwwroot\admin\js\demo\chart-pie-demo.js" />
-		<None Include="wwwroot\admin\js\demo\datatables-demo.js" />
-		<None Include="wwwroot\admin\js\sb-admin-2.js" />
-		<None Include="wwwroot\admin\js\sb-admin-2.min.js" />
-		<None Include="wwwroot\css\bootstrap-grid.css.map" />
-		<None Include="wwwroot\css\bootstrap-grid.min.css.map" />
-		<None Include="wwwroot\css\bootstrap-reboot.css.map" />
-		<None Include="wwwroot\css\bootstrap-reboot.min.css.map" />
-		<None Include="wwwroot\css\bootstrap.css.map" />
-		<None Include="wwwroot\css\bootstrap.min.css.map" />
-		<None Include="wwwroot\fonts\fontawesome-webfont.svg" />
-		<None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
-		<None Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
-		<None Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
-		<None Include="wwwroot\fonts\icomoon.svg" />
-		<None Include="wwwroot\js\bootstrap.bundle.js" />
-		<None Include="wwwroot\js\bootstrap.bundle.js.map" />
-		<None Include="wwwroot\js\bootstrap.bundle.min.js" />
-		<None Include="wwwroot\js\bootstrap.bundle.min.js.map" />
-		<None Include="wwwroot\js\bootstrap.js" />
-		<None Include="wwwroot\js\bootstrap.js.map" />
-		<None Include="wwwroot\js\bootstrap.min.js" />
-		<None Include="wwwroot\js\bootstrap.min.js.map" />
-		<None Include="wwwroot\js\dataTables\dataTables.bootstrap.min.js" />
-		<None Include="wwwroot\js\dataTables\jquery.dataTables.min.js" />
-		<None Include="wwwroot\js\datetime-moment\datetime-moment.js" />
-		<None Include="wwwroot\js\flot-data.js" />
-		<None Include="wwwroot\js\flot\excanvas.min.js" />
-		<None Include="wwwroot\js\flot\jquery.colorhelpers.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.canvas.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.categories.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.crosshair.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.errorbars.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.fillbetween.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.image.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.navigate.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.pie.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.resize.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.selection.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.stack.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.symbol.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.threshold.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.time.js" />
-		<None Include="wwwroot\js\flot\jquery.flot.tooltip.min.js" />
-		<None Include="wwwroot\js\jquery.min.js" />
-		<None Include="wwwroot\js\mditor.min.js" />
-		<None Include="wwwroot\js\metisMenu.min.js" />
-		<None Include="wwwroot\js\momentjs\moment.min.js" />
-		<None Include="wwwroot\js\morris-data.js" />
-		<None Include="wwwroot\js\morris.min.js" />
-		<None Include="wwwroot\js\raphael.min.js" />
-		<None Include="wwwroot\js\sb-admin-2.js" />
-		<None Include="wwwroot\js\sb-admin-2.min.js" />
-		<None Include="wwwroot\js\simplemde.min.js" />
-		<None Include="wwwroot\js\site.js" />
-		<None Include="wwwroot\js\startmin.js" />
-		<None Include="wwwroot\js\typeahead.bundle.js" />
-		<None Include="wwwroot\js\typeahead\bloodhound.js" />
-		<None Include="wwwroot\js\typeahead\bloodhound.min.js" />
-		<None Include="wwwroot\js\typeahead\typeahead.bundle.js" />
-		<None Include="wwwroot\js\typeahead\typeahead.bundle.min.js" />
-		<None Include="wwwroot\js\typeahead\typeahead.jquery.js" />
-		<None Include="wwwroot\js\typeahead\typeahead.jquery.min.js" />
-		<None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.css.map" />
-		<None Include="wwwroot\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
-		<None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.css.map" />
-		<None Include="wwwroot\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
-		<None Include="wwwroot\vendor\bootstrap\css\bootstrap.css.map" />
-		<None Include="wwwroot\vendor\bootstrap\css\bootstrap.min.css.map" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.js.map" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.min.js" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.js" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.js.map" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.min.js" />
-		<None Include="wwwroot\vendor\bootstrap\js\bootstrap.min.js.map" />
-		<None Include="wwwroot\vendor\jquery-easing\jquery.easing.compatibility.js" />
-		<None Include="wwwroot\vendor\jquery-easing\jquery.easing.js" />
-		<None Include="wwwroot\vendor\jquery-easing\jquery.easing.min.js" />
-		<None Include="wwwroot\vendor\jquery\jquery.js" />
-		<None Include="wwwroot\vendor\jquery\jquery.min.js" />
-		<None Include="wwwroot\vendor\jquery\jquery.min.map" />
-		<None Include="wwwroot\vendor\jquery\jquery.slim.js" />
-		<None Include="wwwroot\vendor\jquery\jquery.slim.min.js" />
-		<None Include="wwwroot\vendor\jquery\jquery.slim.min.map" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Blog.Data.EntityFrameworkCore\Olbrasoft.Blog.Data.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.682" />
-		<PackageReference Include="Grace.AspNetCore.Hosting" Version="7.1.0" />
-		<PackageReference Include="Grace.AspNetCore.MVC" Version="7.1.0" />
-		<PackageReference Include="jQuery.Validation" Version="1.19.5" />
-		<PackageReference Include="LightInject.Microsoft.Hosting" Version="1.5.0" />
-		<PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="2.2.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.10">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-			<TreatAsUsed>true</TreatAsUsed>
-		</PackageReference>
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-		<PackageReference Include="Olbrasoft.Data.Paging.DataTables" Version="1.0.2" />
-		<PackageReference Include="Olbrasoft.Data.Paging.X.PagedList" Version="1.0.4" />
-		<PackageReference Include="Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc" Version="1.0.6" />
-		<PackageReference Include="Olbrasoft.Linq" Version="1.0.0" />
-		<PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="7.3.2" />
-		<PackageReference Include="Olbrasoft.Text.Transformation.Markdown" Version="1.0.1" />
-		<PackageReference Include="Singularity.AspNetCore.MVC" Version="0.18.0" />
-		<PackageReference Include="Olbrasoft.Dispatching.Extensions.Microsoft.DependencyInjection" Version="1.6.7" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj" />
-		<ProjectReference Include="..\Olbrasoft.Blog.Data.EntityFrameworkCore\Olbrasoft.Blog.Data.EntityFrameworkCore.csproj" />
-		<ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Update="Areas\Administration\Views\Account\Register.cshtml">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</Content>
-		<Content Update="Areas\Administration\Views\Shared\_Layout.cshtml">
-			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-		</Content>
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Update="Resources\Areas\Administration\Views\Categories\Index.cs.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-		<EmbeddedResource Update="Resources\Controllers\HomeController.cs.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-		<EmbeddedResource Update="Resources\SharedResources.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-			<LastGenOutput>SharedResources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-		<EmbeddedResource Update="Resources\Views\Home\Index.cs.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-		<EmbeddedResource Update="SharedResource.cs.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-		<EmbeddedResource Update="Resources\Views\Shared\_RightColumnPartial.cs.resx">
-			<Generator>PublicResXFileCodeGenerator</Generator>
-		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="wwwroot\admin\vendor\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="Resources\SharedResources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>SharedResources.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="System" />
@@ -202,8 +88,8 @@
 		<Using Include="Microsoft.EntityFrameworkCore" />
 		<Using Include="Microsoft.AspNetCore.Authorization" />
 		<Using Include="X.PagedList" />
-		<Using Include="Olbrasoft.Data.Cqrs" />
-		<Using Include="Olbrasoft.Dispatching" />
+		<Using Include="MediatR.Cqrs.Common" />
+		<Using Include="MediatR" />
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Blog.Business" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
@@ -214,5 +100,4 @@
 		<Using Include="Olbrasoft.Blog.AspNetCore.Mvc.Controllers" />
 		<Using Include="Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models" />
 	</ItemGroup>
-	
 </Project>

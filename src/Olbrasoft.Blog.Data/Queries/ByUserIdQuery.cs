@@ -7,7 +7,7 @@ public abstract class ByUserIdQuery<TResult> : PagedQuery<TResult>
     {
     }
 
-    protected ByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    protected ByUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

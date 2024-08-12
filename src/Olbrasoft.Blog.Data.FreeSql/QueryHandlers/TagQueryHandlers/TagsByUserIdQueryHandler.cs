@@ -1,24 +1,18 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.Tests.QueryHandlers.TagQueryHandlers;
 
-public class TagsByUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>
+public class TagsByUserIdQueryHandler(BlogFreeSqlDbContext context) : BlogDbQueryHandler<Tag, TagsByUserIdQuery, IPagedResult<TagOfUserDto>>(context)
 {
-    public TagsByUserIdQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-    {
-    }
-
     protected async override Task<IPagedResult<TagOfUserDto>> GetResultToHandleAsync(TagsByUserIdQuery query, CancellationToken token)
     {
-        
-
-        var userTagsSelect = Select.Where(p => p.CreatorId == query.UserId);
+        var tagsSelect = Select;
 
         if (!string.IsNullOrEmpty(query.Search))
-            Select = Select.Where(p => p.Label.ToLower().Contains(query.Search.ToLower()));
+            tagsSelect = Select.Where(p => p.Label.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase));
 
-        var pageTags = await Select.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
+        var pagedTagsSelect = await tagsSelect.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
                        .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)
                        .IncludeMany(t => t.Posts).ToListAsync(s => new TagOfUserDto { PostCount = s.Posts.Count }, token);
 
-        return pageTags.AsPagedResult(await Select.CountAsync(token), await userTagsSelect.CountAsync(token));
+        return pagedTagsSelect.AsPagedResult(await tagsSelect.CountAsync(token), await GetWhere(p => p.CreatorId == query.UserId).CountAsync(token));
     }
 }

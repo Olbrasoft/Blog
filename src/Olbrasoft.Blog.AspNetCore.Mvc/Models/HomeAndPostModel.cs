@@ -2,5 +2,5 @@
 
 public class HomeAndPostModel
 {
-    public RightColumnViewModel NestedModel { get; set; }
+    public RightColumnViewModel NestedModel { get; set; } = new RightColumnViewModel();
 }

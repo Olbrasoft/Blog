@@ -4,7 +4,9 @@ namespace Olbrasoft.Blog.AspNetCore.Mvc.Models;
 
 public class PostDetailViewModel : HomeAndPostModel
 {
-    public PostDto Post { get; set; }
+    public int CurentUserId { get; set; }
+
+    public PostDto Post { get; set; } = new PostDto();
 
     public int Id { get; set; }
 
@@ -14,9 +16,10 @@ public class PostDetailViewModel : HomeAndPostModel
 
     [Required(ErrorMessageResourceName = "Validation_Required", ErrorMessageResourceType = typeof(Resources.SharedResources))]
     [Display(Name = "Text", Prompt = "CommentText", ResourceType = typeof(Resources.SharedResources))]
-    public string CommentText { get; set; }
+    public string CommentText { get; set; } = string.Empty;
 
-    public string CommentedCommentText { get; set; }
+    public string CommentedCommentText { get; set; } = string.Empty;
 
-    public IEnumerable<CommentDto> Comments { get; set; }
+    public IEnumerable<CommentDto> Comments { get; set; } = Enumerable.Empty<CommentDto>();
+
 }

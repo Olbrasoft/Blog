@@ -8,6 +8,6 @@ public class PostByIdQueryHandler : BlogDbQueryHandler<Post, PostByIdQuery, Post
 
     protected override async Task<PostEditDto> GetResultToHandleAsync(PostByIdQuery query, CancellationToken token)
     {
-        return await ProjectTo<PostEditDto>(Queryable.Where(p => p.Id == query.Id)).FirstAsync(token);
+        return await ProjectTo<PostEditDto>(Entities.Where(p => p.Id == query.Id)).FirstAsync(token);
     }
 }

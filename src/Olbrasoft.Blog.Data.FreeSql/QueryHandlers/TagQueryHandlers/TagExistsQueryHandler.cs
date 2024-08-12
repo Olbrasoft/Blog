@@ -1,11 +1,7 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.TagQueryHandlers
 {
-    public class TagExistsQueryHandler : BlogDbQueryHandler<Tag, TagExistsQuery>
+    public class TagExistsQueryHandler(BlogFreeSqlDbContext context) : BlogDbQueryHandler<Tag, TagExistsQuery>(context)
     {
-        public TagExistsQueryHandler(IConfigure<Tag> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-        {
-        }
-
         protected override async Task<bool> GetResultToHandleAsync(TagExistsQuery query, CancellationToken token)
         {
             return !string.IsNullOrEmpty(query.Label)

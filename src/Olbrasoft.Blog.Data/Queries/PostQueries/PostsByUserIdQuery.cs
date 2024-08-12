@@ -6,7 +6,7 @@ public class PostsByUserIdQuery : ByUserIdQuery<IPagedResult<PostOfUserDto>>
     {
     }
 
-    public PostsByUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public PostsByUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

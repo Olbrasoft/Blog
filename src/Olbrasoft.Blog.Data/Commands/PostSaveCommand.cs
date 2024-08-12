@@ -6,7 +6,7 @@ public class PostSaveCommand : BlogCommand
     {
     }
 
-    public PostSaveCommand(IDispatcher dispatcher) : base(dispatcher)
+    public PostSaveCommand(IMediator mediator) : base(mediator)
     {
     }
 

@@ -1,14 +1,12 @@
-﻿using Olbrasoft.Dispatching;
-
-namespace Olbrasoft.Blog.Business.Services
+﻿namespace Olbrasoft.Blog.Business.Services
 {
     public abstract class Service
     {
-        protected IDispatcher Dispatcher { get; }
+        protected IMediator Mediator { get; }
 
-        public Service(IDispatcher dispatcher)
+        public Service(IMediator mediator)
         {
-            Dispatcher = dispatcher;
+            Mediator = mediator;
         }
     }
 }

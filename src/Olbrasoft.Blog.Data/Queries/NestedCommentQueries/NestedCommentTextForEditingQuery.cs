@@ -8,7 +8,7 @@ public class NestedCommentTextForEditingQuery : CommentTextForEditingQuery
     {
     }
 
-    public NestedCommentTextForEditingQuery(IDispatcher dispatcher) : base(dispatcher)
+    public NestedCommentTextForEditingQuery(IMediator mediator) : base(mediator)
     {
     }
 }

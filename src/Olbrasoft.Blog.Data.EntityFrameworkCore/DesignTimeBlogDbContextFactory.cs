@@ -4,8 +4,16 @@ using System.IO;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore
 {
+    /// <summary>
+    /// Factory class for creating the design-time instance of the BlogDbContext.
+    /// </summary>
     public class DesignTimeBlogDbContextFactory : IDesignTimeDbContextFactory<BlogDbContext>
     {
+        /// <summary>
+        /// Creates a new instance of the BlogDbContext for design-time tools.
+        /// </summary>
+        /// <param name="args">Command-line arguments.</param>
+        /// <returns>The created BlogDbContext instance.</returns>
         public BlogDbContext CreateDbContext(string[] args)
         {
             // Get environment

@@ -8,7 +8,7 @@ public abstract class ExceptUserIdQuery<TResult> : PagedQuery<TResult>
     {
     }
 
-    protected ExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    protected ExceptUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

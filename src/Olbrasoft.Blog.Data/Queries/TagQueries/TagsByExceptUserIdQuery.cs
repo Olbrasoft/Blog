@@ -6,7 +6,7 @@ public class TagsByExceptUserIdQuery : ExceptUserIdQuery<IPagedResult<TagOfUsers
     {
     }
 
-    public TagsByExceptUserIdQuery(IDispatcher dispatcher) : base(dispatcher)
+    public TagsByExceptUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
 }

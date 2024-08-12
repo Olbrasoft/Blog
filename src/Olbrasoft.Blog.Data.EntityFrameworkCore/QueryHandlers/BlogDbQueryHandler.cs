@@ -10,7 +10,7 @@
         {
         }
 
-        public override Task<TResult> HandleAsync(TQuery query, CancellationToken token)
+        public override Task<TResult> Handle(TQuery query, CancellationToken token)
         {
             ThrowIfQueryIsNullOrCancellationRequested(query, token);
             return GetResultToHandleAsync(query, token);

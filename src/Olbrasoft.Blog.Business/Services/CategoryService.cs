@@ -1,10 +1,8 @@
 ﻿using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Blog.Data.Dtos.CategoryDtos;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
-using Olbrasoft.Data.Cqrs;
 using Olbrasoft.Data.Paging;
 using Olbrasoft.Data.Sorting;
-using Olbrasoft.Dispatching;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,13 +11,13 @@ namespace Olbrasoft.Blog.Business.Services
 {
     public class CategoryService : Service, ICategoryService
     {
-        public CategoryService(IDispatcher dispatcher) : base(dispatcher)
+        public CategoryService(IMediator mediator) : base(mediator)
         {
-           
+
         }
 
-        public async Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token = default) 
-            => await new CategoriesQuery(Dispatcher).ToResultAsync(token);
+        public async Task<IEnumerable<CategorySmallDto>> CategoriesAsync(CancellationToken token = default)
+            => await new CategoriesQuery(Mediator).ToResultAsync(token);
 
         public async Task<IPagedResult<CategoryOfUsersDto>> CategoriesByExceptUserIdAsync(int exceptUserId,
                                                                                           IPageInfo paging,
@@ -27,7 +25,7 @@ namespace Olbrasoft.Blog.Business.Services
                                                                                           OrderDirection direction,
                                                                                           string search,
                                                                                           CancellationToken token = default)
-            => await new CategoriesByExceptUserIdQuery(Dispatcher)
+            => await new CategoriesByExceptUserIdQuery(Mediator)
             {
                 ExceptUserId = exceptUserId,
                 Paging = paging,
@@ -44,7 +42,7 @@ namespace Olbrasoft.Blog.Business.Services
                                                                                    OrderDirection direction,
                                                                                    string search,
                                                                                    CancellationToken token = default)
-            => await new CategoriesByUserIdQuery(Dispatcher)
+            => await new CategoriesByUserIdQuery(Mediator)
             {
                 UserId = userId,
                 Paging = paging,
@@ -56,16 +54,16 @@ namespace Olbrasoft.Blog.Business.Services
 
 
         public async Task<CategoryOfUserDto> CategoryAsync(int id, CancellationToken token = default)
-            => await new CategoryQuery(Dispatcher) { Id = id }.ToResultAsync(token);
+            => await new CategoryQuery(Mediator) { Id = id }.ToResultAsync(token);
 
 
         public async Task<bool> ExistsAsync(int ExceptId = 0, string name = "", CancellationToken token = default)
-            => await new CategoryExistsQuery(Dispatcher) { ExceptId = ExceptId, Name = name }.ToResultAsync(token);
+            => await new CategoryExistsQuery(Mediator) { ExceptId = ExceptId, Name = name }.ToResultAsync(token);
 
 
         public async Task<bool> SaveAsync(int Id, string name, string tooltip, int userId, CancellationToken token = default)
 
-            => await new CategorySaveCommand(Dispatcher)
+            => await new CategorySaveCommand(Mediator)
             {
                 Id = Id,
                 Name = name,

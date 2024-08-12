@@ -85,6 +85,7 @@
                     @foreach (var comment in Model.Comments)
                     {
                         var className = "d-flex";
+
                         if (comment.NestedComments.Any())
                         {
                             className += " mb-4";
@@ -101,7 +102,8 @@
                                     <div>
                                         <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-parentCommentId="@comment.Id" localize-title="Reply"><i class="fa fa-reply" aria-hidden="true"></i> <localize>Reply</localize></a>
                                         <span>|</span>
-                                        @if (int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == comment.CreatorId)
+
+                                        @if (Model.CurentUserId == comment.CreatorId)
                                         {
                                             <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-commentId="@comment.Id" title="@_localizer.GetString("Edit")">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -109,10 +111,10 @@
                                             </a>
                                             <span>|</span>
                                             <a onclick="return confirm('@_localizer["Are you sure you wish to delete"]: @comment.Text.Truncate(50, true)...');"
-                                   asp-area="" asp-controller="Home"
-                                   asp-action="DeleteComment"
-                                   asp-route-postId="@Model.Id"
-                                   asp-route-commentId="@comment.Id" title="@_localizer.GetString("Delete")">
+                                               asp-area="" asp-controller="Home"
+                                               asp-action="DeleteComment"
+                                               asp-route-postId="@Model.Id"
+                                               asp-route-commentId="@comment.Id" title="@_localizer.GetString("Delete")">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                                 <localize localizer="@_localizer">Delete</localize>
                                             </a>
@@ -128,7 +130,7 @@
                                             <div class="fw-bold">@nestedComment.Creator</div>
                                             @nestedComment.Text
 
-                                            @if (SignInManager.IsSignedIn(User) && int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value) == nestedComment.CreatorId)
+                                            @if (SignInManager.IsSignedIn(User) && Model.CurentUserId == nestedComment.CreatorId)
                                             {
                                                 <div>
                                                     <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-commentId="@nestedComment.Id" asp-route-parentCommentId="@comment.Id" title="@_localizer.GetString("Edit")">
@@ -137,10 +139,10 @@
                                                     </a>
                                                     <span>|</span>
                                                     <a onclick="return confirm('@_localizer["Are you sure you wish to delete"]: @nestedComment.Text.Truncate(50, true)...');"
-                                           asp-area="" asp-controller="Home"
-                                           asp-action="DeleteNestedComment"
-                                           asp-route-postId="@Model.Id"
-                                           asp-route-nestedCommentId="@nestedComment.Id" title="@_localizer.GetString("Delete")">
+                                                       asp-area="" asp-controller="Home"
+                                                       asp-action="DeleteNestedComment"
+                                                       asp-route-postId="@Model.Id"
+                                                       asp-route-nestedCommentId="@nestedComment.Id" title="@_localizer.GetString("Delete")">
                                                         <i class="fa fa-trash" aria-hidden="true"></i>
                                                         <localize localizer="@_localizer">Delete</localize>
                                                     </a>

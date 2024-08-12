@@ -1,23 +1,18 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
 
-public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>
+public class PostsPagedQueryHandler(BlogFreeSqlDbContext context) : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>(context)
 {
-
-    public PostsPagedQueryHandler(IConfigure<Post> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-    {
-    }
-
     protected override async Task<IPagedEnumerable<PostDto>> GetResultToHandleAsync(PostsPagedQuery query, CancellationToken token)
     {
-        var whereSelect = BuildWhereSelect(Select, query);
+        var filteredPostsSelect = BuildFilteredPostSelect(Select, query);
 
-        var posts = await GetEnumerableAsync<PostDto>(whereSelect.OrderByDescending(p => p.Created).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize), token);
+        var posts = await GetEnumerableAsync(post => new PostDto { CategoryName = post.Category.Name, Creator = post.Creator.FirstName + " " + post.Creator.LastName }, filteredPostsSelect.OrderByDescending(p => p.Created).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize), token);
 
-        var ids = posts.Select(p => p.Id);
+        var postIds = posts.Select(p => p.Id);
 
         var postToTags = await Context.Orm.Select<PostToTag, Tag>()
             .InnerJoin((ptt, t) => ptt.ToId == t.Id)
-            .Where((ptt, t) => ids.Contains(ptt.Id))
+            .Where((ptt, t) => postIds.Contains(ptt.Id))
             .ToListAsync((ptt, t) => new { PostId = ptt.Id, TagId = t.Id, t.Label }, token);
 
         foreach (var post in posts)
@@ -28,10 +23,10 @@ public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, 
             }
         }
 
-        return posts.AsPagedEnumerable(await whereSelect.CountAsync(token));
+        return posts.AsPagedEnumerable(await filteredPostsSelect.CountAsync(token));
     }
 
-    private static ISelect<Post> BuildWhereSelect(ISelect<Post> sourceSelect, PostsPagedQuery query)
+    private static ISelect<Post> BuildFilteredPostSelect(ISelect<Post> sourceSelect, PostsPagedQuery query)
         => string.IsNullOrEmpty(query.Search)
             ? sourceSelect
             : TrySearchBy(query.Search, "searchbycategoryid:", out int categoryId)
@@ -46,11 +41,13 @@ public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, 
     private static bool TrySearchBy(string search, string searchBy, out int entityId)
     {
         var adeptToId = search.ToLower().Replace(searchBy, "");
-        if (adeptToId != search.ToLower() && int.TryParse(adeptToId.Trim(), out int id))
+
+        if (!adeptToId.Equals(search, StringComparison.CurrentCultureIgnoreCase) && int.TryParse(adeptToId.Trim(), out int id))
         {
             entityId = id;
             return true;
         }
+
         entityId = 0;
         return false;
     }

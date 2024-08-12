@@ -9,11 +9,11 @@ public class PostViewModel
     [StringLength(_length, ErrorMessageResourceName = "Validation_MaxLength", ErrorMessageResourceType = typeof(Resources.SharedResources))]
     [Required(ErrorMessageResourceName = "Validation_Required", ErrorMessageResourceType = typeof(Resources.SharedResources))]
     [Display(Name = "Title", Prompt = "PostTitle", ResourceType = typeof(Resources.SharedResources))]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;   
 
     [Required(ErrorMessageResourceName = "Validation_Required", ErrorMessageResourceType = typeof(Resources.SharedResources))]
     [Display(Name = "Content", Prompt = "PostContent", ResourceType = typeof(Resources.SharedResources))]
-    public string Content { get; set; }
+    public string Content { get; set; } = string.Empty;
 
     public int MaxLength { get; set; } = _length;
 

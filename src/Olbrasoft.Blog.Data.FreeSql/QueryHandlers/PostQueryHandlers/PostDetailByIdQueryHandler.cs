@@ -1,11 +1,7 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
 
-public class PostDetailByIdQueryHandler : BlogDbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>
+public class PostDetailByIdQueryHandler(BlogFreeSqlDbContext context) : BlogDbQueryHandler<Post, PostDetailByIdQuery, PostDetailDto>(context)
 {
-    public PostDetailByIdQueryHandler(IConfigure<Post> configurator, BlogFreeSqlDbContext context) : base(configurator, context)
-    {
-    }
-
     protected override async Task<PostDetailDto> GetResultToHandleAsync(PostDetailByIdQuery query, CancellationToken token)
     {
         var post = await GetOneOrNullAsync<PostDetailDto>(p => p.Id == query.Id, token);

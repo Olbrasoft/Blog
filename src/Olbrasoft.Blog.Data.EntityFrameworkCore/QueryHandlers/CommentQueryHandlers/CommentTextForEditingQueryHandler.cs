@@ -6,8 +6,8 @@
         {
         }
 
-        protected override async Task<string> GetResultToHandleAsync(CommentTextForEditingQuery query, CancellationToken token) 
-            => await Queryable.Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0))
+        protected override async Task<string> GetResultToHandleAsync(CommentTextForEditingQuery query, CancellationToken token)
+            => await Entities.Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0))
                                     .Select(p => p.Text)
                                     .FirstAsync(token);
     }
