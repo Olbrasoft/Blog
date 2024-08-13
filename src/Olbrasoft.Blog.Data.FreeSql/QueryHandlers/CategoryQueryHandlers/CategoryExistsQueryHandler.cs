@@ -5,9 +5,9 @@ public class CategoryExistsQueryHandler(BlogFreeSqlDbContext context) : BlogDbQu
     protected override async Task<bool> GetResultToHandleAsync(CategoryExistsQuery query, CancellationToken token)
     {
         return string.IsNullOrEmpty(query.Name)
-            ? await Select.AnyAsync(token)
+            ? await ExistsAsync(token)
             : query.ExceptId == null || query.ExceptId == 0
-                ? await Select.AnyAsync(p => p.Name == query.Name, token)
-                : await Select.AnyAsync(p => p.Id != query.ExceptId && p.Name == query.Name, token);
+                ? await ExistsAsync(p => p.Name == query.Name, token)
+                : await ExistsAsync(p => p.Id != query.ExceptId && p.Name == query.Name, token);
     }
 }

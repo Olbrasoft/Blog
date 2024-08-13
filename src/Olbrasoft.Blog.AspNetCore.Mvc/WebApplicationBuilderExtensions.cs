@@ -1,8 +1,11 @@
 ﻿using IGeekFan.AspNetCore.Identity.FreeSql;
 using Localization.AspNetCore.TagHelpers;
+using MediatR.Cqrs.FreeSql;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Olbrasoft.Blog.Business.Services;
+using Olbrasoft.Blog.Data.Entities;
 using Olbrasoft.Blog.Data.FreeSql;
+using Olbrasoft.Blog.Data.FreeSql.Configurations.EntityToDtoConfigurations;
 using Olbrasoft.Blog.Data.MappingRegisters;
 using Olbrasoft.Blog.Data.Queries.CategoryQueries;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
@@ -99,6 +102,10 @@ public static class WebApplicationBuilderExtensions
             builder.Services.AddTextTransformationMarkdown();
 
             builder.Services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);
+            
+            builder.Services.AddSingleton<IEntityToDtoConfiguration<Post, PostDto>, PostToPostDto>();
+            builder.Services.AddSingleton<IEntityToDtoConfiguration<Post, PostDetailDto>, PostTo_DetailDto>();
+
 
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ITagService, TagService>();

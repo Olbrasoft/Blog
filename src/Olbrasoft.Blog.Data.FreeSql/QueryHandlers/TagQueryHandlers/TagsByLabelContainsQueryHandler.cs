@@ -4,12 +4,12 @@ public class TagsByLabelContainsQueryHandler(BlogFreeSqlDbContext context) : Blo
 {
     protected override async Task<IEnumerable<TagSmallDto>> GetResultToHandleAsync(TagsByLabelContainsQuery query, CancellationToken token)
     {
-        var tagsSelect = Select;
+        ISelect<Tag> tags;
 
-        tagsSelect = query.ExceptTagIds.Any()
-            ? Select.Where(p => p.Label.Contains(query.Text) && !query.ExceptTagIds.Contains(p.Id))
-            : (tagsSelect = Select.Where(p => p.Label.Contains(query.Text)));
+        tags = query.ExceptTagIds.Any()
+            ? GetWhere(p => p.Label.Contains(query.Text, StringComparison.InvariantCultureIgnoreCase) && !query.ExceptTagIds.Contains(p.Id))
+            : (tags = GetWhere(p => p.Label.Contains(query.Text, StringComparison.InvariantCultureIgnoreCase)));
 
-        return await tagsSelect.Take(6).ToListAsync<TagSmallDto>(token);
+        return await tags.Take(6).ToListAsync<TagSmallDto>(token);
     }
 }

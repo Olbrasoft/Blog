@@ -1,15 +1,9 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.CommandHandlers.TagCommandHandlers;
 
-public class TagSaveCommandHandler : BlogDbCommandHandler<TagSaveCommand, Tag>
+public class TagSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : BlogDbCommandHandler<TagSaveCommand, Tag>(mapper, context)
 {
-    public TagSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(mapper, context)
-    {
-    }
-
     protected override async Task<bool> GetResultToHandleAsync(TagSaveCommand command, CancellationToken token)
     {
-        await Entities.AddOrUpdateAsync(MapTo<Tag>(command), token);
-
-        return await SaveOneEntityAsync(token);
+        return await SaveAsync(CreateEntityFromCommand(command), token) == 1;
     }
 }

@@ -7,7 +7,7 @@ public class TagsByUserIdQueryHandler(BlogFreeSqlDbContext context) : BlogDbQuer
         var tagsSelect = Select;
 
         if (!string.IsNullOrEmpty(query.Search))
-            tagsSelect = Select.Where(p => p.Label.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase));
+            tagsSelect = GetWhere(p => p.Label.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase));
 
         var pagedTagsSelect = await tagsSelect.OrderByPropertyName(query.OrderByColumnName, query.OrderByDirection.ToBoolean())
                        .Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize)

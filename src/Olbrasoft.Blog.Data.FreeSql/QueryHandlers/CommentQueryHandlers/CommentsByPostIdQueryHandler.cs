@@ -12,7 +12,7 @@ public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, Comments
 
     protected override async Task<IEnumerable<CommentDto>> GetResultToHandleAsync(CommentsByPostIdQuery query, CancellationToken token)
     {
-        var result = await Select.Where(p => p.PostId == query.PostId)
+        var result = await GetWhere(p => p.PostId == query.PostId)
             .Include(c => c.Creator)
             .IncludeMany(c => c.NestedComments, then => then.Include(nc => nc.Creator))
             .OrderByDescending(c => c.Created)

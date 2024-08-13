@@ -21,6 +21,12 @@
                     <localize>by</localize>
                     <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByCreatorId:@Model.Post.CreatorId">@Model.Post.Creator</a>
                 </div>
+
+                <div>
+
+                    <i class="fa fa-sitemap fa-fw"></i>  <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="searchByCategoryId:@Model.Post.CategoryId">@Model.Post.CategoryName</a>
+                </div>
+
                 @if (Model.Post.Tags.Any())
                 {
                     <i class="fa fa-tags fa-fw"></i>

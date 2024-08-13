@@ -122,11 +122,11 @@
 
         });
         mditor.openPreview();
-
-        var textlen
+            
+        $('#remaingCharacters').text(@Model.MaxLength -  $('#post-title').val().length)
 
         $('#post-title').keyup(function () {
-            textlen = @Model.MaxLength - $(this).val().length;
+           var textlen = @Model.MaxLength - $(this).val().length;
             $('#remaingCharacters').text(textlen);
         });
 

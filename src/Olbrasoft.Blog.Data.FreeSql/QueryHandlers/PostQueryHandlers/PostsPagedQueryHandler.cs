@@ -1,12 +1,14 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.PostQueryHandlers;
 
-public class PostsPagedQueryHandler(BlogFreeSqlDbContext context) : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>(context)
+public class PostsPagedQueryHandler(IEntityToDtoConfiguration<Post, PostDto> postToPostDtoConfiguration, BlogFreeSqlDbContext context) : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>(context)
 {
+    private readonly IEntityToDtoConfiguration<Post, PostDto> _postToPostDtoConfiguration = postToPostDtoConfiguration ?? throw new ArgumentNullException(nameof(postToPostDtoConfiguration));
+
     protected override async Task<IPagedEnumerable<PostDto>> GetResultToHandleAsync(PostsPagedQuery query, CancellationToken token)
     {
         var filteredPostsSelect = BuildFilteredPostSelect(Select, query);
 
-        var posts = await GetEnumerableAsync(post => new PostDto { CategoryName = post.Category.Name, Creator = post.Creator.FirstName + " " + post.Creator.LastName }, filteredPostsSelect.OrderByDescending(p => p.Created).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize), token);
+        var posts = await GetEnumerableAsync(_postToPostDtoConfiguration.Configure() , filteredPostsSelect.OrderByDescending(p => p.Created).Page(query.Paging.NumberOfSelectedPage, query.Paging.PageSize), token);
 
         var postIds = posts.Select(p => p.Id);
 
