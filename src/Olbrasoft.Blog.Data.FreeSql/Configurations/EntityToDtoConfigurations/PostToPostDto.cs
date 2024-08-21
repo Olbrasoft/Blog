@@ -1,4 +1,4 @@
-﻿using MediatR.Cqrs.FreeSql;
+﻿
 
 namespace Olbrasoft.Blog.Data.FreeSql.Configurations.EntityToDtoConfigurations;
 public class PostToPostDto : IEntityToDtoConfiguration<Post, PostDto>

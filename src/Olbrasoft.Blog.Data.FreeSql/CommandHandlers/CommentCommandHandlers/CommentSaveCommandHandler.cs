@@ -4,6 +4,6 @@ public class CommentSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext cont
 {
     protected override async Task<bool> GetResultToHandleAsync(CommentSaveCommand command, CancellationToken token)
     {
-        return await SaveAsync(CreateEntityFromCommand(command), token) == 1;
+        return await SaveAsync(MapCommandToNewEntity(command), token) == 1;
     }
 }

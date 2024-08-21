@@ -1,10 +1,10 @@
 ﻿namespace Olbrasoft.Blog.Data.Dtos.PostDtos;
 
 public class PostDto : SmallDto
-{    
+{
     public PostDto()
     {
-        Tags = new HashSet<TagSmallDto>();   
+        Tags = [];
     }
 
     public string Title { get; set; } = string.Empty;
@@ -14,5 +14,5 @@ public class PostDto : SmallDto
     public string Creator { get; set; } = string.Empty;
     public int CategoryId { get; set; }
     public string CategoryName { get; set; } = string.Empty;
-    public ICollection<TagSmallDto> Tags { get; set; } 
+    public ICollection<TagSmallDto> Tags { get; set; }
 }

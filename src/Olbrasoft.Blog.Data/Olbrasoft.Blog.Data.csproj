@@ -13,17 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MediatR.Cqrs\src\MediatR.Cqrs.Common\MediatR.Cqrs.Common.csproj" />
+    <ProjectReference Include="..\..\..\Data\src\Data.Cqrs.Common\Data.Cqrs.Common.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
 		<Using Include="System" />
 		<Using Include="System.Linq" />
 		<Using Include="System.Collections.Generic" />
-	
+		<Using Include="Olbrasoft.Mediation" />
 		<Using Include="Olbrasoft.Data.Paging" />
-		<Using Include="MediatR.Cqrs.Common" />
-		<Using Include="MediatR" />
+		<Using Include="Olbrasoft.Data.Cqrs"/>
 		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />

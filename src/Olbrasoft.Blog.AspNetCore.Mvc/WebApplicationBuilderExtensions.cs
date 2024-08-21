@@ -1,16 +1,18 @@
 ﻿using IGeekFan.AspNetCore.Identity.FreeSql;
 using Localization.AspNetCore.TagHelpers;
-using MediatR.Cqrs.FreeSql;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Olbrasoft.Blog.Business.Services;
 using Olbrasoft.Blog.Data.Entities;
+using Olbrasoft.Blog.Data.EntityFrameworkCore;
 using Olbrasoft.Blog.Data.FreeSql;
 using Olbrasoft.Blog.Data.FreeSql.Configurations.EntityToDtoConfigurations;
 using Olbrasoft.Blog.Data.MappingRegisters;
-using Olbrasoft.Blog.Data.Queries.CategoryQueries;
+using Olbrasoft.Data.Cqrs.FreeSql;
 using Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft;
 using Olbrasoft.Text.Transformation.Markdown;
+
 namespace Olbrasoft.Blog.AspNetCore.Mvc;
+
 
 public static class WebApplicationBuilderExtensions
 {
@@ -54,58 +56,61 @@ public static class WebApplicationBuilderExtensions
 
             var connectionString = builder.Configuration.GetConnectionString("BlogDbConnectionString");
 
-            //EntityFramework
-            //identityBuilder.AddEntityFrameworkStores<BlogDbContext>();
+            var useOrm = builder.Configuration["UseOrm"];
 
-            //builder.Services.AddDbContext<BlogDbContext>(options =>
-            //{
-            //    options.UseSqlServer(
-            //        connectionString);
-            //    // options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
-            //}, ServiceLifetime.Scoped);
-
-
-            builder.Services.AddMediatR(cfg =>
+            if (useOrm is not null && useOrm.Contains("EntityFramework"))
             {
+                //EntityFramework
+                identityBuilder.AddEntityFrameworkStores<BlogDbContext>();
 
-                cfg.Lifetime = ServiceLifetime.Scoped;
-                cfg.RegisterServicesFromAssemblies(typeof(CategoriesQuery).Assembly, typeof(BlogFreeSqlDbContext).Assembly);
+                builder.Services.AddDbContext<BlogDbContext>(options =>
+                {
+                    options.UseSqlServer(
+                        connectionString);
+                    // options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 
-            });
+                }, ServiceLifetime.Scoped);
 
+                builder.Services.AddCqrs(ServiceLifetime.Scoped, typeof(BlogDbContext).Assembly);
+            }
+            else if (useOrm == "FreeSql")
+            {
+                ///FreeSql
 
-            ///FreeSql
-            _fsql = new FreeSql.FreeSqlBuilder()
-           .UseConnectionString(FreeSql.DataType.SqlServer, connectionString)
-           .UseAutoSyncStructure(false) //automatically synchronize the entity structure to the database
-           .Build();
+                _fsql = new FreeSql.FreeSqlBuilder()
+               .UseConnectionString(FreeSql.DataType.SqlServer, connectionString)
+               .UseAutoSyncStructure(false) //automatically synchronize the entity structure to the database
+               .Build();
 
-            _fsql.SetDbContextOptions(o => o.EnableCascadeSave = true);
+                _fsql.SetDbContextOptions(o => o.EnableCascadeSave = true);
 
-            builder.Services.AddSingleton(_fsql);
-
-            builder.Services.AddFreeDbContext<BlogFreeSqlDbContext>(o =>
-             {
-                 o.UseFreeSql(_fsql);
-             });
-
-            identityBuilder.AddFreeSqlStores<BlogFreeSqlDbContext>();
-
-            // builder.Services.AddProjectionConfigurations(typeof(BlogFreeSqlDbContext).Assembly);
+                builder.Services.AddSingleton(_fsql);
 
 
-            builder.Services.AddScoped<IQueryProcessor, QueryProcessor>();
-            builder.Services.AddScoped<ICommandExecutor, CommandExecutor>();
+
+                builder.Services.AddFreeDbContext<BlogFreeSqlDbContext>(o =>
+                 {
+                     o.UseFreeSql(_fsql);
+
+                 });
+
+                identityBuilder.AddFreeSqlStores<BlogFreeSqlDbContext>();
+
+                builder.Services.AddSingleton<IEntityToDtoConfiguration<Post, PostDto>, PostToPostDto>();
+                builder.Services.AddSingleton<IEntityToDtoConfiguration<Post, PostDetailDto>, PostTo_DetailDto>();
+
+
+                builder.Services.AddCqrs(ServiceLifetime.Scoped, typeof(BlogFreeSqlDbContext).Assembly);
+            }
+            else
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
 
 
             builder.Services.AddTextTransformationMarkdown();
 
             builder.Services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);
-            
-            builder.Services.AddSingleton<IEntityToDtoConfiguration<Post, PostDto>, PostToPostDto>();
-            builder.Services.AddSingleton<IEntityToDtoConfiguration<Post, PostDetailDto>, PostTo_DetailDto>();
-
 
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ITagService, TagService>();

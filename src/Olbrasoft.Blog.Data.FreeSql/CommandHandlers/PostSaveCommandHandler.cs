@@ -4,7 +4,7 @@ public class PostSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context
 {
     protected override async Task<bool> GetResultToHandleAsync(PostSaveCommand command, CancellationToken token)
     {
-        var post = CreateEntityFromCommand(command);
+        var post = MapCommandToNewEntity(command);
 
         await Entities.AddOrUpdateAsync(post, token);
 

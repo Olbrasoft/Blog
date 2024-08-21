@@ -11,7 +11,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="MediatR"/>
-		<Using Include="MediatR.Cqrs.Common"/>
+		<Using Include="Olbrasoft.Mediation"/>
+		<Using Include="Olbrasoft.Data.Cqrs"/>
 	</ItemGroup>
 </Project>

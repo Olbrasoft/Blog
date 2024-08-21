@@ -11,7 +11,7 @@ public abstract class BlogDbCommandHandler<TCommand, TEntity> : DbCommandHandler
     {
     }
 
-    public override Task<bool> Handle(TCommand command, CancellationToken token)
+    public override Task<bool> HandleAsync(TCommand command, CancellationToken token)
     {
         ThrowIfCommandIsNullOrCancellationRequested(command, token);
 

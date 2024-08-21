@@ -39,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\MediatR.Cqrs\src\MediatR.Cqrs.EntityFrameworkCore\MediatR.Cqrs.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
+    <ProjectReference Include="..\..\..\Data\src\Data.Cqrs.EntityFrameworkCore\Data.Cqrs.EntityFrameworkCore.csproj" />
+      <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -65,12 +65,12 @@
 		<Using Include="Olbrasoft.Blog.Data.Commands" />
 		<Using Include="Olbrasoft.Blog.Data.Commands.CommentCommands" />
 		<Using Include="Olbrasoft.Mapping" />
-		<Using Include="MediatR" />
-		<Using Include="MediatR.Cqrs.Common" />
+		<Using Include="Olbrasoft.Mediation" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Extensions.Paging" />
 		<Using Include="Olbrasoft.Extensions.Linq" />
-		<Using Include="MediatR.Cqrs.EntityFrameworkCore" />
+		<Using Include="Olbrasoft.Data.Cqrs.EntityFrameworkCore" />
 	</ItemGroup>
 
 	<ItemGroup>

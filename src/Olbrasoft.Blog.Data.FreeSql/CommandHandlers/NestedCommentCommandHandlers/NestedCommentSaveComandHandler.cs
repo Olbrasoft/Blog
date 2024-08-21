@@ -4,6 +4,6 @@ public class NestedCommentSaveComandHandler(IMapper mapper, BlogFreeSqlDbContext
 {
     protected override async Task<bool> GetResultToHandleAsync(NestedCommentSaveCommand command, CancellationToken token)
     {
-        return await SaveAsync(CreateEntityFromCommand(command), token) == 1;
+        return await SaveAsync(MapCommandToNewEntity(command), token) == 1;
     }
 }

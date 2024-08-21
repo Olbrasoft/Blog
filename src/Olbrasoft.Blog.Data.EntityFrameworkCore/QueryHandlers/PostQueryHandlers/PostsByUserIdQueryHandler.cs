@@ -1,11 +1,21 @@
 ﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers;
 
+
+/// <summary>
+/// Handles the query to retrieve posts by user ID.
+/// </summary>
 public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQuery, IPagedResult<PostOfUserDto>>
 {
     public PostsByUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
     {
     }
 
+    /// <summary>
+    /// Retrieves the result to handle asynchronously.
+    /// </summary>
+    /// <param name="query">The query to retrieve posts by user ID.</param>
+    /// <param name="token">The cancellation token.</param>
+    /// <returns>The paged result of posts by user ID.</returns>
     protected override async Task<IPagedResult<PostOfUserDto>> GetResultToHandleAsync(PostsByUserIdQuery query, CancellationToken token)
     {
         var filteredPosts = Entities.Where(p => p.CreatorId == query.UserId);

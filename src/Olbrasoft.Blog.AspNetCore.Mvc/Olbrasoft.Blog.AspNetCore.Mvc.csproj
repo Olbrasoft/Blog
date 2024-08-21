@@ -74,6 +74,7 @@
     <ProjectReference Include="..\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj" />
     <ProjectReference Include="..\Olbrasoft.Blog.Data.EntityFrameworkCore\Olbrasoft.Blog.Data.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />
+    <!--<ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />-->
   </ItemGroup>
 
 
@@ -88,8 +89,8 @@
 		<Using Include="Microsoft.EntityFrameworkCore" />
 		<Using Include="Microsoft.AspNetCore.Authorization" />
 		<Using Include="X.PagedList" />
-		<Using Include="MediatR.Cqrs.Common" />
-		<Using Include="MediatR" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
+		<Using Include="Olbrasoft.Mediation" />
 		<Using Include="Olbrasoft.Data.Paging" />
 		<Using Include="Olbrasoft.Blog.Business" />
 		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
