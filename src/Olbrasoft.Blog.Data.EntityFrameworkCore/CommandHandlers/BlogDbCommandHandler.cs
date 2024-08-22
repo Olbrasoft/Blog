@@ -1,10 +1,11 @@
 ﻿using Olbrasoft.Data.Cqrs.EntityFrameworkCore;
+using Olbrasoft.Data.Entities.Abstractions;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers;
 
 
 public abstract class BlogDbCommandHandler<TCommand, TEntity> : DbBaseCommandHandler<BlogDbContext, TEntity, TCommand, bool>
-    where TCommand : BaseCommand<bool> where TEntity : class
+    where TCommand : ICommand<bool> where TEntity : BaseEnity
 {
     protected BlogDbCommandHandler(BlogDbContext context) : base(context)
     {
