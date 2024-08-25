@@ -8,16 +8,10 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Business.Services;
 
-public class CommentService : Service, ICommentService
+public class CommentService(IMediator mediator, ICommandExecutor executor) : Service(mediator), ICommentService
 {
 
-    private readonly ICommandExecutor _executor;
-
-    public CommentService(IMediator mediator, ICommandExecutor executor) : base(mediator)
-    {
-
-        _executor = executor;
-    }
+    private readonly ICommandExecutor _executor = executor;
 
     public async Task<IEnumerable<CommentDto>> CommentsByPostIdAsync(int postId, CancellationToken token = default)
         => await new CommentsByPostIdQuery(Mediator) { PostId = postId }.ToResultAsync(token);

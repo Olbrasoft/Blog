@@ -1,14 +1,7 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
-{
-    public class CategoryQueryHandler : BlogDbQueryHandler<Category, CategoryQuery, CategoryOfUserDto>
-    {
-        public CategoryQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-        {
-        }
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
 
-        protected override async Task<CategoryOfUserDto> GetResultToHandleAsync(CategoryQuery query, CancellationToken token)
-        {
-            return await ProjectTo<CategoryOfUserDto>(Entities.Where(p => p.Id == query.Id)).FirstAsync(token);
-        }
-    }
+public class CategoryQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Category, CategoryQuery, CategoryOfUserDto>(projector, context)
+{
+    protected override async Task<CategoryOfUserDto> GetResultToHandleAsync(CategoryQuery query, CancellationToken token)
+        => await ProjectTo<CategoryOfUserDto>(c => c.Id == query.Id).FirstAsync(token);
 }

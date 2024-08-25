@@ -11,7 +11,7 @@ public class TagsByIdsQuery : BaseQuery<IEnumerable<TagSmallDto>>
     {
     }
 
-    public IEnumerable<int> Ids { get; set; } = Enumerable.Empty<int>();
+    public IEnumerable<int> Ids { get; set; } = [];
 }
 
 

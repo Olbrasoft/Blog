@@ -1,29 +1,7 @@
-﻿using Olbrasoft.Blog.Data.Commands.TagCommands;
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers;
 
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers
+public class TagSaveCommandHandler(IMapper mapper, BlogDbContext context) : BlogDbCommandHandler<TagSaveCommand, Tag>(mapper, context)
 {
-    public class TagSaveCommandHandler : BlogDbCommandHandler<TagSaveCommand, Tag>
-    {
-        public TagSaveCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
-        {
-        }
-
-        protected override async Task<bool> GetResultToHandleAsync(TagSaveCommand command, CancellationToken token)
-        {
-            if (command.Id == 0)
-            {
-                await Entities.AddAsync(MapTo<Tag>(command), token);
-            }
-            else
-            {
-                var tag = await Entities.FirstAsync(p => p.Id == command.Id, token);
-
-                tag.Label = command.Label;
-
-                Entities.Update(tag);
-            }
-            
-            return (await Context.SaveChangesAsync(token) == 1);
-        }
-    }
+    protected override async Task<bool> GetResultToHandleAsync(TagSaveCommand command, CancellationToken token)
+        => await SaveAsync(CreateEntity(command), token) == 1;
 }

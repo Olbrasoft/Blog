@@ -1,27 +1,24 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers;
+
+public class TagsByExceptUserIdQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>(projector, context)
 {
-    public class TagsByExceptUserIdQueryHandler : BlogDbQueryHandler<Tag, TagsByExceptUserIdQuery, IPagedResult<TagOfUsersDto>>
+    protected override async Task<IPagedResult<TagOfUsersDto>> GetResultToHandleAsync(TagsByExceptUserIdQuery query, CancellationToken token)
     {
-        public TagsByExceptUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        var userTags = Where(p => p.CreatorId != query.ExceptUserId);
+
+        var filteredUserTags = userTags;
+
+        if (!string.IsNullOrEmpty(query.Search))
         {
+            filteredUserTags = filteredUserTags.Where(p => p.Label.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        protected override async Task<IPagedResult<TagOfUsersDto>> GetResultToHandleAsync(TagsByExceptUserIdQuery query, CancellationToken token)
-        {
-            var filteredTags = Entities.Where(p => p.CreatorId != query.ExceptUserId);
+        var tags = ProjectTo<TagOfUsersDto>(filteredUserTags.OrderBy(query.OrderByColumnName, query.OrderByDirection))
+            .Skip(query.Paging.CalculateSkip()).Take(query.Paging.PageSize).ToArrayAsync(token);
 
-            if (!string.IsNullOrEmpty(query.Search))
-            {
-                filteredTags = filteredTags.Where(p => p.Label.ToLower().Contains(query.Search.ToLower()));
-            }
-
-            var tags = ProjectTo<TagOfUsersDto>(filteredTags.OrderBy(query.OrderByColumnName, query.OrderByDirection))
-                .Skip(query.Paging.CalculateSkip()).Take(query.Paging.PageSize).ToArrayAsync(token);
-
-            return (await tags)
-                .AsPagedResult(
-                await Entities.Where(p => p.CreatorId != query.ExceptUserId).CountAsync(token),
-                await filteredTags.CountAsync(token));
-        }
+        return (await tags)
+            .AsPagedResult(
+            await userTags.CountAsync(token),
+            await filteredUserTags.CountAsync(token));
     }
 }

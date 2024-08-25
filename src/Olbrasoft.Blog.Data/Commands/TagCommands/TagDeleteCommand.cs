@@ -1,8 +1,4 @@
 ﻿namespace Olbrasoft.Blog.Data.Commands.TagCommands;
-public class TagDeleteCommand : BlogCommand
+public class TagDeleteCommand(IMediator mediator) : BlogCommand(mediator)
 {
-    public TagDeleteCommand(IMediator mediator) : base(mediator)
-    {
-    }
-     
 }

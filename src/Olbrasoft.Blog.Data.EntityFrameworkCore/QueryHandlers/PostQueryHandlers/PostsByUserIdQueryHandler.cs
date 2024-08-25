@@ -4,11 +4,8 @@
 /// <summary>
 /// Handles the query to retrieve posts by user ID.
 /// </summary>
-public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQuery, IPagedResult<PostOfUserDto>>
+public class PostsByUserIdQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Post, PostsByUserIdQuery, IPagedResult<PostOfUserDto>>(projector, context)
 {
-    public PostsByUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-    {
-    }
 
     /// <summary>
     /// Retrieves the result to handle asynchronously.
@@ -18,17 +15,23 @@ public class PostsByUserIdQueryHandler : BlogDbQueryHandler<Post, PostsByUserIdQ
     /// <returns>The paged result of posts by user ID.</returns>
     protected override async Task<IPagedResult<PostOfUserDto>> GetResultToHandleAsync(PostsByUserIdQuery query, CancellationToken token)
     {
-        var filteredPosts = Entities.Where(p => p.CreatorId == query.UserId);
+        var userPosts = Where(p => p.CreatorId == query.UserId);
+
+        var filteredPosts = userPosts;
+
+        query.Search = query.Search.ToLower();
 
         if (!string.IsNullOrEmpty(query.Search))
         {
-            filteredPosts = filteredPosts.Where(p => p.Title.ToLower().Contains(query.Search.ToLower()) || p.Content.ToLower().Contains(query.Search.ToLower()));
+            filteredPosts = filteredPosts.Where(p => p.Title.Contains(query.Search) || p.Content.Contains(query.Search));
         }
 
         var posts = ProjectTo<PostOfUserDto>(filteredPosts.OrderBy(query.OrderByColumnName, query.OrderByDirection))
-             .Skip(query.Paging.CalculateSkip())
-             .Take(query.Paging.PageSize);
+              .Skip(query.Paging.CalculateSkip())
+              .Take(query.Paging.PageSize);
 
-        return (await posts.ToArrayAsync(token)).AsPagedResult(await Entities.Where(p => p.CreatorId == query.UserId).CountAsync(), await filteredPosts.CountAsync());
+        var result = (await posts.ToArrayAsync(token)).AsPagedResult(await userPosts.CountAsync(token), await filteredPosts.CountAsync(token));
+
+        return result;
     }
 }

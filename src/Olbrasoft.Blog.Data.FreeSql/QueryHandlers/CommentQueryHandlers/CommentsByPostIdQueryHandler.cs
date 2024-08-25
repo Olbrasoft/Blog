@@ -1,14 +1,8 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.QueryHandlers.CommentQueryHandlers;
 
-public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>
+public class CommentsByPostIdQueryHandler(IMapper mapper, BlogFreeSqlDbContext context) : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>(context)
 {
-    private readonly IMapper _mapper;
-
-    public CommentsByPostIdQueryHandler(IMapper mapper, BlogFreeSqlDbContext context) : base(context)
-    {
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-    }
-
+    private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
 
     protected override async Task<IEnumerable<CommentDto>> GetResultToHandleAsync(CommentsByPostIdQuery query, CancellationToken token)
     {

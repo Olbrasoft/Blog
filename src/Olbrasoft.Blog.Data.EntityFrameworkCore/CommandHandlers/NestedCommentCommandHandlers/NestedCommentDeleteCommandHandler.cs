@@ -1,18 +1,8 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.NestedCommentCommandHandlers;
+public class NestedCommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : BlogDbCommandHandler<NestedCommentDeleteCommand, NestedComment>(mapper, context)
 {
-    public class NestedCommentDeleteCommandHandler : BlogDbCommandHandler<NestedCommentDeleteCommand,  NestedComment>
-    {
-        public NestedCommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
-        {
-        }
-
-        protected override async Task<bool> GetResultToHandleAsync(NestedCommentDeleteCommand command, CancellationToken token)
-        {
-            var comment = await Entities.Where(p => p.Id == command.Id && (p.CreatorId == command.CreatorId || command.CreatorId == 0)).FirstAsync(token);
-
-            Entities.Remove(comment);
-
-            return (await Context.SaveChangesAsync(token) == 1);
-        }
-    }
+    protected override async Task<bool> GetResultToHandleAsync(NestedCommentDeleteCommand command, CancellationToken token) =>
+        command.CreatorId == 0
+            ? await DeleteAsync(new NestedComment { Id = command.Id }, token) == 1
+            : await DeleteAsync(p => p.Id == command.Id && p.CreatorId == command.CreatorId, token) == 1;
 }

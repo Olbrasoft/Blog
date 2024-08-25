@@ -1,17 +1,8 @@
 ﻿
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers;
 
-public class TagsByPostIdQueryHandler : BlogDbQueryHandler<PostToTag, TagsByPostIdQuery, IEnumerable<TagSmallDto>>
+public class TagsByPostIdQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<PostToTag, TagsByPostIdQuery, IEnumerable<TagSmallDto>>(projector, context)
 {
-    public TagsByPostIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-    {
-    }
-
     protected override async Task<IEnumerable<TagSmallDto>> GetResultToHandleAsync(TagsByPostIdQuery query, CancellationToken token)
-    {
-
-        return await ProjectTo<TagSmallDto>(Entities.Where(ptt => ptt.Id == query.PostId).Include(p => p.Tag)).ToArrayAsync(token);
-
-
-    }
+        => await ProjectTo<TagSmallDto>(Where(ptt => ptt.Id == query.PostId).Include(p => p.Tag)).ToArrayAsync(token);
 }

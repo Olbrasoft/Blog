@@ -1,15 +1,8 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.TagQueryHandlers;
+
+public class TagByIdAndUserIdQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Tag, TagByIdAndUserIdQuery, TagSmallDto>(projector, context)
 {
-    public class TagByIdAndUserIdQueryHandler : BlogDbQueryHandler<Tag, TagByIdAndUserIdQuery, TagSmallDto>
-    {
-        public TagByIdAndUserIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-        {
-        }
+    protected override async Task<TagSmallDto> GetResultToHandleAsync(TagByIdAndUserIdQuery query, CancellationToken token)
+        => await ProjectTo<TagSmallDto>(t => t.CreatorId == query.UserId && t.Id == query.Id).FirstAsync(token);
 
-        protected override async Task<TagSmallDto> GetResultToHandleAsync(TagByIdAndUserIdQuery query, CancellationToken token)
-        {
-            return await ProjectTo<TagSmallDto>(Entities.Where(p => p.CreatorId == query.UserId && p.Id == query.Id)).FirstAsync(token);
-        }
-
-    }
 }

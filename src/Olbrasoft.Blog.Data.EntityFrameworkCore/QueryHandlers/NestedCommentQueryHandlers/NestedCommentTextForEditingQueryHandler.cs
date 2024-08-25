@@ -2,19 +2,14 @@
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.NestedCommentQueryHandlers;
 
-public class NestedCommentTextForEditingQueryHandler : BlogDbQueryHandler<NestedComment, NestedCommentTextForEditingQuery, string>
+public class NestedCommentTextForEditingQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<NestedComment, NestedCommentTextForEditingQuery, string>(projector, context)
 {
-    public NestedCommentTextForEditingQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-    {
-    }
-
     protected override async Task<string> GetResultToHandleAsync(NestedCommentTextForEditingQuery query, CancellationToken token)
     {
-        var result = await Entities
-             .Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0))
+        var result = await Where(n => n.Id == query.Id && (n.CreatorId == query.CreatorId || query.CreatorId == 0))
              .Select(p => p.Text)
              .ToArrayAsync(token);
 
-        return result.Any() ? result.First() : string.Empty;
+        return result.Length != 0 ? result.First() : string.Empty;
     }
 }

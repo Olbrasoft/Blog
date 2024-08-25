@@ -1,12 +1,7 @@
 ﻿namespace Olbrasoft.Blog.Business.Services
 {
-    public abstract class Service
+    public abstract class Service(IMediator mediator)
     {
-        protected IMediator Mediator { get; }
-
-        public Service(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        protected IMediator Mediator { get; } = mediator;
     }
 }

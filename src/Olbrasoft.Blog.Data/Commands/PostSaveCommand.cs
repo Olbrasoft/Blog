@@ -1,6 +1,8 @@
-﻿namespace Olbrasoft.Blog.Data.Commands;
+﻿using Olbrasoft.Blog.Data.Dtos;
 
-public class PostSaveCommand : BlogCommand
+namespace Olbrasoft.Blog.Data.Commands;
+
+public class PostSaveCommand : BlogCommand<int>
 {
     public PostSaveCommand(ICommandExecutor executor) : base(executor)
     {
@@ -16,5 +18,9 @@ public class PostSaveCommand : BlogCommand
 
     public int CategoryId { get; set; }
 
-    public IEnumerable<int> TagIds { get; set; } = Enumerable.Empty<int>();
+    public IEnumerable<int> TagIds { get; set; } = [];
+
+    public string? ImageExtension { get; set; }
+
+    public ImageDto? DefaultImage { get; set; }
 }

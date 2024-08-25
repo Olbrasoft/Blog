@@ -2,5 +2,5 @@
 
 public class CommentDto : NestedCommentDto
 {
-    public IEnumerable<NestedCommentDto> NestedComments { get; set; } = Enumerable.Empty<NestedCommentDto>();
+    public IEnumerable<NestedCommentDto> NestedComments { get; set; } = [];
 }

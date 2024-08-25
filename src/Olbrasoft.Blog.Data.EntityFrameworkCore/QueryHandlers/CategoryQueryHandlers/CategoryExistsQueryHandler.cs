@@ -1,24 +1,19 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CategoryQueryHandlers;
+
+public class CategoryExistsQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Category, CategoryExistsQuery>(projector, context)
 {
-    public class CategoryExistsQueryHandler : BlogDbQueryHandler<Category, CategoryExistsQuery>
+    protected override async Task<bool> GetResultToHandleAsync(CategoryExistsQuery query, CancellationToken token)
     {
-        public CategoryExistsQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
+        if (string.IsNullOrEmpty(query.Name))
         {
+            return await AnyAsync(token);
         }
 
-        protected override async Task<bool> GetResultToHandleAsync(CategoryExistsQuery query, CancellationToken token)
+        if (query.ExceptId is null or 0)
         {
-            if (string.IsNullOrEmpty(query.Name))
-            {
-                return await Entities.AnyAsync(token);
-            }
-
-            if (query.ExceptId == null || query.ExceptId == 0)
-            {
-                return await Entities.AnyAsync(p => p.Name == query.Name, token); ;
-            }
-
-            return await Entities.AnyAsync(p => p.Id != query.ExceptId && p.Name == query.Name, token);
+            return await AnyAsync(p => p.Name == query.Name, token); ;
         }
+
+        return await AnyAsync(p => p.Id != query.ExceptId && p.Name == query.Name, token);
     }
 }

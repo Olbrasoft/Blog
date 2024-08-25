@@ -4,16 +4,13 @@
 /// <summary>
 /// Handles the paged query for retrieving posts.
 /// </summary>
-public class PostsPagedQueryHandler : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>
+/// <remarks>
+/// Initializes a new instance of the <see cref="PostsPagedQueryHandler"/> class.
+/// </remarks>
+/// <param name="projector">The projector.</param>
+/// <param name="context">The blog database context.</param>
+public class PostsPagedQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Post, PostsPagedQuery, IPagedEnumerable<PostDto>>(projector, context)
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="PostsPagedQueryHandler"/> class.
-    /// </summary>
-    /// <param name="projector">The projector.</param>
-    /// <param name="context">The blog database context.</param>
-    public PostsPagedQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-    {
-    }
 
     /// <summary>
     /// Gets the paged result of posts based on the specified query.

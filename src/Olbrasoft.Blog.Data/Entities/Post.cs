@@ -19,8 +19,12 @@ public class Post : CreationInfo
     [Required]
     public Category Category { get => _category ?? throw new InvalidOperationException(nameof(Category)); set => _category = value; }
 
-    public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+    public ICollection<Comment> Comments { get; set; } = [];
 
-    public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
-   
+    public ICollection<Tag> Tags { get; set; } = [];
+
+    public string? ImageExtension { get; set; }
+
+    public ICollection<Image> Images { get; set; } = [];
+
 }

@@ -1,4 +1,6 @@
-﻿using Olbrasoft.Blog.Data.Commands;
+﻿using FluentStorage.Blobs;
+using Microsoft.AspNetCore.Http;
+using Olbrasoft.Blog.Data.Commands;
 using Olbrasoft.Blog.Data.Dtos.PostDtos;
 using Olbrasoft.Blog.Data.Queries.PostQueries;
 using Olbrasoft.Data.Paging;
@@ -9,13 +11,11 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Business.Services;
 
-public class PostService : Service, IPostService
+public class PostService(IMediator mediator, IFileExtensionProvider provider, IBlobStorage storage) : Service(mediator), IPostService
 {
-    public PostService(IMediator mediator) : base(mediator)
-    {
+    private readonly IFileExtensionProvider _provider = provider ?? throw new System.ArgumentNullException(nameof(provider));
+    private readonly IBlobStorage _storage = storage ?? throw new System.ArgumentNullException(nameof(storage));
 
-
-    }
 
     public async Task<PostDetailDto> PostAsync(int id, CancellationToken token = default)
     {
@@ -44,8 +44,16 @@ public class PostService : Service, IPostService
         return await query.ToResultAsync(token);
     }
 
-    public async Task<bool> SaveAsync(string title, string content, int categoryId, int userId, IEnumerable<int> tagIds, int id)
+    public async Task<bool> SaveAsync(IFormFile? image, string title, string content, int categoryId, int userId, IEnumerable<int> tagIds, int id)
     {
+        var extension = string.Empty;
+
+        if (image is not null)
+        {
+            _provider.TryGetExtension(image.ContentType, out extension);
+
+        }
+
         var command = new PostSaveCommand(Mediator)
         {
             Id = id,
@@ -53,9 +61,36 @@ public class PostService : Service, IPostService
             Content = content,
             TagIds = tagIds,
             Title = title,
-            CreatorId = userId
+            CreatorId = userId,
+            ImageExtension = extension
         };
 
-        return await command.ToResultAsync();
+        id = await command.ToResultAsync();
+
+        if (image is not null)
+        {
+            using var stream = image.OpenReadStream();
+            await _storage.WriteAsync($"{id}/0{extension}", stream);
+        }
+
+        return true;
+    }
+
+    public async Task<BlogImage> GetDefaultImageAsync(int blogId, string extension, CancellationToken token)
+    {
+
+        var blogImage = new BlogImage();
+
+        if (_provider.TryGetContentType(extension, out var contentType))
+        {
+            blogImage.ImageContentType = contentType;
+
+            var path = $"{blogId}/0{extension}";
+
+            blogImage.ImageContent = await _storage.ReadBytesAsync(path, token);
+        }
+
+        return blogImage;
+
     }
 }

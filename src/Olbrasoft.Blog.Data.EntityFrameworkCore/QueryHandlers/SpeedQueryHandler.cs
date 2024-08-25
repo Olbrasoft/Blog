@@ -1,15 +1,8 @@
 ﻿using Olbrasoft.Blog.Data.Queries;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers;
-public class SpeedQueryHandler : BlogDbQueryHandler<Tag, SpeedQuery, string>
+public class SpeedQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Tag, SpeedQuery, string>(projector, context)
 {
-    public SpeedQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-    {
-
-    }
-
     protected override Task<string> GetResultToHandleAsync(SpeedQuery request, CancellationToken token)
-    {
-        return Task.FromResult("I am Speed query Hello world ");
-    }
+        => Task.FromResult("I am Speed query Hello world ");
 }

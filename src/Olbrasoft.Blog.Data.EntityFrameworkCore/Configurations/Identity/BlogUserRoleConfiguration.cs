@@ -1,14 +1,11 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity
-{
-    public class BlogUserRoleConfiguration : BlogTypeConfiguration<BlogUserToRole>
-    {
-        public BlogUserRoleConfiguration() : base("UserRoles")
-        {
-        }
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations.Identity;
 
-        public override void TypeConfigure(EntityTypeBuilder<BlogUserToRole> builder)
-        {
-            builder.HasKey(p => new { p.UserId, p.RoleId });
-        }
+public class BlogUserRoleConfiguration : BlogTypeConfiguration<BlogUserToRole>
+{
+    public BlogUserRoleConfiguration() : base("UserRoles")
+    {
     }
+
+    public override void TypeConfigure(EntityTypeBuilder<BlogUserToRole> builder)
+        => builder.HasKey(p => new { p.UserId, p.RoleId });
 }

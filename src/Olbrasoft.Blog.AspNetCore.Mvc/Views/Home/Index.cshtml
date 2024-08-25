@@ -16,7 +16,19 @@
         @foreach (var post in Model.Posts)
         {
             <div class="card mb-4">
-                <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
+           
+                @if (string.IsNullOrEmpty( post.ImageExtension ))
+                {
+                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Card image cap">
+                    
+                }
+                else
+                {
+                    <img src="@Url.Action("DefaultImage", "Home", new { blogId = post.Id, extension = post.ImageExtension })" alt="Image" class="card-img-top" />
+                }
+                               
+
+           
                 <div class="card-body">
                     <div class="small text-muted">@post.Created.ToString("dd MMMM yyyy")</div>
                     <h2 class="card-title">@post.Title</h2>

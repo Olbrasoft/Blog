@@ -1,55 +1,47 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations;
+
+public abstract class BlogTypeConfiguration<TEntity>(string schema, string table) : IEntityTypeConfiguration<TEntity> where TEntity : class
 {
-    public abstract class BlogTypeConfiguration<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : class
+    protected string Schema { get; } = schema;
+    protected string Table { get; } = table;
+
+    protected BlogTypeConfiguration(string table) : this(BuildSchema(), table)
     {
-        protected string Schema { get; }
-        protected string Table { get; }
+    }
 
-        protected BlogTypeConfiguration(string schema, string table)
+    protected BlogTypeConfiguration() : this(BuildSchema(), BuildTable())
+    {
+    }
+
+    public void Configure(EntityTypeBuilder<TEntity> builder)
+    {
+        if (string.IsNullOrEmpty(Schema))
         {
-            Schema = schema;
-
-            Table = table;
+            builder.ToTable(Table);
+        }
+        else
+        {
+            builder.ToTable(Table, Schema);
         }
 
-        protected BlogTypeConfiguration(string table) : this(BuildSchema(), table)
-        {
-        }
+        TypeConfigure(builder);
+    }
 
-        protected BlogTypeConfiguration() : this(BuildSchema(), BuildTable())
-        {
-        }
+    public abstract void TypeConfigure(EntityTypeBuilder<TEntity> builder);
 
-        public void Configure(EntityTypeBuilder<TEntity> builder)
-        {
-            if (string.IsNullOrEmpty(Schema))
-            {
-                builder.ToTable(Table);
-            }
-            else
-            {
-                builder.ToTable(Table, Schema);
-            }
+    public static string BuildTable()
+    {
+        return $"{typeof(TEntity).Name}s";
+    }
 
-            TypeConfigure(builder);
-        }
+    public static string BuildSchema()
+    {
+        var ns = typeof(TEntity).Namespace;
 
-        public abstract void TypeConfigure(EntityTypeBuilder<TEntity> builder);
+        var result = ns != null ? ns[(ns.LastIndexOf('.') + 1)..] : string.Empty;
 
-        public static string BuildTable()
-        {
-            return $"{typeof(TEntity).Name}s";
-        }
+        if (result == "Entities") result = "";
 
-        public static string BuildSchema()
-        {
-            var ns = typeof(TEntity).Namespace;
-
-            var result = ns != null ? ns.Substring(ns.LastIndexOf('.') + 1) : string.Empty;
-
-            if (result == "Entities") result = "";
-
-            return result;
-        }
+        return result;
     }
 }

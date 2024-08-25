@@ -1,14 +1,9 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHandlers
-{
-    public class CommentTextForEditingQueryHandler : BlogDbQueryHandler<Comment, CommentTextForEditingQuery, string>
-    {
-        public CommentTextForEditingQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-        {
-        }
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHandlers;
 
-        protected override async Task<string> GetResultToHandleAsync(CommentTextForEditingQuery query, CancellationToken token)
-            => await Entities.Where(p => p.Id == query.Id && (p.CreatorId == query.CreatorId || query.CreatorId == 0))
-                                    .Select(p => p.Text)
-                                    .FirstAsync(token);
-    }
+public class CommentTextForEditingQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Comment, CommentTextForEditingQuery, string>(projector, context)
+{
+    protected override async Task<string> GetResultToHandleAsync(CommentTextForEditingQuery query, CancellationToken token)
+        => await Where(c => c.Id == query.Id && (c.CreatorId == query.CreatorId || query.CreatorId == 0))
+                                .Select(c => c.Text)
+                                .FirstAsync(token);
 }

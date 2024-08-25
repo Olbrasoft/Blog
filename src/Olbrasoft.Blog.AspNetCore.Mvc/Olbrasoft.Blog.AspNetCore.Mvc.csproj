@@ -59,8 +59,13 @@
   <ItemGroup>
     <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.833" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Olbrasoft.Data.Paging.DataTables" Version="1.0.2" />
     <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList" Version="1.7.1" />
     <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc" Version="1.7.1" />
@@ -68,6 +73,9 @@
     <PackageReference Include="Olbrasoft.Linq" Version="1.0.0" />
     <PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="7.3.2" />
     <PackageReference Include="Olbrasoft.Text.Transformation.Markdown" Version="1.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -100,5 +108,10 @@
 		<Using Include="Olbrasoft.Blog.Data.Entities.Identity" />
 		<Using Include="Olbrasoft.Blog.AspNetCore.Mvc.Controllers" />
 		<Using Include="Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="App_Data\" />
 	</ItemGroup>
 </Project>

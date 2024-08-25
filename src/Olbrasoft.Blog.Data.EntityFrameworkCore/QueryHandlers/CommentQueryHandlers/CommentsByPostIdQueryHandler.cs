@@ -1,17 +1,10 @@
 ﻿using Olbrasoft.Blog.Data.Dtos.CommentDtos;
 
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHandlers
-{
-    public class CommentsByPostIdQueryHandler : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>
-    {
-        public CommentsByPostIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-        {
-        }
+namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.CommentQueryHandlers;
 
-        protected override async Task<IEnumerable<CommentDto>> GetResultToHandleAsync(CommentsByPostIdQuery query, CancellationToken token)
-        {
-            return await ProjectTo<CommentDto>(Entities.Where(p => p.PostId == query.PostId)
-                .OrderByDescending(p => p.Created)).ToArrayAsync(token);
-        }
-    }
+public class CommentsByPostIdQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Comment, CommentsByPostIdQuery, IEnumerable<CommentDto>>(projector, context)
+{
+    protected override async Task<IEnumerable<CommentDto>> GetResultToHandleAsync(CommentsByPostIdQuery query, CancellationToken token)
+        => await ProjectTo<CommentDto>(Where(c => c.PostId == query.PostId)
+            .OrderByDescending(p => p.Created)).ToArrayAsync(token);
 }

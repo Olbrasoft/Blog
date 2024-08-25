@@ -7,8 +7,7 @@ public class Tag : CreationInfo
     [Required]
     [StringLength(25)]
     public string Label { get; set; } = string.Empty;
-   
-    public ICollection<Post>Posts { get; set; } = new HashSet<Post>();
 
- 
+    public ICollection<Post> Posts { get; set; } = [];
+
 }

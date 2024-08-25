@@ -1,19 +1,10 @@
-﻿using Olbrasoft.Blog.Data.Commands.TagCommands;
-
-namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers;
-public class TagDeleteCommandHandler : BlogDbCommandHandler<TagDeleteCommand, Tag>
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers;
+public class TagDeleteCommandHandler(BlogDbContext context) : BlogDbCommandHandler<TagDeleteCommand, Tag>(context)
 {
-    public TagDeleteCommandHandler(BlogDbContext context) : base(context)
-    {
-    }
+
 
     protected override async Task<bool> GetResultToHandleAsync(TagDeleteCommand command, CancellationToken token)
-    {
-        var tagForDelete = await GetOneOrNullAsync(tag => tag.Id == command.Id && tag.CreatorId == command.CreatorId, token);
-
-        if (tagForDelete != null)
-            Entities.Remove(tagForDelete);
-
-        return await SaveOneEntityAsync(token);
-    }
+        => command.CreatorId == 0
+            ? await DeleteAsync(new Tag { Id = command.Id }, token) == 1
+            : await DeleteAsync(tag => tag.Id == command.Id && tag.CreatorId == command.CreatorId, token) == 1;
 }

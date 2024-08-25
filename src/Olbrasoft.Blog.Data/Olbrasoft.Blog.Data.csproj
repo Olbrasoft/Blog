@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>Net8</TargetFramework>
+    <TargetFrameworks>Net6;Net7;Net8</TargetFrameworks>
+	  <LangVersion>12</LangVersion>
 	<nullable>enable</nullable>
   </PropertyGroup>
 

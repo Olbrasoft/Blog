@@ -1,13 +1,12 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations
-{
-    public class NestedCommentConfiguration : BlogTypeConfiguration<NestedComment>
-    {
-        public NestedCommentConfiguration() : base("NestedComments")
-        {
-        }
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations;
 
-        public override void TypeConfigure(EntityTypeBuilder<NestedComment> builder)
-        {
-        }
+public class NestedCommentConfiguration : BlogTypeConfiguration<NestedComment>
+{
+    public NestedCommentConfiguration() : base("NestedComments")
+    {
+    }
+
+    public override void TypeConfigure(EntityTypeBuilder<NestedComment> builder)
+    {
     }
 }

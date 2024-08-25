@@ -1,8 +1,8 @@
 ﻿namespace Olbrasoft.Blog.Data.FreeSql.CommandHandlers;
 
-public class PostSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : BlogDbCommandHandler<PostSaveCommand, Post>(mapper, context)
+public class PostSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context) : BlogDbCommandHandler<PostSaveCommand, Post, int>(mapper, context)
 {
-    protected override async Task<bool> GetResultToHandleAsync(PostSaveCommand command, CancellationToken token)
+    protected override async Task<int> GetResultToHandleAsync(PostSaveCommand command, CancellationToken token)
     {
         var post = MapCommandToNewEntity(command);
 
@@ -13,6 +13,8 @@ public class PostSaveCommandHandler(IMapper mapper, BlogFreeSqlDbContext context
             post.Tags = command.TagIds.Select(tagId => new Tag { Id = tagId }).ToList();
         }
 
-        return await SaveAsync(post, token) > 0;
+        _ = await SaveAsync(post, token);
+
+        return post.Id;
     }
 }

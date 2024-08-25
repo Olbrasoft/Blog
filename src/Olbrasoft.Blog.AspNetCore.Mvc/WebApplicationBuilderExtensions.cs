@@ -1,4 +1,5 @@
-﻿using IGeekFan.AspNetCore.Identity.FreeSql;
+﻿using FluentStorage;
+using IGeekFan.AspNetCore.Identity.FreeSql;
 using Localization.AspNetCore.TagHelpers;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Olbrasoft.Blog.Business.Services;
@@ -108,10 +109,15 @@ public static class WebApplicationBuilderExtensions
             }
 
 
+            // Configure blob storage
+            builder.Services.AddTransient(s => StorageFactory.Blobs.FromConnectionString(builder.Configuration.GetConnectionString("Blob")));
+
+
             builder.Services.AddTextTransformationMarkdown();
 
             builder.Services.AddMapping(typeof(PostToPostEditDtoRegister).Assembly);
 
+            builder.Services.AddScoped<IFileExtensionProvider, ImageExtensionProvider>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ITagService, TagService>();
             builder.Services.AddScoped<IPostService, PostService>();

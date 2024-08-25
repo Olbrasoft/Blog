@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Olbrasoft.Blog.Data.EntityFrameworkCore.Configurations;
 
 namespace Olbrasoft.Blog.Data.EntityFrameworkCore;
@@ -7,7 +8,11 @@ namespace Olbrasoft.Blog.Data.EntityFrameworkCore;
 /// <summary>
 /// Represents the database context for the blog application.
 /// </summary>
-public class BlogDbContext : IdentityDbContext<BlogUser, BlogRole, int, UserClaim, BlogUserToRole, UserLogin, RoleClaim, UserToken>
+/// <remarks>
+/// Initializes a new instance of the <see cref="BlogDbContext"/> class.
+/// </remarks>
+/// <param name="options">The options for configuring the context.</param>
+public class BlogDbContext(DbContextOptions options) : IdentityDbContext<BlogUser, BlogRole, int, UserClaim, BlogUserToRole, UserLogin, RoleClaim, UserToken>(options)
 {
     /// <summary>
     /// Gets or sets the categories DbSet.
@@ -19,6 +24,7 @@ public class BlogDbContext : IdentityDbContext<BlogUser, BlogRole, int, UserClai
     /// </summary>
     public DbSet<Post> Posts => Set<Post>();
 
+
     /// <summary>
     /// Gets or sets the comments DbSet.
     /// </summary>
@@ -29,22 +35,19 @@ public class BlogDbContext : IdentityDbContext<BlogUser, BlogRole, int, UserClai
     /// </summary>
     public DbSet<Tag> Tags => Set<Tag>();
 
+
+    public DbSet<Image> Images => Set<Image>();
+
+
     /// <summary>
     /// Gets the default roles for the blog application.
     /// </summary>
-    public IEnumerable<BlogRole> DefaultRoles => new[]
-    {
+    public static IEnumerable<BlogRole> DefaultRoles =>
+    [
         new BlogRole { Id= 1, Name="Administrator", NormalizedName= "ADMINISTRATOR" },
         new BlogRole{ Id =2, Name="Blogger" , NormalizedName="BLOGGER" }
-    };
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BlogDbContext"/> class.
-    /// </summary>
-    /// <param name="options">The options for configuring the context.</param>
-    public BlogDbContext(DbContextOptions options) : base(options)
-    {
-    }
+    ];
 
     /// <summary>
     /// Configures the model for the blog database.
@@ -76,7 +79,8 @@ public class BlogDbContext : IdentityDbContext<BlogUser, BlogRole, int, UserClai
             if (property != null && property.PropertyInfo?.PropertyType == typeof(DateTimeOffset))
             {
                 builder.Entity(entityType.ClrType).Property(typeof(DateTimeOffset), "Created")
-                   .HasDefaultValueSql("SYSDATETIMEOFFSET()");
+                   .HasDefaultValueSql("SYSDATETIMEOFFSET()").Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+
             }
         }
         // SYSDATETIMEOFFSET()

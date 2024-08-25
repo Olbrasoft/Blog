@@ -16,7 +16,7 @@
                 <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-edit fa-fw"></i><localize>Post information</localize></h6>
             </div>
             <div class="card-body">
-                <form asp-area="Administration" asp-controller="Posts" asp-action="Save" method="post" role="form">
+                <form asp-area="Administration" asp-controller="Posts" asp-action="Save" method="post" role="form" enctype="multipart/form-data">
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <input id="id" asp-for="Id" type="hidden">
                     <div class="form-group">
@@ -40,6 +40,13 @@
                         <label localize>Tags</label>
                         <input id="post-tags" class="form-control" asp-for="TagIds" />
                     </div>
+
+                    <div class="form-group">
+                        <i class="fa fa-image fa-fw"></i>
+                        <label localize>Photo</label>
+                        <input type="file" id="post-photo" class="form-control" asp-for="Image" />
+                    </div>
+
 
                     <div class="form-group">
                         <i class="fa fa-file fa-fw"></i>

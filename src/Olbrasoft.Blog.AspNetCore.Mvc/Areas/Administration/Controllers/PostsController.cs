@@ -1,19 +1,12 @@
 ﻿namespace Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Controllers;
 
-public class PostsController : AdminDataTablesController
+public class PostsController(ICategoryService categoryService, ITagService tagService, IPostService service, IDataTableOptionBuilder builder) : AdminDataTablesController(builder)
 {
-    private readonly ICategoryService _categoryService;
+    private readonly ICategoryService _categoryService = categoryService;
 
-    private readonly ITagService _tagService;
+    private readonly ITagService _tagService = tagService;
 
-    private readonly IPostService _service;
-
-    public PostsController(ICategoryService categoryService, ITagService tagService, IPostService service, IDataTableOptionBuilder builder) : base(builder)
-    {
-        _categoryService = categoryService;
-        _tagService = tagService;
-        _service = service;
-    }
+    private readonly IPostService _service = service;
 
     public async Task<IActionResult> IndexAsync(int id = 0, CancellationToken token = default)
     {
@@ -24,7 +17,7 @@ public class PostsController : AdminDataTablesController
 
         if (id > 0) //edit post
         {
-            PostEditDto post = await _service.PostForEditingByIdAsync(id, token);
+            var post = await _service.PostForEditingByIdAsync(id, token);
 
             model.Id = post.Id;
 
@@ -45,14 +38,9 @@ public class PostsController : AdminDataTablesController
     {
         if (ModelState.IsValid)
         {
-            if (!string.IsNullOrEmpty(model.TagIds))
-            {
-                await _service.SaveAsync(model.Title, model.Content, model.CategoryId, CurrentUserId, model.TagIds.Split(',').Select(p => int.Parse(p)), model.Id);
-            }
-            else
-            {
-                await _service.SaveAsync(model.Title, model.Content, model.CategoryId, CurrentUserId, Enumerable.Empty<int>(), model.Id);
-            }
+            _ = !string.IsNullOrEmpty(model.TagIds)
+                ? await _service.SaveAsync(model.Image, model.Title, model.Content, model.CategoryId, CurrentUserId, model.TagIds.Split(',').Select(int.Parse), model.Id)
+                : await _service.SaveAsync(model.Image, model.Title, model.Content, model.CategoryId, CurrentUserId, [], model.Id);
 
             return RedirectToAction("Index");
         }
@@ -60,7 +48,7 @@ public class PostsController : AdminDataTablesController
         //If error javascript validation
         if (!string.IsNullOrEmpty(model.TagIds))
         {
-            model.Tags = await _tagService.TagsByIds(model.TagIds.Split(',').Select(p => int.Parse(p)),token);
+            model.Tags = await _tagService.TagsByIds(model.TagIds.Split(',').Select(p => int.Parse(p)), token);
         }
 
         model.Categories = await _categoryService.CategoriesAsync(token);

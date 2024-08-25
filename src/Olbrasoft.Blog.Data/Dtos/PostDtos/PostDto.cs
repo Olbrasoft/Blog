@@ -2,11 +2,6 @@
 
 public class PostDto : SmallDto
 {
-    public PostDto()
-    {
-        Tags = [];
-    }
-
     public string Title { get; set; } = string.Empty;
     public DateTimeOffset Created { get; set; }
     public string Content { get; set; } = string.Empty;
@@ -14,5 +9,10 @@ public class PostDto : SmallDto
     public string Creator { get; set; } = string.Empty;
     public int CategoryId { get; set; }
     public string CategoryName { get; set; } = string.Empty;
-    public ICollection<TagSmallDto> Tags { get; set; }
+
+    public string? ImageExtension { get; set; }
+
+    public ImageDto? DefaultImage { get; set; }
+
+    public ICollection<TagSmallDto> Tags { get; set; } = [];
 }

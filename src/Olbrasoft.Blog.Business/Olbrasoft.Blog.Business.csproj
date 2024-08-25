@@ -3,15 +3,22 @@
 	<PropertyGroup>
 		<TargetFramework>Net8</TargetFramework>
 		<Nullable>enable</Nullable>
-		<LangVersion>11</LangVersion>
+		<LangVersion>12</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
 	</ItemGroup>
-
 	<ItemGroup>
-		<Using Include="Olbrasoft.Mediation"/>
-		<Using Include="Olbrasoft.Data.Cqrs"/>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="FluentStorage" Version="5.5.1" />
+	  <PackageReference Include="System.Text.Json" Version="8.0.4" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Using Include="Olbrasoft.Mediation" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
 	</ItemGroup>
 </Project>

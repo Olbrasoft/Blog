@@ -15,7 +15,7 @@ public class HomeController : BlogController
     private readonly ITagService _tagService;
     private readonly ICommentService _commentService;
     private readonly IStringLocalizer<HomeController> _localizer;
-    
+
 
     public HomeController(ILogger<HomeController> logger,
         IPostService postService,
@@ -23,7 +23,7 @@ public class HomeController : BlogController
         ITagService tagService,
         ICommentService commentService,
         IStringLocalizer<HomeController> localizer
-      
+
         )
 
     {
@@ -33,7 +33,7 @@ public class HomeController : BlogController
         _tagService = tagService;
         _commentService = commentService;
         _localizer = localizer;
-      
+
     }
 
     public async Task<IActionResult> IndexAsync(string query, string search, CancellationToken token, int page = 1)
@@ -48,7 +48,7 @@ public class HomeController : BlogController
             NestedModel = await BuildNestedModel(token)
         };
 
-        _logger.LogInformation($"Total posts:{ model.Posts.TotalItemCount}");
+        _logger.LogInformation($"Total posts:{model.Posts.TotalItemCount}");
 
         var options = PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext;
         options.UlElementClasses = new[] { "justify-content-center", "pagination" };
@@ -69,7 +69,7 @@ public class HomeController : BlogController
 
     public async Task<IActionResult> PostAsync(int id, CancellationToken token, int commentId = 0, int parentCommentId = 0)
     {
-       
+
         if (id < 1) return RedirectToAction("Index");
 
         var model = new PostDetailViewModel
@@ -95,6 +95,14 @@ public class HomeController : BlogController
 
         return View(model);
     }
+
+    public async Task<IActionResult> DefaultImageAsync(int blogId, string extension, CancellationToken token)
+    {
+        var image = await _postService.GetDefaultImageAsync(blogId, extension, token);
+
+        return image.ImageContent is null ? NotFound() : File(image.ImageContent, image.ImageContentType);
+    }
+
 
     [HttpPost]
     [Authorize]

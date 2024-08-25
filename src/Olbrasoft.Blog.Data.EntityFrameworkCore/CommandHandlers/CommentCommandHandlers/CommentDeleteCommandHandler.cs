@@ -1,19 +1,9 @@
-﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommandHandlers
+﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.CommandHandlers.CommentCommandHandlers;
+
+public class CommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : BlogDbCommandHandler<CommentDeleteCommand, Comment>(mapper, context)
 {
-    public class CommentDeleteCommandHandler : BlogDbCommandHandler<CommentDeleteCommand, Comment>
-    {
-        public CommentDeleteCommandHandler(IMapper mapper, BlogDbContext context) : base(mapper, context)
-        {
-        }
-
-        protected override async Task<bool> GetResultToHandleAsync(CommentDeleteCommand command, CancellationToken token)
-        {
-            var comment = new Comment { Id = command.Id};
-
-            if(command.CreatorId > 0)
-             comment = await GetWhere(p => p.Id == command.Id && p.CreatorId == command.CreatorId ).FirstAsync(token);
-
-            return (await DeleteAsync(comment, token) == 1);
-        }
-    }
+    protected override async Task<bool> GetResultToHandleAsync(CommentDeleteCommand command, CancellationToken token)
+        => command.CreatorId == 0
+            ? await DeleteAsync(new Comment { Id = command.Id }, token) == 1
+            : await DeleteAsync(c => c.Id == command.Id && c.CreatorId == command.CreatorId, token) == 1;
 }

@@ -1,13 +1,7 @@
 ﻿namespace Olbrasoft.Blog.Data.EntityFrameworkCore.QueryHandlers.PostQueryHandlers;
 
-public class PostByIdQueryHandler : BlogDbQueryHandler<Post, PostByIdQuery, PostEditDto>
+public class PostByIdQueryHandler(IProjector projector, BlogDbContext context) : BlogDbQueryHandler<Post, PostByIdQuery, PostEditDto>(projector, context)
 {
-    public PostByIdQueryHandler(IProjector projector, BlogDbContext context) : base(projector, context)
-    {
-    }
-
     protected override async Task<PostEditDto> GetResultToHandleAsync(PostByIdQuery query, CancellationToken token)
-    {
-        return await ProjectTo<PostEditDto>(GetWhere(p => p.Id == query.Id)).FirstAsync(token);
-    }
+        => await ProjectTo<PostEditDto>(p => p.Id == query.Id).FirstAsync(token);
 }

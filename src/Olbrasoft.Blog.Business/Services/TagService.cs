@@ -9,15 +9,8 @@ using System.Threading.Tasks;
 
 namespace Olbrasoft.Blog.Business.Services
 {
-    public class TagService : Service, ITagService
+    public class TagService(IMediator mediator) : Service(mediator), ITagService
     {
-        public TagService(IMediator mediator) : base(mediator)
-        {
-        }
-
-        //public async Task<bool> ExistsAsync() => await new TagExistsQuery(Mediator).ToResultAsync();
-
-        //public async Task<bool> ExistsAsync(string label) => await new TagExistsQuery(Mediator) { Label = label }.ToResultAsync();
 
 
         public async Task<bool> ExistsAsync(int ExceptId, string label, CancellationToken token = default)
