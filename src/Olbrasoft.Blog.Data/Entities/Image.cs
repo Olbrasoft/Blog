@@ -4,7 +4,11 @@
     {
         public int PostId { get; set; }
 
-        public string Path { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+
+        public string Extension { get; set; } = string.Empty;
+
+        public string MimeType { get; set; } = string.Empty;
 
         public string? Alt { get; set; }
 

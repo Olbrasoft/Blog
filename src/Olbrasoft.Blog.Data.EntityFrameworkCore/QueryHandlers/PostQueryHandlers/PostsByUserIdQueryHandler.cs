@@ -15,7 +15,7 @@ public class PostsByUserIdQueryHandler(IProjector projector, BlogDbContext conte
     /// <returns>The paged result of posts by user ID.</returns>
     protected override async Task<IPagedResult<PostOfUserDto>> GetResultToHandleAsync(PostsByUserIdQuery query, CancellationToken token)
     {
-        var userPosts = Where(p => p.CreatorId == query.UserId);
+        var userPosts = Where(p => p.CreatorId == query.UserId && p.Id!= query.ExceptPostId);
 
         var filteredPosts = userPosts;
 

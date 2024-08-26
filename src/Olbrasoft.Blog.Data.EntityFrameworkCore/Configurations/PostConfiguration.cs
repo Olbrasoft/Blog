@@ -18,10 +18,8 @@ public class PostConfiguration : BlogTypeConfiguration<Post>
         builder.HasOne(p => p.Category).WithMany(p => p.Posts).HasForeignKey(p => p.CategoryId)
         .OnDelete(DeleteBehavior.Restrict);
 
-
+        builder.Property(p => p.Image).HasMaxLength(100);
     }
-
-
 
 
 }

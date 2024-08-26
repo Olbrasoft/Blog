@@ -1,4 +1,5 @@
 ﻿@model PostViewModel
+@inject IHtmlLocalizer<SharedResources> _localizer
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Administration/Views/Shared/_Layout.cshtml";
@@ -43,8 +44,17 @@
 
                     <div class="form-group">
                         <i class="fa fa-image fa-fw"></i>
-                        <label localize>Photo</label>
+                        <label localize>Image</label>
                         <input type="file" id="post-photo" class="form-control" asp-for="Image" />
+                        @if (!string.IsNullOrEmpty(Model.DefaultImageNameAndExtension))
+                        {
+                            <div>
+                                <img width="700" height="300" src="/Images/@Model.Id/@Model.DefaultImageNameAndExtension" alt="Image" />
+                                <input type="checkbox" asp-for="DeleteDefaultImage"> <i class="fa fa-trash fa-fw"></i><label localize> Delete image</label>
+
+
+                            </div>
+                        }
                     </div>
 
 
@@ -86,7 +96,7 @@
     </div>
 </div>
 
-@section css{
+@section css {
 
     <link rel="stylesheet" href="~/css/mditor.min.css" />
     <link rel="stylesheet" href="~/vendor/bootstrap/css/bootstrap-tagsinput.css">
@@ -112,7 +122,7 @@
 
 }
 
-    @section scripts {
+@section scripts {
 
     <script src="~/js/mditor.min.js"></script>
     @*<script src="https://unpkg.com/mditor@1.1.1/dist/js/mditor.min.js"></script>*@
@@ -123,17 +133,54 @@
 
     <script type="text/javascript">
 
+
+      
+
+        function onDeleteClick(confirmText, id) {
+
+            var table = $("#your-posts").DataTable()
+            var rowIndex;
+
+            table.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                if (this.data().id === id) {
+                    rowIndex = rowIdx;
+                    return;
+                }
+            });
+
+            var confirmDelete = confirm(confirmText);
+
+            if (confirmDelete) {
+                $.ajax({
+                    type: "Delete",
+                    url: '@Url.Action("Delete", "Posts", new { Area = "Administration" })',
+                    data: { postId: id },
+                    success: function () {
+                        table.row(rowIndex).remove().draw(true);
+                    },
+                    error: function (data) {
+                        alert("Error: " + id);
+                    }
+                });
+            };
+
+            return false;
+        }
+
+
+
+
         var mditor = new Mditor("#post-content", {
             height: 433,
             fixedHeight: true,
 
         });
         mditor.openPreview();
-            
+
         $('#remaingCharacters').text(@Model.MaxLength -  $('#post-title').val().length)
 
         $('#post-title').keyup(function () {
-           var textlen = @Model.MaxLength - $(this).val().length;
+            var textlen = @Model.MaxLength - $(this).val().length;
             $('#remaingCharacters').text(textlen);
         });
 
@@ -209,7 +256,9 @@
                         type: "POST",
                         contentType: "application/json",
                         dataType: "json",
-                        data: function (d) {
+                        data:function (d)
+                        {
+                            d.editingId = "@Model.Id";
                             return JSON.stringify(d);
                         }
                     },
@@ -243,8 +292,12 @@
                         { "name": "Created", "targets": 2 },
                         {
                             "targets": 3, "data": "id", "className": "dt-body-right", "render": function (data, type, full, meta) {
-                                return '<a  href=/Administration/Posts/Index/' + data + '><i class="fa fa-pencil" aria-hidden="true"></i> Edit</a>'
+                                var result = '<a  href=/Administration/Posts/Index/' + data + ' title="@_localizer.GetString("Edit")"><i class="fa fa-pencil" aria-hidden="true"></i> @_localizer.GetString("Edit")</a>'
 
+                                var confirmText = "'@_localizer.GetString("Are you sure you wish to delete"): " + full.title + "'"
+                                result += ' | <a onclick="return onDeleteClick(' + confirmText + ',' + full.id + ');"  href="#" title="@_localizer.GetString("Delete")"  ><i class="fa fa-trash fa-fw" aria-hidden="true"></i>@_localizer.GetString("Delete")</a>'
+
+                                return result;
                             }
                         },
 

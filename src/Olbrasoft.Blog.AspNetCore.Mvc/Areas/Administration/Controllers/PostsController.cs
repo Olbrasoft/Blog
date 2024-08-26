@@ -28,6 +28,8 @@ public class PostsController(ICategoryService categoryService, ITagService tagSe
             model.CategoryId = post.CategoryId;
 
             model.Tags = post.Tags;
+
+            model.DefaultImageNameAndExtension = post.DefaultImageNameAndExtension;
         }
 
         return View(model);
@@ -38,9 +40,14 @@ public class PostsController(ICategoryService categoryService, ITagService tagSe
     {
         if (ModelState.IsValid)
         {
-            _ = !string.IsNullOrEmpty(model.TagIds)
-                ? await _service.SaveAsync(model.Image, model.Title, model.Content, model.CategoryId, CurrentUserId, model.TagIds.Split(',').Select(int.Parse), model.Id)
-                : await _service.SaveAsync(model.Image, model.Title, model.Content, model.CategoryId, CurrentUserId, [], model.Id);
+            if (!string.IsNullOrEmpty(model.TagIds))
+            {
+                await _service.SaveAsync(model.Image, model.Title, model.Content, model.CategoryId, CurrentUserId, model.TagIds.Split(',').Select(int.Parse), model.Id, model.DeleteDefaultImage, token);
+            }
+            else
+            {
+                await _service.SaveAsync(model.Image, model.Title, model.Content, model.CategoryId, CurrentUserId, [], model.Id, model.DeleteDefaultImage, token);
+            }
 
             return RedirectToAction("Index");
         }
@@ -56,12 +63,28 @@ public class PostsController(ICategoryService categoryService, ITagService tagSe
     }
 
     [HttpPost]
-    public async Task<IActionResult> CurrentUserPostsAsync([FromBody] DataTableModel model, CancellationToken token)
+    public async Task<IActionResult> CurrentUserPostsAsync([FromBody] BlogDataTableModel model, CancellationToken token)
     {
+
         var option = BuildDataTableQueryOption(model, nameof(PostOfUserDto.Title));
 
-        var posts = await _service.PostsByUserIdAsync(CurrentUserId, option.Paging, option.Column, option.Direction, option.Search, token);
+        IPagedResult<PostOfUserDto> posts = await _service.PostsByUserIdAsync(CurrentUserId, model.EditingId, option.Paging, option.Column, option.Direction, option.Search, token);
 
         return BuildDataTableJson(posts);
     }
+
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteAsync(int postId, CancellationToken token)
+    {
+        await _service.DeletePostAsync(postId, CurrentUserId, token);
+
+        return Json("Deleted");
+    }
+}
+
+
+public class BlogDataTableModel : DataTableModel
+{
+    public int EditingId { get; set; }
 }

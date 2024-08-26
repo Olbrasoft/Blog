@@ -20,7 +20,9 @@ public class PostSaveCommand : BlogCommand<int>
 
     public IEnumerable<int> TagIds { get; set; } = [];
 
-    public string? ImageExtension { get; set; }
+    public string? Image { get; set; }
 
-    public ImageDto? DefaultImage { get; set; }
+    public bool DeleteDefaultImage { get; set; }    
+
+
 }

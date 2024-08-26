@@ -51,7 +51,7 @@ public class HomeController : BlogController
         _logger.LogInformation($"Total posts:{model.Posts.TotalItemCount}");
 
         var options = PagedListRenderOptions.Bootstrap4PageNumbersPlusPrevAndNext;
-        options.UlElementClasses = new[] { "justify-content-center", "pagination" };
+        options.UlElementClasses = ["justify-content-center", "pagination"];
         options.LinkToPreviousPageFormat = "&larr; " + _localizer["Newer"].ToString();
         options.LinkToNextPageFormat = _localizer["Older"].ToString() + " &rarr;";
 
@@ -83,6 +83,7 @@ public class HomeController : BlogController
             ParentCommentId = parentCommentId
         };
 
+
         if (parentCommentId > 0)
         {
             model.CommentText = await _commentService.TextEditNestedComment(commentId, CurrentUserId, token);
@@ -101,6 +102,21 @@ public class HomeController : BlogController
         var image = await _postService.GetDefaultImageAsync(blogId, extension, token);
 
         return image.ImageContent is null ? NotFound() : File(image.ImageContent, image.ImageContentType);
+    }
+
+ 
+    public async Task<IActionResult> GetDefaultImagesAsync(int postId, string imagefileNameAndExtension, CancellationToken token)
+    {
+        if(! await _postService.CheckDefaultImage(postId, imagefileNameAndExtension) ) return NotFound() ;
+           
+        var extension = Path.GetExtension(imagefileNameAndExtension);
+
+        if (postId == 0 || string.IsNullOrEmpty(extension)) return NotFound();
+
+        var img = await _postService.GetDefaultImageAsync(postId, extension, token);
+
+        return img.ImageContent is null ? NotFound() : File(img.ImageContent, img.ImageContentType);
+
     }
 
 

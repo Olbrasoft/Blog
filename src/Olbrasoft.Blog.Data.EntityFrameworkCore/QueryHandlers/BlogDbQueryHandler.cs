@@ -53,6 +53,10 @@ public abstract class BlogDbQueryHandler<TEntity, TQuery, TResult> : DbQueryHand
 /// <typeparam name="TQuery">The type of the query.</typeparam>
 public abstract class BlogDbQueryHandler<TEntity, TQuery> : BlogDbQueryHandler<TEntity, TQuery, bool> where TQuery : BaseQuery<bool> where TEntity : class
 {
+    protected BlogDbQueryHandler(BlogDbContext context) : base(context)
+    {
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="BlogDbQueryHandler{TEntity, TQuery}"/> class.
     /// </summary>

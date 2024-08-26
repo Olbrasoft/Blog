@@ -83,6 +83,10 @@
 
     <script type="text/javascript">
 
+
+       
+
+
         function onDeleteClick(confirmText, id) {
 
             var table = $("#your-tags").DataTable()
@@ -145,7 +149,10 @@
                     type: "POST",
                     contentType: "application/json",
                     dataType: "json",
-                    data: function (d) {
+                    data:                 
+                    function (d) {
+                       
+
                         return JSON.stringify(d);
                     }
                 },

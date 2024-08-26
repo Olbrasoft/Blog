@@ -28,4 +28,8 @@ public class PostViewModel
     public IEnumerable<TagSmallDto> Tags { get; set; } = [];
 
     public IFormFile? Image { get; set; } = null!;
+
+    public bool DeleteDefaultImage { get; set; }
+
+    public string DefaultImageNameAndExtension { get; set; } = string.Empty;
 }

@@ -23,7 +23,7 @@ public class Post : CreationInfo
 
     public ICollection<Tag> Tags { get; set; } = [];
 
-    public string? ImageExtension { get; set; }
+    public string? Image { get; set; }
 
     public ICollection<Image> Images { get; set; } = [];
 

@@ -40,8 +40,20 @@
                 }
             </header>
             <!-- Preview image figure-->
-            <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
-            <section class="mb-5">
+            <figure class="mb-4">
+               
+                @if (string.IsNullOrEmpty(Model.Post.Image))
+                {
+                    <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+
+                }
+                else
+                {
+                    <img class="img-fluid rounded" src="/Images/@Model.Post.Id/@Model.Post.Image" alt="..." />
+
+                }
+
+            </figure>            <section class="mb-5">
                 <markdown raw="true">@Model.Post.Content</markdown>
             </section>
         </article>

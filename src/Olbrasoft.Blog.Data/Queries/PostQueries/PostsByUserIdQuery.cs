@@ -9,4 +9,6 @@ public class PostsByUserIdQuery : ByUserIdQuery<IPagedResult<PostOfUserDto>>
     public PostsByUserIdQuery(IMediator mediator) : base(mediator)
     {
     }
+
+    public int ExceptPostId { get; set; }
 }

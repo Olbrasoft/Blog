@@ -6,50 +6,22 @@ public class PostSaveCommandHandler(IMapper mapper, BlogDbContext context) : Blo
     {
         Post post = new();
 
-        if (command.Id > 0)
+        if (command.Id > 0) //Update
         {
             post = await Entities.Include(p => p.Tags).FirstAsync(p => p.Id == command.Id, token);
 
-            var defaultImage = await Context.Images.Where(i => i.PostId == command.Id && i.Default).FirstOrDefaultAsync(token);
-
-            if (command.DefaultImage != null)
+            if (command.DeleteDefaultImage)
             {
-
-                if (defaultImage != null)
-                {
-                    defaultImage.Path = command.DefaultImage.Path;
-                    defaultImage.Alt = command.DefaultImage.Alt;
-                }
-
-            }
-            else
-            {
-                if (defaultImage != null)
-                {
-                    Context.Images.Remove(defaultImage);
-                }
+                post.Image = null;
             }
 
             post.Tags.Clear();
-        }
-        else
-        {
-            if (command.DefaultImage != null)
-            {
-                post.Images.Add(new Image
-                {
-                    Path = command.DefaultImage.Path,
-                    Alt = command.DefaultImage.Alt,
-                    Default = true
-                });
-            }
         }
 
 
         MapCommandToExistingEntity(command, post);
 
-
-
+        
         if (command.TagIds.Any())
         {
             foreach (var tag in await GetArrayAsync<Tag>(p => command.TagIds.Contains(p.Id), token))

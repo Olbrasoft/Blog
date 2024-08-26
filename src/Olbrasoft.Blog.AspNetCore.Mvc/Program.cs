@@ -40,7 +40,11 @@ app.UseAuthorization();
 
 app.MapAreaControllerRoute("AreaAdministrationRoute", "Administration", "Administration/{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "images",
+    pattern: "Images/{postId}/{imageFileNameAndExtension}",
+    defaults: new { controller = "Home", action = "GetDefaultImages" });
 
+app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

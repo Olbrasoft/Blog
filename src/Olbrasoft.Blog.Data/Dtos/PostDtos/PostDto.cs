@@ -9,10 +9,8 @@ public class PostDto : SmallDto
     public string Creator { get; set; } = string.Empty;
     public int CategoryId { get; set; }
     public string CategoryName { get; set; } = string.Empty;
-
-    public string? ImageExtension { get; set; }
-
-    public ImageDto? DefaultImage { get; set; }
+      
+    public string? Image{ get; set; }
 
     public ICollection<TagSmallDto> Tags { get; set; } = [];
 }
