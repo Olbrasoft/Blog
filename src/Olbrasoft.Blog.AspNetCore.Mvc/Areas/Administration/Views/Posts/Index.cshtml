@@ -147,10 +147,8 @@
                     return;
                 }
             });
-
-            var confirmDelete = confirm(confirmText);
-
-            if (confirmDelete) {
+                        
+            if (confirm(confirmText)) {
                 $.ajax({
                     type: "Delete",
                     url: '@Url.Action("Delete", "Posts", new { Area = "Administration" })',
