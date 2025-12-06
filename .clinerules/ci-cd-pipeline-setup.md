@@ -1,0 +1,1 @@
+/home/jirka/Olbrasoft/engineering-handbook/development-guidelines/ci-cd-pipeline-setup.md

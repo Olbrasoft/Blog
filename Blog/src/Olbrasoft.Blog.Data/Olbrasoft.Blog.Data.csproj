@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>Net6;Net7;Net8</TargetFrameworks>
+	  <LangVersion>12</LangVersion>
+	<nullable>enable</nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Olbrasoft.Data.Entities.Identity" Version="1.8.0" />
+    <PackageReference Include="Olbrasoft.Data.Paging" Version="1.7.0" />
+    <PackageReference Include="Olbrasoft.Data.Sorting" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Data\src\Data.Cqrs.Common\Data.Cqrs.Common.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<Using Include="System" />
+		<Using Include="System.Linq" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="Olbrasoft.Mediation" />
+		<Using Include="Olbrasoft.Data.Paging" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
+	</ItemGroup>
+	
+</Project>

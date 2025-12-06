@@ -1,0 +1,227 @@
+{
+  "main": {
+    "id": "ef6764e86c52960e",
+    "type": "split",
+    "children": [
+      {
+        "id": "fe59160de34f772a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ffb6cfb89acc99e5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "local-model-needed.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "local-model-needed"
+            }
+          },
+          {
+            "id": "f7daa663d1ddab7e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "README.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "README"
+            }
+          },
+          {
+            "id": "c66340d53e040fe3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Untitled.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Untitled"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c3e9e78a53b74d15",
+    "type": "split",
+    "children": [
+      {
+        "id": "ba6a5d146dd21934",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f42f9b1adfe5d5cd",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "bde321d7f43cd302",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "f1036537b0d31ea8",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "dae0443fcb143f2b",
+    "type": "split",
+    "children": [
+      {
+        "id": "533bfb8dd1335ea7",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e27fd24c56091625",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "voice-assistant-poznamky-integrace.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for voice-assistant-poznamky-integrace"
+            }
+          },
+          {
+            "id": "4f5df9f653c39f19",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "voice-assistant-poznamky-integrace.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from voice-assistant-poznamky-integrace"
+            }
+          },
+          {
+            "id": "53ebb1595eaedb1e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "6715d338fd9abd11",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "9e2fee8b0dfe6c46",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "voice-assistant-poznamky-integrace.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of voice-assistant-poznamky-integrace"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "c66340d53e040fe3",
+  "lastOpenFiles": [
+    "README.md",
+    "Untitled.md",
+    "Klíče.md",
+    "vecer-nazor.md",
+    "poznamka-logy-model.md",
+    "local-model-needed.md",
+    "doreisti-starej-klic.md",
+    "voice-assistant-poznamky-integrace.md",
+    "zavolat-do-banky.md"
+  ]
+}

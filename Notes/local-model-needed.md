@@ -1,0 +1,1 @@
+ze je potreba jrste nejakej lokalni moodel co by smadno tady bezel

@@ -1,0 +1,6 @@
+Initial commit: Add IStringSimilarity interface and LevenshteinSimilarity implementation
+
+- Add IStringSimilarity interface for string similarity calculations
+- Add LevenshteinSimilarity implementation using F23.StringSimilarity
+- Add unit tests including real-world Czech TTS echo detection scenarios
+- Target .NET 10.0

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<LangVersion>10</LangVersion>
+		<Authors>Jiří Tůma</Authors>
+		<Company>Olbrasoft</Company>
+		<Description>Register classes for Mapping and Projection implemented using a Mapster.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>olbrasoft-mapping-mapster.png</PackageIcon>
+		<RepositoryUrl>https://github.com/Olbrasoft/Mapping.Mapster.DependencyInjection.Microsoft</RepositoryUrl>
+		<RepositoryType>DotNetStandard 2.1 Library</RepositoryType>
+		<PackageTags>Maping Projection Mapster Dependency Injection</PackageTags>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<IncludeSymbols>True</IncludeSymbols>
+		<Version>7.3.1</Version>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\olbrasoft-mapping-mapster.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Mapster.DependencyInjection" Version="1.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Olbrasoft.Mapping.Mapster\Olbrasoft.Mapping.Mapster.csproj" />
+	</ItemGroup>
+
+</Project>

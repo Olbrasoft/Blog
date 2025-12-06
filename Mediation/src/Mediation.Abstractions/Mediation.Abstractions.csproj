@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net6.0;net7.0;net8.0;net9.0;net10.0</TargetFrameworks>
+		<LangVersion>latest</LangVersion>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AssemblyName>Olbrasoft.$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>Olbrasoft.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<Product>Olbrasoft.Mediation</Product>
+		<PackageIcon>mediation.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageProjectUrl>https://github.com/Olbrasoft/Mediation</PackageProjectUrl>
+		<Copyright>© Olbrasoft 2025</Copyright>
+		<Company>Olbrasoft</Company>
+		<Version>9.0.1</Version>
+		<Description>Core abstractions for the Mediation library - lightweight mediator pattern interfaces for .NET 6, 7, 8, 9 and .NET Standard 2.1</Description>
+		<Title>Mediation Abstractions</Title>
+		<PackageTags>Mediator;CQRS;Abstractions;Interfaces;NET9</PackageTags>
+		<PackageReleaseNotes>Version 9.0.1: Aligned version with .NET 9, updated dependencies to latest versions, improved compatibility</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\mediation.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>

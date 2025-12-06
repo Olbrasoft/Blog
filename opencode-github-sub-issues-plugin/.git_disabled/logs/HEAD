@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 2de33fdae4fe4143422c81f72e18471e2d32d1cd Jirka <tuma.rsrobot@gmail.com> 1764615805 +0100	commit (initial): Initial commit: OpenCode GitHub sub-issues sync plugin
+2de33fdae4fe4143422c81f72e18471e2d32d1cd e0feb659dc42b3519300de8ae30927ac4015e8d9 Jirka <tuma.rsrobot@gmail.com> 1764615982 +0200	Add README with installation and usage documentation
+e0feb659dc42b3519300de8ae30927ac4015e8d9 8be9664883331bcfad2ba5363c7e5264b85f5fd3 Jirka <tuma.rsrobot@gmail.com> 1764616378 +0200	Refactor plugin to match OpenCode plugin format
+8be9664883331bcfad2ba5363c7e5264b85f5fd3 1b8b735f7c3331f7f68ad3d68c91fe3aaf1d94df Jirka <tuma.rsrobot@gmail.com> 1764617297 +0200	Set default repo to Olbrasoft/VoiceAssistant and enable debug logging

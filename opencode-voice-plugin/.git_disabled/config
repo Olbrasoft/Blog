@@ -1,0 +1,16 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "origin"]
+	url = git@github.com:Olbrasoft/opencode-voice-plugin.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+	vscode-merge-base = origin/main
+[branch "feature/issue-1-ai-response-storage"]
+	remote = origin
+	merge = refs/heads/feature/issue-1-ai-response-storage
+	vscode-merge-base = origin/main

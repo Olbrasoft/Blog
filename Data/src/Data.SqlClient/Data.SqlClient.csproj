@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net5.0;Net6;Net7</TargetFrameworks>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<LangVersion>11</LangVersion>
+		<Nullable>enable</Nullable>
+		<RootNamespace>Olbrasoft.Data.SqlClient</RootNamespace>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Data.Common\Data.Common.csproj" />
+	</ItemGroup>
+	
+</Project>

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>Net6;</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
+		<Authors>Jiří Tůma</Authors>
+		<Company>Olbrasoft</Company>
+		<Description>CQS and CQRS for EntityFrameworkCore</Description>
+		<Copyright>Copyright @2020 Olbrasoft</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>olbrasoft-data-cqrs.png</PackageIcon>
+		<RepositoryUrl>https://github.com/Olbrasoft/Data.Cqrs</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>CQS CQRS EntityFrameworkCore</PackageTags>
+		<Version>1.4.0</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\olbrasoft-data-cqrs.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+		<PackageReference Include="Olbrasoft.Data.Cqrs" Version="1.4.0" />
+	</ItemGroup>
+</Project>

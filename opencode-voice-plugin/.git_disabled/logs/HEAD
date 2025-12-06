@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 f93a241597fbeb380448b33e2a6f5be67c6859e1 Jirka <tuma.rsrobot@gmail.com> 1764424594 +0100	clone: from https://github.com/Olbrasoft/opencode-voice-plugin.git
+f93a241597fbeb380448b33e2a6f5be67c6859e1 e93023310c84d9abb5a0f108b6dd42d18f9656b9 Jirka <tuma.rsrobot@gmail.com> 1764424952 +0200	Improve speak tool output format - use Czech quotation marks
+e93023310c84d9abb5a0f108b6dd42d18f9656b9 e93023310c84d9abb5a0f108b6dd42d18f9656b9 Jirka <tuma.rsrobot@gmail.com> 1764693277 +0100	checkout: moving from main to feature/issue-1-ai-response-storage
+e93023310c84d9abb5a0f108b6dd42d18f9656b9 a9cc7068fc90b792c88c0cf558f83face7b50a20 Jirka <tuma.rsrobot@gmail.com> 1764693404 +0100	commit: Add automatic AI response storage to discussion database
+a9cc7068fc90b792c88c0cf558f83face7b50a20 e93023310c84d9abb5a0f108b6dd42d18f9656b9 Jirka <tuma.rsrobot@gmail.com> 1764693432 +0100	checkout: moving from feature/issue-1-ai-response-storage to main
+e93023310c84d9abb5a0f108b6dd42d18f9656b9 78a519dcbd7df0287c18aedcdd1a11ac23bfc16f Jirka <tuma.rsrobot@gmail.com> 1764693434 +0100	pull: Fast-forward
+78a519dcbd7df0287c18aedcdd1a11ac23bfc16f d8877abf66b0bd8847262fe37d3353b6e78fbeb9 Jirka <tuma.rsrobot@gmail.com> 1764695623 +0200	Remove all console.log statements and switch from API to direct SQLite storage
+d8877abf66b0bd8847262fe37d3353b6e78fbeb9 ba08c2b8eefd1be1ca1270e88232256ad340b601 Jirka <tuma.rsrobot@gmail.com> 1764699275 +0200	Disable AI response storage by default, suppress all terminal output

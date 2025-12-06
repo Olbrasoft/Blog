@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFrameworks>netstandard2.1;Net6;Net7;Net8</TargetFrameworks>
+	  <LangVersion>12.0</LangVersion>
+	  <Nullable>enable</Nullable>
+	  <AssemblyName>Olbrasoft.Data.Cqrs</AssemblyName>
+	  <RootNamespace>Olbrasoft.Data.Cqrs</RootNamespace>
+	  <Authors>Jiří Tůma</Authors>
+	  <Company>Olbrasoft</Company>
+	  <Description>Extensions project Dispatching to CQRS. </Description>
+	  <Copyright>Copyright @2020 Olbrasoft</Copyright>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <RepositoryUrl>https://github.com/Olbrasoft/Data</RepositoryUrl>
+	  <PackageIcon>olbrasoft-data-cqrs.png</PackageIcon>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageTags>Command, Query, CommandHandler, QueryHandler, CQRS</PackageTags>
+	  <Version>1.7.0</Version>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <IncludeSymbols>True</IncludeSymbols>
+	  <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Olbrasoft.Dispatching.Abstractions" Version="1.8.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<Using Include="Olbrasoft.Dispatching" />
+		<Using Include="System" />
+		<Using Include="System.Threading" />
+		<Using Include="System.Threading.Tasks" />
+		<!--<Using Include="Olbrasoft.Dispatching.Abstractions" />-->
+		<Using Include="Olbrasoft.Data.Cqrs.Exceptions" />
+		
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\..\olbrasoft-data-cqrs.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Data.Cqrs.Abstractions\Data.Cqrs.Abstractions.csproj" />
+	</ItemGroup>
+</Project>

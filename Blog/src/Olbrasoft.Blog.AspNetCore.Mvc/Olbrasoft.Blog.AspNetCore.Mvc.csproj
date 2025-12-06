@@ -1,0 +1,117 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Home\Privacy.cshtml" />
+    <None Include="Views\Shared\Error.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+    <None Include="Views\_ViewImports.cshtml" />
+    <None Include="Views\_ViewStart.cshtml" />
+    <None Include="wwwroot\js\site.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <None Include="wwwroot\lib\bootstrap\LICENSE" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FreeSql.Provider.SqlServer" Version="3.2.833" />
+    <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Olbrasoft.Data.Paging.DataTables" Version="1.0.2" />
+    <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList" Version="1.7.1" />
+    <PackageReference Include="Olbrasoft.Data.Paging.X.PagedList.AspNetCore.Mvc" Version="1.7.1" />
+    <PackageReference Include="Olbrasoft.Extensions" Version="1.8.0" />
+    <PackageReference Include="Olbrasoft.Linq" Version="1.0.0" />
+    <PackageReference Include="Olbrasoft.Mapping.Mapster.DependencyInjection.Microsoft" Version="7.3.2" />
+    <PackageReference Include="Olbrasoft.Text.Transformation.Markdown" Version="1.0.1" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.1" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Olbrasoft.Blog.Business\Olbrasoft.Blog.Business.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Blog.Data.EntityFrameworkCore\Olbrasoft.Blog.Data.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />
+    <!--<ProjectReference Include="..\Olbrasoft.Blog.Data.FreeSql\Olbrasoft.Blog.Data.FreeSql.csproj" />-->
+  </ItemGroup>
+
+
+	<ItemGroup>
+		<Using Include="System" />
+		<Using Include="System.Linq" />
+		<Using Include="System.Threading" />
+		<Using Include="System.Threading.Tasks" />
+		<Using Include="System.Collections.Generic" />
+		<Using Include="System.ComponentModel.DataAnnotations" />
+		<Using Include="Microsoft.AspNetCore.Mvc" />
+		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="Microsoft.AspNetCore.Authorization" />
+		<Using Include="X.PagedList" />
+		<Using Include="Olbrasoft.Data.Cqrs" />
+		<Using Include="Olbrasoft.Mediation" />
+		<Using Include="Olbrasoft.Data.Paging" />
+		<Using Include="Olbrasoft.Blog.Business" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.TagDtos" />
+		<Using Include="Olbrasoft.Data.Paging.DataTables" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.PostDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Dtos.CategoryDtos" />
+		<Using Include="Olbrasoft.Blog.Data.Entities.Identity" />
+		<Using Include="Olbrasoft.Blog.AspNetCore.Mvc.Controllers" />
+		<Using Include="Olbrasoft.Blog.AspNetCore.Mvc.Areas.Administration.Models" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Folder Include="App_Data\" />
+	</ItemGroup>
+</Project>

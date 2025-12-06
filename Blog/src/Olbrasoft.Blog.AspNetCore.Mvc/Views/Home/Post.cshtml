@@ -1,0 +1,184 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Olbrasoft.Blog.Data.Entities.Identity
+@using Olbrasoft.Extensions
+@using System.Security.Claims;
+
+@model PostDetailViewModel
+@inject SignInManager<BlogUser> SignInManager
+@inject IHtmlLocalizer<SharedResources> _localizer
+@{
+    Layout = "_Layout";
+}
+<div class="row">
+    <div class="col-lg-8">
+        <article>
+            <header class="mb-4">
+                <h1 class="fw-bolder mb-1">@Model.Post.Title</h1>
+
+                <div class="text-muted fst-italic mb-2">
+                    <i class="fa fa-calendar fa-fw"></i>
+                    <localize localizer="@_localizer">Posted on</localize> @Model.Post.Created.ToString("dddd, dd MMMM yyyy")
+                    <localize>by</localize>
+                    <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByCreatorId:@Model.Post.CreatorId">@Model.Post.Creator</a>
+                </div>
+
+                <div>
+
+                    <i class="fa fa-sitemap fa-fw"></i>  <a asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="searchByCategoryId:@Model.Post.CategoryId">@Model.Post.CategoryName</a>
+                </div>
+
+                @if (Model.Post.Tags.Any())
+                {
+                    <i class="fa fa-tags fa-fw"></i>
+                }
+
+                @foreach (var tag in Model.Post.Tags)
+                {
+                    <a class="badge text-white bg-secondary text-decoration-none link-light" asp-area="" asp-controller="Home" asp-action="Index" asp-route-search="SearchByTagId:@tag.Id">
+                        <small>@tag.Label</small>
+                    </a>
+                }
+            </header>
+            <!-- Preview image figure-->
+            <figure class="mb-4">
+               
+                @if (string.IsNullOrEmpty(Model.Post.Image))
+                {
+                    <img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." />
+
+                }
+                else
+                {
+                    <img class="img-fluid rounded" src="/Images/@Model.Post.Id/@Model.Post.Image" alt="..." />
+
+                }
+
+            </figure>            <section class="mb-5">
+                <markdown raw="true">@Model.Post.Content</markdown>
+            </section>
+        </article>
+        <section class="mb-5">
+            <div class="card bg-light">
+                @if (Model.ParentCommentId > 0)
+                {
+                    <h5 class="card-header"><i class="fa fa-comment"></i> <localize>Reply a Comment:</localize></h5>
+                }
+                else
+                {
+                    <h5 class="card-header">
+                        <i class="fa fa-comment"></i> <localize>Leave a Comment:</localize>
+                        @if (!SignInManager.IsSignedIn(User))
+                        {
+                            <small class="ml-1 mr-3 float-end">
+                                <a class="nav-fill" asp-area="Administration" asp-controller="Account" asp-action="Register" title="@_localizer["Register"]">@_localizer["Register"]</a>
+                                |
+                                <a class="nav-fill" asp-area="Administration" asp-controller="Account" asp-action="Login" title="@_localizer["Login"]">@_localizer["Login"]</a>
+                            </small>
+                        }
+                    </h5>
+                }
+                <div class="card-body">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <form asp-area="" asp-controller="Home" asp-action="SaveComment">
+
+                            <input type="hidden" asp-for="Id" />
+                            <input type="hidden" asp-for="CommentId" />
+                            <input type="hidden" asp-for="ParentCommentId" />
+
+                            <div class="form-group">
+                                @if (Model.ParentCommentId > 0)
+                                {
+                                    <div>
+                                        <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id"><i class="fa fa-arrow-left"></i> <localize>Back</localize></a> @Model.CommentedCommentText
+                                    </div>
+                                    <br />
+                                }
+                                <textarea asp-for="CommentText" maxlength="500" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="CommentText" class="text-danger"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary float-right" localize>Submit</button>
+                        </form>
+                    }
+                    @foreach (var comment in Model.Comments)
+                    {
+                        var className = "d-flex";
+
+                        if (comment.NestedComments.Any())
+                        {
+                            className += " mb-4";
+                        }
+
+                        <div class="@className">
+                            <!-- Parent comment-->
+                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                            <div class="ms-3">
+                                <div class="fw-bold">@comment.Creator</div>
+                                @comment.Text
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    <div>
+                                        <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-parentCommentId="@comment.Id" localize-title="Reply"><i class="fa fa-reply" aria-hidden="true"></i> <localize>Reply</localize></a>
+                                        <span>|</span>
+
+                                        @if (Model.CurentUserId == comment.CreatorId)
+                                        {
+                                            <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-commentId="@comment.Id" title="@_localizer.GetString("Edit")">
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <localize localizer="@_localizer">Edit</localize>
+                                            </a>
+                                            <span>|</span>
+                                            <a onclick="return confirm('@_localizer["Are you sure you wish to delete"]: @comment.Text.Truncate(50, true)...');"
+                                               asp-area="" asp-controller="Home"
+                                               asp-action="DeleteComment"
+                                               asp-route-postId="@Model.Id"
+                                               asp-route-commentId="@comment.Id" title="@_localizer.GetString("Delete")">
+                                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                                <localize localizer="@_localizer">Delete</localize>
+                                            </a>
+                                        }
+                                    </div>
+                                }
+                                @foreach (var nestedComment in comment.NestedComments)
+                                {
+                                    <!-- Child comment 1-->
+                                    <div class="d-flex mt-4">
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">@nestedComment.Creator</div>
+                                            @nestedComment.Text
+
+                                            @if (SignInManager.IsSignedIn(User) && Model.CurentUserId == nestedComment.CreatorId)
+                                            {
+                                                <div>
+                                                    <a asp-area="" asp-controller="Home" asp-action="Post" asp-route-id="@Model.Id" asp-route-commentId="@nestedComment.Id" asp-route-parentCommentId="@comment.Id" title="@_localizer.GetString("Edit")">
+                                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                        <localize localizer="@_localizer">Edit</localize>
+                                                    </a>
+                                                    <span>|</span>
+                                                    <a onclick="return confirm('@_localizer["Are you sure you wish to delete"]: @nestedComment.Text.Truncate(50, true)...');"
+                                                       asp-area="" asp-controller="Home"
+                                                       asp-action="DeleteNestedComment"
+                                                       asp-route-postId="@Model.Id"
+                                                       asp-route-nestedCommentId="@nestedComment.Id" title="@_localizer.GetString("Delete")">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        <localize localizer="@_localizer">Delete</localize>
+                                                    </a>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+    <partial name="~/Views/Shared/_RightColumnPartial.cshtml" model="@Model.NestedModel" />
+</div>
+@section scripts {
+    <script src="~/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/vendor/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -1,0 +1,20 @@
+Update README with modern badges and comprehensive documentation
+
+- Added GitHub Actions build badge (replaced old AppVeyor)
+- Added .NET 8.0/9.0/10.0 multi-targeting badge
+- Added MIT license badge
+- Added NuGet badges for all core packages (version + downloads)
+- Documented new packages:
+  - Olbrasoft.Data.Entities.Abstractions 1.8.0
+  - Olbrasoft.Data.Cqrs.Common 1.7.0
+  - Olbrasoft.Data.Cqrs.EntityFrameworkCore 1.8.0
+- Comprehensive CQRS/CQS documentation with code examples
+- Multi-targeting framework support table
+- Installation instructions and quick start guide
+- Professional English documentation
+- CI/CD information
+- Architecture patterns overview
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>

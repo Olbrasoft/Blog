@@ -1,0 +1,6 @@
+# nezapomenout
+
+zapsat důležité informace
+
+---
+Vytvořeno: 2025-12-02 22:49
