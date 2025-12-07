@@ -1,3 +1,0 @@
-0000000000000000000000000000000000000000 4ddafd6504d99222dfe6d24d7d97041b8dc4e272 Jirka <tuma.rsrobot@gmail.com> 1764801778 +0100	commit (initial): Initialize project structure with TypeScript config
-4ddafd6504d99222dfe6d24d7d97041b8dc4e272 a6c7fc2de1f12f88b5948b4d8cb3bea31560d08a Jirka <tuma.rsrobot@gmail.com> 1764801859 +0100	commit: Implement github-sub-issues plugin with auto repo detection
-a6c7fc2de1f12f88b5948b4d8cb3bea31560d08a 43d6cf19704df9edcea8b194b0263be53eca6245 Jirka <tuma.rsrobot@gmail.com> 1764801913 +0100	commit: Add esbuild bundling for single-file plugin output

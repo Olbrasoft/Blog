@@ -1,1 +1,0 @@
-/home/jirka/Olbrasoft/engineering-handbook/solid-principles/solid-principles-2025.md

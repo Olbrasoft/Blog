@@ -1,3 +1,0 @@
-# voicevibing
-
-Voice vibing project.

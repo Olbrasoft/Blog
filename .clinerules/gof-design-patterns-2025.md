@@ -1,1 +1,0 @@
-/home/jirka/Olbrasoft/engineering-handbook/design-patterns/gof-design-patterns-2025.md
