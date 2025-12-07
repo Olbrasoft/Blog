@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -10,12 +10,12 @@
 
 	<ItemGroup>
 		<PackageReference Include="IGeekFan.AspNetCore.Identity.FreeSql" Version="0.0.541" />
+		<PackageReference Include="Olbrasoft.Data.Cqrs.FreeSql" Version="1.8.0" />
 		<PackageReference Include="Olbrasoft.Extensions" Version="1.8.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Data\src\Data.Cqrs.FreeSql\Data.Cqrs.FreeSql.csproj" />
-	   <ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
+		<ProjectReference Include="..\Olbrasoft.Blog.Data\Olbrasoft.Blog.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
